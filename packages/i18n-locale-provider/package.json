@@ -1,0 +1,52 @@
+{
+  "name": "use-rainbowkit-vue-i18n-locale-provider",
+  "private": false,
+  "version": "0.0.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --emptyOutDir && npm run generate:types",
+    "generate:types": "vue-tsc -p tsconfig.json && resolve-tspaths",
+    "preview": "vite preview"
+  },
+  "main": "./dist/rainbowkit-vue-i18n-locale-adapter.js",
+  "module": "./dist/rainbowkit-vue-i18n-locale-adapter.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/provider.d.ts",
+      "import": "./dist/rainbowkit-vue-i18n-locale-adapter.js",
+      "require": "./dist/rainbowkit-vue-i18n-locale-adapter.js"
+    }
+  },
+  "peerDependencies": {
+    "use-rainbowkit-vue": ">=0.0.1",
+    "typescript": ">=5.0.4",
+    "vue": ">=3",
+    "vue-i18n": ">=9.13.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "vue": ">=3"
+  },
+  "devDependencies": {
+    "use-rainbowkit-vue": "^0.0.3",
+    "@types/node": "^20.14.2",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "resolve-tspaths": "^0.8.19",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vue-i18n": "^9.13.1",
+    "vue-tsc": "^2.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xHoST/rainbowkit_vue.git"
+  }
+}
