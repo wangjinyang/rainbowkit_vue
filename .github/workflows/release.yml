@@ -21,6 +21,9 @@ jobs:
         node-version: [lts/*]
         pnpm-version: [latest]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - name: ⬇️ Checkout
         id: checkout
