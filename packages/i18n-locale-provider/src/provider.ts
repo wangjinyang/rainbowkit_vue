@@ -3,7 +3,7 @@ import {
     Locale,
     LocaleAdapterInstance,
     LocaleMessages,
-} from "@raveyard/rainbowkit-vue";
+} from "use-rainbowkit-vue";
 import { createI18n } from "vue-i18n";
 import arAr from "./locales/ar_AR.json";
 import enUs from "./locales/en_US.json";
@@ -20,7 +20,6 @@ import trTR from "./locales/tr_TR.json";
 import ukUA from "./locales/uk_UA.json";
 import zhCN from "./locales/zh_CN.json";
 
-/// TODO : Resource files need to change the symbol as it copied from react side. Change {} to {{}}
 export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
 
     function create(
@@ -83,12 +82,12 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
             messages: i18n.global.messages.value,
            //// @ts-expect-error Type instantiation is excessively deep and possibly infinite
             t: (
-                fallbackLocale: string,
-                currentLocale: string,
-                messages: LocaleMessages,
+                _fallbackLocale: string,
+                _currentLocale: string,
+                _messages: LocaleMessages,
                 key: string,
                 ...params: Record<string, any>[]
-            ) => i18n.global.t(key.replace(`${currentLocale}.`, ""), params),
+            ) => i18n.global.t(key, params),
             n: (
                 _fallbackLocale: string,
                 _currentLocale: string,

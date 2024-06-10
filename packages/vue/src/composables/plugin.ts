@@ -77,14 +77,7 @@ export function getDefaultPluginOptions(chains: Chains):
     },
     mode: 'light'
   };
-  //const defaultLocaleAdapter = createRainbowKitDefaultAdapter();
   const defaultTransport = createDefaultTransport(chains)
-  /*const defaultLocale: LocaleOptions = {
-    locale: 'en-US',
-    fallbackLocale: 'en-US',
-    message: fetchTranslations('en-US'),
-    adapter: defaultLocaleAdapter
-  };*/
   const defaultLearnMoreUrl = "https://learn.rainbow.me/understanding-web3?utm_source=rainbowkit&utm_campaign=learnmore";
   const defaultWallets: WalletList = [
     {
@@ -97,7 +90,7 @@ export function getDefaultPluginOptions(chains: Chains):
       ]
     }
   ]
-  const allowAuthenticate = false;
+
   const showBalance = true;
   const coolMode = true;
   const showRecentTransactions = true;
@@ -114,7 +107,6 @@ export function getDefaultPluginOptions(chains: Chains):
     modalSize: defaultModalSize,
     transports: defaultTransport,
     chains,
-    allowAuthenticate,
     showBalance,
     coolMode,
     showRecentTransactions,
@@ -172,10 +164,9 @@ export function useRainbowKitPlugin() {
       appIcon,
       wallets,
       projectId,
-      authenticateAdapter,
+      auth,
       locale,
       theme,
-      allowAuthenticate,
       coolMode,
       showRecentTransactions,
       ignoreChainModalOnConnect,

@@ -18,7 +18,9 @@ import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth
 const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
 const authAdapter = createAuthAdapter(app);
 app.use(RainbowKitVuePlugin,{
-    allowAuthenticate: true,
-    authenticateAdapter: authAdapter,
+    auth: {
+        allowAuthenticate: true,
+        authenticateAdapter: authAdapter,
+    }
 })
 ```

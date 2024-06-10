@@ -79,7 +79,6 @@ export function createRainbowKitDefaultAdapter():LocaleAdapter{
 
     function getResourceFromMessages(messages: LocaleMessages | string, targetKey: string, placeHolders: Record<string,any>[]): string{
         if(!isLocaleMessages(messages)) return targetKey;
-        ///sign_in.message.preparing
         for(const key of Object.keys(messages)){
             const values = messages[key];
             if(isString(values) && targetKey === key){
@@ -137,9 +136,9 @@ export function createRainbowKitDefaultAdapter():LocaleAdapter{
 
     function createTranslateTextFunc(): LocaleAdapterTextTranslationFunc{
         return (fallbackLocale: string, currentLocale: string,messages:LocaleMessages,key:string,...params:Record<string,any>[])=>{
-            if(!key.startsWith(`${currentLocale}.`)){
+            /*if(!key.startsWith(`${currentLocale}.`)){
                return translateWithPlaceholder(key,params);
-            }
+            }*/
             
             if(!fallbackLocale && !currentLocale) return key;
 

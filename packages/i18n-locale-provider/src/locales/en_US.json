@@ -57,17 +57,17 @@
     },
     "recent": "Recent",
     "status": {
-      "opening": "Opening %{wallet}...",
+      "opening": "Opening {wallet}...",
       "connecting": "Connecting",
-      "connect_mobile": "Continue in %{wallet}",
-      "not_installed": "%{wallet} is not installed",
-      "not_available": "%{wallet} is not available",
+      "connect_mobile": "Continue in {wallet}",
+      "not_installed": "{wallet} is not installed",
+      "not_available": "{wallet} is not available",
       "confirm": "Confirm connection in the extension",
       "confirm_mobile": "Accept connection request in the wallet"
     },
     "secondary_action": {
       "get": {
-        "description": "Don't have %{wallet}?",
+        "description": "Don't have {wallet}?",
         "label": "GET"
       },
       "install": {
@@ -89,7 +89,7 @@
   },
 
   "connect_scan": {
-    "title": "Scan with %{wallet}",
+    "title": "Scan with {wallet}",
     "fallback_title": "Scan with your phone"
   },
 
@@ -132,33 +132,33 @@
   },
 
   "get_options": {
-    "title": "Get started with %{wallet}",
-    "short_title": "Get %{wallet}",
+    "title": "Get started with {wallet}",
+    "short_title": "Get {wallet}",
     "mobile": {
-      "title": "%{wallet} for Mobile",
+      "title": "{wallet} for Mobile",
       "description": "Use the mobile wallet to explore the world of Ethereum.",
       "download": {
         "label": "Get the app"
       }
     },
     "extension": {
-      "title": "%{wallet} for %{browser}",
+      "title": "{wallet} for {browser}",
       "description": "Access your wallet right from your favorite web browser.",
       "download": {
-        "label": "Add to %{browser}"
+        "label": "Add to {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} for %{platform}",
+      "title": "{wallet} for {platform}",
       "description": "Access your wallet natively from your powerful desktop.",
       "download": {
-        "label": "Add to %{platform}"
+        "label": "Add to {platform}"
       }
     }
   },
 
   "get_mobile": {
-    "title": "Install %{wallet}",
+    "title": "Install {wallet}",
     "description": "Scan with your phone to download on iOS or Android",
     "continue": {
       "label": "Continue"
@@ -196,7 +196,7 @@
     "title": "Switch Networks",
     "wrong_network": "Wrong network detected, switch or disconnect to continue.",
     "confirm": "Confirm in Wallet",
-    "switching_not_supported": "Your wallet does not support switching networks from %{appName}. Try switching networks from within your wallet instead.",
+    "switching_not_supported": "Your wallet does not support switching networks from {appName}. Try switching networks from within your wallet instead.",
     "switching_not_supported_fallback": "Your wallet does not support switching networks from this app. Try switching networks from within your wallet instead.",
     "disconnect": "Disconnect",
     "connected": "Connected"
@@ -214,7 +214,7 @@
       "label": "View more on explorer"
     },
     "transactions": {
-      "description": "%{appName} transactions will appear here...",
+      "description": "{appName} transactions will appear here...",
       "description_fallback": "Your transactions will appear here...",
       "recent": {
         "title": "Recent Transactions"

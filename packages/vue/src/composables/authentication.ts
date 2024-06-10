@@ -4,9 +4,9 @@ import { inject, ref, toRefs,reactive } from "vue";
 export function createAuthenticationConfigContext(
     option: RainbowKitPluginOptions,
   ): Context<AuthenticationConfig> {
-    const { allowAuthenticate, authenticateAdapter } = option
+    const { auth } = option
     const context = ref<AuthenticationConfig>({
-      adapter: allowAuthenticate ? authenticateAdapter : undefined,
+      adapter: auth?.allowAuthenticate ? auth?.authenticateAdapter ?? undefined : undefined,
     })
     return context;
 }

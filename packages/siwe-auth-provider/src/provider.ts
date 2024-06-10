@@ -1,5 +1,5 @@
 import { CreateSiweMessageReturnType, type SiweMessage, createSiweMessage, generateSiweNonce, parseSiweMessage } from "viem/siwe";
-import { AuthenticationAdapter } from "@raveyard/rainbowkit-vue";
+import { AuthenticationAdapter } from "use-rainbowkit-vue";
 import { useAuth, Options, createAuth } from "vue-auth3";
 import { Address } from "viem";
 import { App } from "vue";

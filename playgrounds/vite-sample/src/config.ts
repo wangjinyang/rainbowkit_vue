@@ -89,11 +89,7 @@ export function createRainbowKitConfig(app: App) : App{
                 sepolia, 
                 avalanche
             ],
-            locale: {
-                locale: 'zh',
-                fallbackLocale: 'en',
-                adapter: i18nAdapter
-            },
+            locale: i18nAdapter,
             wallets: [
                 {
                     groupName: "Populars",
@@ -156,8 +152,10 @@ export function createRainbowKitConfig(app: App) : App{
                     ]
                 }
             ],
-            allowAuthenticate: true,
-            authenticateAdapter: authAdapter,
+            auth: {
+                allowAuthenticate: true,
+                authenticateAdapter: authAdapter,
+            },
             coolMode: true,
             currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
             appName: 'RainbowKit Vue Demo',

@@ -54,17 +54,17 @@
     },
     "recent": "最近利用しました",
     "status": {
-      "opening": "%{wallet}を開いています...",
+      "opening": "{wallet}を開いています...",
       "connecting": "接続中",
-      "connect_mobile": "%{wallet}で続行",
-      "not_installed": "%{wallet} はインストールされていません",
-      "not_available": "%{wallet} は利用できません",
+      "connect_mobile": "{wallet}で続行",
+      "not_installed": "{wallet} はインストールされていません",
+      "not_available": "{wallet} は利用できません",
       "confirm": "エクステンションで接続を確認してください",
       "confirm_mobile": "ウォレットでの接続リクエストを承認する"
     },
     "secondary_action": {
       "get": {
-        "description": "%{wallet}がありませんか？",
+        "description": "{wallet}がありませんか？",
         "label": "取得"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "%{wallet}でスキャン",
+    "title": "{wallet}でスキャン",
     "fallback_title": "携帯電話でスキャンしてください"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "%{wallet}で始める",
-    "short_title": "%{wallet}を取得する",
+    "title": "{wallet}で始める",
+    "short_title": "{wallet}を取得する",
     "mobile": {
-      "title": "モバイル用 %{wallet}",
+      "title": "モバイル用 {wallet}",
       "description": "モバイルウォレットを使用して、イーサリアムの世界を探索します。",
       "download": {
         "label": "アプリを取得"
       }
     },
     "extension": {
-      "title": "%{wallet} for %{browser}",
+      "title": "{wallet} for {browser}",
       "description": "お好きなウェブブラウザからウォレットに直接アクセスします。",
       "download": {
-        "label": "%{browser}に追加"
+        "label": "{browser}に追加"
       }
     },
     "desktop": {
-      "title": "%{wallet} for %{platform}",
+      "title": "{wallet} for {platform}",
       "description": "あなたの強力なデスクトップからネイティブにウォレットにアクセスします。",
       "download": {
-        "label": "%{platform}に追加する"
+        "label": "{platform}に追加する"
       }
     }
   },
   "get_mobile": {
-    "title": "%{wallet}をインストール",
+    "title": "{wallet}をインストール",
     "description": "iOSまたはAndroidでダウンロードするために電話でスキャン",
     "continue": {
       "label": "続行"
@@ -186,7 +186,7 @@
     "title": "ネットワークを切り替える",
     "wrong_network": "誤ったネットワークが検出されました、続行するには切り替えるか切断してください。",
     "confirm": "ウォレットで確認する",
-    "switching_not_supported": "あなたのウォレットは %{appName}からネットワークを切り替えることをサポートしていません。ウォレット内でネットワークを切り替えてみてください。",
+    "switching_not_supported": "あなたのウォレットは {appName}からネットワークを切り替えることをサポートしていません。ウォレット内でネットワークを切り替えてみてください。",
     "switching_not_supported_fallback": "あなたのウォレットは、このアプリからネットワークを切り替えることをサポートしていません。代わりにウォレット内からネットワークを切り替えてみてください。",
     "disconnect": "切断する",
     "connected": "接続しました"
@@ -203,7 +203,7 @@
       "label": "エクスプローラーで詳しく見る"
     },
     "transactions": {
-      "description": "%{appName} トランザクションがここに表示されます...",
+      "description": "{appName} トランザクションがここに表示されます...",
       "description_fallback": "あなたのトランザクションはここに表示されます...",
       "recent": {
         "title": "最近のトランザクション"
