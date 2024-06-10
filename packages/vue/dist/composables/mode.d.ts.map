@@ -1,0 +1,1 @@
+{"version":3,"file":"mode.d.ts","sourceRoot":"","sources":["../../src/composables/mode.ts"],"names":[],"mappings":"AAAA,OAAO,EAAsB,KAAK,OAAO,EAAiB,KAAK,uBAAuB,EAAE,MAAM,SAAS,CAAA;AAIvG,wBAAgB,qBAAqB,CAAC,MAAM,EAAE,uBAAuB,GAAE,OAAO,CAAC,OAAO,CAAC,CAGtF;AAED,wBAAgB,kBAAkB,qBAIjC;AAgCD,eAAO,MAAM,iBAAiB,YACnB,WAAW,YACV,MAAM,KACf,CAAC,MAAM,IAAI,CA6Ib,CAAA"}

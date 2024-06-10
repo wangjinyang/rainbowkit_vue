@@ -1,0 +1,1 @@
+{"version":3,"file":"locale.d.ts","sourceRoot":"","sources":["../../src/composables/locale.ts"],"names":[],"mappings":"AACA,OAAO,EAEL,KAAK,OAAO,EACZ,KAAK,qBAAqB,EAC1B,KAAK,sBAAsB,EAC3B,KAAK,MAAM,EACZ,MAAM,SAAS,CAAA;AAIhB,wBAAgB,mBAAmB,CACjC,MAAM,EAAE,sBAAsB,GAC7B,OAAO,CAAC,qBAAqB,CAAC,CAQhC;AAED,wBAAgB,SAAS;aAUP,MAAM,mBAAmB,OAAO,MAAM,EAAE,GAAG,CAAC,EAAE;2BAJhC,MAAM;;EAgBrC"}

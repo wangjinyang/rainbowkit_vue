@@ -1,0 +1,1 @@
+{"version":3,"file":"application.d.ts","sourceRoot":"","sources":["../../src/composables/application.ts"],"names":[],"mappings":"AAAA,OAAO,EAEL,uBAAuB,EACvB,KAAK,cAAc,EACnB,KAAK,OAAO,EACZ,KAAK,uBAAuB,EAC7B,MAAM,SAAS,CAAA;AAGhB,wBAAgB,4BAA4B,CAC1C,MAAM,EAAE,uBAAuB,GAC9B,OAAO,CAAC,cAAc,CAAC,CAqBzB;AAED,wBAAgB,aAAa,IAAK,uBAAuB,CAOxD"}

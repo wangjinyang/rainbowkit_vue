@@ -1,0 +1,2 @@
+export declare function mergeDeep(source?: Record<string, any>, target?: Record<string, any>, arrayFn?: (a: unknown[], b: unknown[]) => unknown[]): Record<string, any>;
+//# sourceMappingURL=merge.d.ts.map
