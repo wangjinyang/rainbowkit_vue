@@ -50,7 +50,8 @@ import {
     zkSync,
     scroll,
     polygonZkEvm,
-    immutableZkEvm
+    immutableZkEvm,
+    //createRainbowKitDefaultAdapter
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
@@ -86,6 +87,10 @@ export function createRainbowKitConfig(app: App) : App{
         const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh' });
         const authAdapter = createAuthAdapter(app);
 
+        ///If want to change locale and don't want to use vue-i18n, use default locale adapter
+        ///const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultAdapter();
+        ///const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en-US' })
+        
         return {
             chains: [
                 mainnet,
