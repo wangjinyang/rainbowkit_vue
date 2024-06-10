@@ -1,5 +1,7 @@
 {
+  "private": "true",
   "scripts": {
+    "build": "pnpm run --r --filter \"./packages/**\" build",
     "changeset": "changeset",
     "publish:packages": "changeset publish",
     "version:packages": "changeset version"
