@@ -8,7 +8,6 @@
     "publish:packages": "changeset publish",
     "version:packages": "changeset version"
   },
-  "workspaces": ["packages/*"],
   "publishConfig": {
     "use-rainbowkit-vue-i18n-locale-provider": true,
     "use-rainbowkit-vue-siwe-auth-provider": true,
