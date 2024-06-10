@@ -2,7 +2,7 @@ import type { CreateConfigParameters } from "@wagmi/vue"
 import type { Transport,Chain, Address } from "viem"
 
 import type { AvatarComponentSetupFn } from "../../types/components/AccountModal/avatar";
-import type { LocaleOptions } from "../../types/composables/locale";
+import type { LocaleAdapterInstance } from "../../types/composables/locale";
 import type { ModalSize } from "../../types/composables/modal";
 import type { RainbowKitChain } from "../../types/composables/chain";
 import type { ThemeOption } from "../../types/css/theme.css.type";
@@ -17,24 +17,9 @@ export type Transports = Record<Chains[number]['id'], Transport>;
 export type RainbowKitChains = readonly [RainbowKitChain, ...RainbowKitChain[]];
 export type RainbowKitTransports = Record<RainbowKitChains[number]['id'], Transport>
 export type RainbowKitPluginConfig = {
-  /**
-   * Name of the application
-   */
   appName: string
-  
-  /**
-   * Description of the application
-   */
   appDescription?: string
-  
-  /**
-   * 
-   */
   appUrl?: string
-  
-  /**
-   * 
-   */
   appIcon?: string
   projectId: string
   connectModalTeleportTarget?: string
@@ -52,8 +37,9 @@ export type RainbowKitPluginConfig = {
   connectModalIntro? : ConnectModalIntroComponentSetupFn,
   wallets?: WalletList
   theme?: ThemeOption
-  locale?: LocaleOptions
-  modalSize?: ModalSize
+  locale?: LocaleAdapterInstance
+  modalSize?: ModalSize,
+  auth?: AuthenticateOption
 };
-export type RainbowKitPluginOptions = RainbowKitPluginConfig & AuthenticateOption & WagmiConfigParameters<RainbowKitChains,RainbowKitTransports>;
+export type RainbowKitPluginOptions = RainbowKitPluginConfig & WagmiConfigParameters<RainbowKitChains,RainbowKitTransports>;
 export type WagmiConfigParameters<chains extends RainbowKitChains,transport extends RainbowKitTransports> = Omit<CreateConfigParameters<chains, transport>, 'client' | 'connectors'>;

@@ -54,17 +54,17 @@
     },
     "recent": "Недавні",
     "status": {
-      "opening": "Відкриття %{wallet}...",
+      "opening": "Відкриття {wallet}...",
       "connecting": "Підключення",
-      "connect_mobile": "Продовжити в %{wallet}",
-      "not_installed": "%{wallet} не встановлено",
-      "not_available": "%{wallet} недоступний",
+      "connect_mobile": "Продовжити в {wallet}",
+      "not_installed": "{wallet} не встановлено",
+      "not_available": "{wallet} недоступний",
       "confirm": "Підтвердіть з'єднання в розширенні",
       "confirm_mobile": "Підтвердіть запит на підключення у гаманці"
     },
     "secondary_action": {
       "get": {
-        "description": "Не маєте %{wallet}?",
+        "description": "Не маєте {wallet}?",
         "label": "ОТРИМАТИ"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "Сканувати за допомогою %{wallet}",
+    "title": "Сканувати за допомогою {wallet}",
     "fallback_title": "Сканувати за допомогою вашого телефону"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "Розпочніть з %{wallet}",
-    "short_title": "Отримати %{wallet}",
+    "title": "Розпочніть з {wallet}",
+    "short_title": "Отримати {wallet}",
     "mobile": {
-      "title": "%{wallet} для Мобільних",
+      "title": "{wallet} для Мобільних",
       "description": "Використовуйте мобільний гаманець для вивчення світу Ethereum.",
       "download": {
         "label": "Отримати додаток"
       }
     },
     "extension": {
-      "title": "%{wallet} для %{browser}",
+      "title": "{wallet} для {browser}",
       "description": "Отримайте доступ до свого гаманця прямо з улюбленого веб-браузера.",
       "download": {
-        "label": "Додати до %{browser}"
+        "label": "Додати до {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} для %{platform}",
+      "title": "{wallet} для {platform}",
       "description": "Отримайте доступ до вашого гаманця нативно з потужного настільного комп'ютера.",
       "download": {
-        "label": "Додати до %{platform}"
+        "label": "Додати до {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "Встановити %{wallet}",
+    "title": "Встановити {wallet}",
     "description": "Скануйте за допомогою телефону, щоб завантажити на iOS або Android",
     "continue": {
       "label": "Продовжити"
@@ -186,7 +186,7 @@
     "title": "Перемкнути мережу",
     "wrong_network": "Виявлено неправильну мережу, змініть її або від'єднайтеся, щоб продовжити.",
     "confirm": "Підтвердіть у гаманці",
-    "switching_not_supported": "Ваш гаманець не підтримує зміну мереж з %{appName}. Спробуйте змінити мережу безпосередньо через ваш гаманець.",
+    "switching_not_supported": "Ваш гаманець не підтримує зміну мереж з {appName}. Спробуйте змінити мережу безпосередньо через ваш гаманець.",
     "switching_not_supported_fallback": "Ваш гаманець не підтримує зміну мереж з цього додатку. Спробуйте змінити мережу безпосередньо через ваш гаманець.",
     "disconnect": "Від'єднатися",
     "connected": "Під'єднано"
@@ -203,7 +203,7 @@
       "label": "Переглянути більше в експлорері"
     },
     "transactions": {
-      "description": "%{appName} транзакції з'являться тут...",
+      "description": "{appName} транзакції з'являться тут...",
       "description_fallback": "Тут з'являться ваші транзакції...",
       "recent": {
         "title": "Останні Транзакції"

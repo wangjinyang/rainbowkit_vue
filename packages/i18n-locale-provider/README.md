@@ -18,8 +18,6 @@ import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-lo
 const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
 const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh' });
 app.use(RainbowKitVuePlugin,{
-    locale: 'zh',
-    fallbackLocale: 'zh',
     adapter: i18nAdapter
 })
 ```

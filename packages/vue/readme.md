@@ -19,10 +19,10 @@ If found error such as buffer not defined or any node module not defined, instal
 import { createApp } from 'vue'
 import 'use-rainbowkit-vue/style.css';
 
-createApp(App).use(RainbowKitVuePlugin,{ appName: 'RainbowKit demo' })
+createApp(App).use(RainbowKitVuePlugin,{ appName: 'RainbowKit demo', projectId: "YOUR_PROJECT_ID" })
 ```
 
-## Use of Composition API with `<script setup>`
+## Use of Rainbowkit Components with `<script setup>`
 
 ```vue
 <script lang="ts" setup>

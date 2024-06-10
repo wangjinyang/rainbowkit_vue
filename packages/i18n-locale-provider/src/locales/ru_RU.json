@@ -54,17 +54,17 @@
     },
     "recent": "Недавние",
     "status": {
-      "opening": "Открывается %{wallet}...",
+      "opening": "Открывается {wallet}...",
       "connecting": "Подключение",
-      "connect_mobile": "Продолжить в %{wallet}",
-      "not_installed": "%{wallet} не установлен",
-      "not_available": "%{wallet} не доступен",
+      "connect_mobile": "Продолжить в {wallet}",
+      "not_installed": "{wallet} не установлен",
+      "not_available": "{wallet} не доступен",
       "confirm": "Подтвердите подключение в расширении",
       "confirm_mobile": "Принять запрос на подключение в кошельке"
     },
     "secondary_action": {
       "get": {
-        "description": "У вас нет %{wallet}?",
+        "description": "У вас нет {wallet}?",
         "label": "ПОЛУЧИТЬ"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "Сканировать с помощью %{wallet}",
+    "title": "Сканировать с помощью {wallet}",
     "fallback_title": "Сканировать с помощью вашего телефона"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "Начните с %{wallet}",
-    "short_title": "Получить %{wallet}",
+    "title": "Начните с {wallet}",
+    "short_title": "Получить {wallet}",
     "mobile": {
-      "title": "%{wallet} для мобильных",
+      "title": "{wallet} для мобильных",
       "description": "Используйте мобильный кошелек для исследования мира Ethereum.",
       "download": {
         "label": "Скачать приложение"
       }
     },
     "extension": {
-      "title": "%{wallet} для %{browser}",
+      "title": "{wallet} для {browser}",
       "description": "Доступ к вашему кошельку прямо из вашего любимого веб-браузера.",
       "download": {
-        "label": "Добавить в %{browser}"
+        "label": "Добавить в {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} для %{platform}",
+      "title": "{wallet} для {platform}",
       "description": "Получите доступ к вашему кошельку нативно со своего мощного рабочего стола.",
       "download": {
-        "label": "Добавить в %{platform}"
+        "label": "Добавить в {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "Установить %{wallet}",
+    "title": "Установить {wallet}",
     "description": "Отсканируйте на своем телефоне для скачивания на iOS или Android",
     "continue": {
       "label": "Продолжить"
@@ -186,7 +186,7 @@
     "title": "Переключить сети",
     "wrong_network": "Обнаружена неверная сеть, переключитесь или отключитесь для продолжения.",
     "confirm": "Подтвердить в кошельке",
-    "switching_not_supported": "Ваш кошелек не поддерживает переключение сетей с %{appName}. Попробуйте переключить сети из вашего кошелька.",
+    "switching_not_supported": "Ваш кошелек не поддерживает переключение сетей с {appName}. Попробуйте переключить сети из вашего кошелька.",
     "switching_not_supported_fallback": "Ваш кошелек не поддерживает переключение сетей из этого приложения. Попробуйте переключить сети из вашего кошелька.",
     "disconnect": "Отключить",
     "connected": "Подключено"
@@ -203,7 +203,7 @@
       "label": "Посмотреть больше в эксплорере"
     },
     "transactions": {
-      "description": "%{appName} транзакции появятся здесь...",
+      "description": "{appName} транзакции появятся здесь...",
       "description_fallback": "Ваши транзакции появятся здесь...",
       "recent": {
         "title": "Недавние транзакции"

@@ -1,7 +1,7 @@
 {
   "name": "use-rainbowkit-vue-siwe-auth-provider",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,7 +22,7 @@
     }
   },
   "peerDependencies": {
-    "use-rainbowkit-vue": ">=0.0.1",
+    "use-rainbowkit-vue": ">=0.0.4",
     "typescript": ">=5.0.4",
     "vue": ">=3",
     "vue-auth3": ">=1.0.10",
@@ -37,7 +37,7 @@
     "vue": ">=3"
   },
   "devDependencies": {
-    "use-rainbowkit-vue": "^0.0.3",
+    "use-rainbowkit-vue": "^0.0.4",
     "@vitejs/plugin-vue": "^5.0.4",
     "resolve-tspaths": "^0.8.19",
     "typescript": "^5.2.2",
@@ -46,6 +46,9 @@
     "vue-auth3": "^1.0.10",
     "vue-router": "^4.3.2",
     "vue-tsc": "^2.0.6"
+  },
+  "overrides": {
+    "i18next": "^23.2.3"
   },
   "repository": {
     "type": "git",

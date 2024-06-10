@@ -23,7 +23,7 @@ export type LocaleAdapterInstance = {
     changeLocale: LocaleChangeFunc
 }
 export interface LocaleAdapter{
-    install(option?:LocaleOptions | Object): LocaleAdapterInstance
+    install(option?:LocaleOptions): LocaleAdapterInstance
 }
 
 export type Locale =
