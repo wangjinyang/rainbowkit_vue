@@ -160,12 +160,9 @@ export const FocusTrap = defineComponent({
 
         const vNodes = slots.default().filter(vnode => vnode.type !== Comment)
         if (!vNodes || !vNodes.length || vNodes.length > 1) {
-          if (__DEV__) {
-            console.error(
-              '[focus-trap-vue]: FocusTrap requires exactly one child.'
-            )
-          }
-
+          console.error(
+            '[focus-trap-vue]: FocusTrap requires exactly one child.'
+          )
           return vNodes
         }
         const vnode = cloneVNode(vNodes[0], { ref: wrapperEl })
