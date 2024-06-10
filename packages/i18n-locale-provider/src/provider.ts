@@ -24,7 +24,7 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
 
     function create(
         app: App,
-        options?: { currentLocale?: Locale; fallbackLocale?: Locale, message?:LocaleMessages }
+        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:Record<Locale,LocaleMessages> }
     ): LocaleAdapterInstance {
         type MessageSchema = typeof enUs;
         const currentLocale = options?.currentLocale ?? 'en-US';
@@ -68,11 +68,11 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
         });
         app.use(i18n);
 
-        if (options?.message) {
-            i18n.global.mergeLocaleMessage(
-                i18n.global.locale.value,
-                options.message
-            );
+        const messages = options?.messages;
+        if (messages) {
+            Object.keys(messages).forEach((locale)=>{
+                i18n.global.mergeLocaleMessage(locale,messages[locale as Locale]);
+            });
         }
 
         return {

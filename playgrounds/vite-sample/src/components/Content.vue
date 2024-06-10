@@ -9,11 +9,14 @@ import {
 } from "use-rainbowkit-vue";
 import { useSendTransaction, useSignMessage, useSignTypedData } from "@wagmi/vue";
 import { Address, parseEther } from "viem";
-
+import { useI18n } from "vue-i18n";
 const { openConnectModal, openAccountModal, openChainModal, connectModalOpen, accountModalOpen, chainModalOpen } = useModalContext();
 const { connectionStatus,address, isConnected, chainId } = useRainbowKitAccountContext();
 const { changeLocale } = useLocale();
 const { changeTheme } = useThemeContext();
+const { t } = useI18n();
+
+console.log("Additional Text:", t('module.wallet'));
 const {
     data: transactionData,
     error: transactionError,

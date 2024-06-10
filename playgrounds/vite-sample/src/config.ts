@@ -84,7 +84,7 @@ export function createRainbowKitConfig(app: App) : App{
 
         const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
-        const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh' });
+        const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh', message: { 'module.wallet': 'additional text' } });
         const authAdapter = createAuthAdapter(app);
 
         ///If want to change locale and don't want to use vue-i18n, use default locale adapter
