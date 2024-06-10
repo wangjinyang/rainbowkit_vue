@@ -1,0 +1,1 @@
+{"version":3,"file":"bifrostWallet.d.ts","sourceRoot":"","sources":["../../../src/wallets/bifrostWallet/bifrostWallet.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,oBAAoB,EAAE,MAAM,EAAE,MAAM,4BAA4B,CAAC;AAG1E,MAAM,MAAM,oBAAoB,GAAG,oBAAoB,CAAC;AAExD,eAAO,MAAM,aAAa,4CAGvB,oBAAoB,KAAG,MAiEzB,CAAC"}

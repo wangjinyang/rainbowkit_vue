@@ -1,0 +1,1 @@
+{"version":3,"file":"tokenPocketWallet.d.ts","sourceRoot":"","sources":["../../../src/wallets/tokenPocketWallet/tokenPocketWallet.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,EAAE,MAAM,4BAA4B,CAAC;AAO/E,MAAM,MAAM,wBAAwB,GAAG,oBAAoB,CAAC;AAE5D,eAAO,MAAM,iBAAiB,4CAG3B,wBAAwB,KAAG,MAyF7B,CAAC"}

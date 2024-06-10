@@ -1,0 +1,1 @@
+{"version":3,"file":"metaMaskWallet.d.ts","sourceRoot":"","sources":["../../../src/wallets/metaMaskWallet/metaMaskWallet.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,EAAE,MAAM,SAAS,CAAC;AAC5D,MAAM,MAAM,qBAAqB,GAAG,oBAAoB,CAAC;AA+CzD,eAAO,MAAM,cAAc,4CAGxB,qBAAqB,KAAG,MA0G1B,CAAC"}

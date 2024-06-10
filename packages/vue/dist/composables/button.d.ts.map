@@ -1,0 +1,1 @@
+{"version":3,"file":"button.d.ts","sourceRoot":"","sources":["../../src/composables/button.ts"],"names":[],"mappings":"AAAA,OAAO,EAA0B,KAAK,OAAO,EAAE,KAAK,mBAAmB,EAAE,MAAM,SAAS,CAAA;AACxF,OAAO,EAAgC,MAAM,EAAE,MAAM,KAAK,CAAA;AAE1D,wBAAgB,yBAAyB,IAAI,OAAO,CAAC,mBAAmB,CAAC,CAGxE;AAED,wBAAgB,sBAAsB,IAAI,MAAM,CAAC,mBAAmB,CAAC,CAIpE"}
