@@ -1,4 +1,6 @@
 {
+  "name": "rainbowkit-vue-repository",
+  "version": "0.0.1",
   "private": "true",
   "scripts": {
     "build": "pnpm run --r --filter \"./packages/**\" build",
