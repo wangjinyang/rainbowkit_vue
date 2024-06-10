@@ -3,7 +3,7 @@
   "private": "true",
   "scripts": {
     "build": "pnpm run --r --filter \"./packages/**\" build",
-    "install-dependencies": "pnpm install --r --filter \"./packages/**\"",
+    "install-dependencies": "pnpm install --no-frozen-lockfile --r --filter \"./packages/**\"",
     "changeset": "changeset",
     "publish:packages": "changeset publish",
     "version:packages": "changeset version"
