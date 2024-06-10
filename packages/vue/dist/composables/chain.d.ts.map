@@ -1,1 +1,0 @@
-{"version":3,"file":"chain.d.ts","sourceRoot":"","sources":["../../src/composables/chain.ts"],"names":[],"mappings":"AAeA,OAAO,EAIL,KAAK,uBAAuB,EAC5B,KAAK,sBAAsB,EAC3B,KAAK,OAAO,EACZ,mCAAmC,EACpC,MAAM,UAAU,CAAA;AAsFjB,wBAAgB,+BAA+B,SAc9C;AAED,wBAAgB,4BAA4B,CAC1C,MAAM,EAAE,uBAAuB,GAAE,OAAO,CAAC,sBAAsB,CAAC,CAYjE;AAED,wBAAgB,yBAAyB,IAAI,mCAAmC,CAY/E"}

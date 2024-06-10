@@ -1,1 +1,0 @@
-{"version":3,"file":"ledgerWallet.d.ts","sourceRoot":"","sources":["../../../src/wallets/ledgerWallet/ledgerWallet.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,EAAE,MAAM,SAAS,CAAA;AAE3D,MAAM,MAAM,mBAAmB,GAAG,oBAAoB,CAAA;AAEtD,eAAO,MAAM,YAAY,2CAGtB,mBAAmB,KAAG,MAgFxB,CAAA"}
