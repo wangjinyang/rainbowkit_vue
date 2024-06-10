@@ -1,6 +1,5 @@
 {
-  "name": "rainbowkit-vue-repository",
-  "version": "0.0.1",
+  "type": "module",
   "private": "true",
   "scripts": {
     "build": "pnpm run --r --filter \"./packages/**\" build",
@@ -8,6 +7,12 @@
     "changeset": "changeset",
     "publish:packages": "changeset publish",
     "version:packages": "changeset version"
+  },
+  "workspaces": ["packages/*"],
+  "publishConfig": {
+    "use-rainbowkit-vue-i18n-locale-provider": true,
+    "use-rainbowkit-vue-siwe-auth-provider": true,
+    "use-rainbowkit-vue": true
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.5"
