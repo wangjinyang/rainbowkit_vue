@@ -47,7 +47,10 @@ import {
     RainbowKitVuePlugin,  
     RainbowKitPluginOptions,
     mainnet,
-    sepolia
+    zkSync,
+    scroll,
+    polygonZkEvm,
+    immutableZkEvm
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
@@ -86,7 +89,10 @@ export function createRainbowKitConfig(app: App) : App{
         return {
             chains: [
                 mainnet,
-                sepolia, 
+                zkSync,
+                scroll,
+                polygonZkEvm,
+                immutableZkEvm,
                 avalanche
             ],
             locale: i18nAdapter,

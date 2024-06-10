@@ -17,9 +17,29 @@ If found error such as buffer not defined or any node module not defined, instal
 
 ```ts
 import { createApp } from 'vue'
+import { 
+    RainbowKitVuePlugin,
+    mainnet,
+    zkSync,
+    scroll,
+    polygonZkEvm,
+    immutableZkEvm,
+    avalanche
+ } from 'use-rainbowkit-vue'
 import 'use-rainbowkit-vue/style.css';
 
-createApp(App).use(RainbowKitVuePlugin,{ appName: 'RainbowKit demo', projectId: "YOUR_PROJECT_ID" })
+createApp(App).use(RainbowKitVuePlugin,{ 
+    appName: 'RainbowKit demo', 
+    projectId: "YOUR_PROJECT_ID",
+    chains: [
+        mainnet,
+        zkSync,
+        scroll,
+        polygonZkEvm,
+        immutableZkEvm,
+        avalanche
+    ],
+})
 ```
 
 ## Use of Rainbowkit Components with `<script setup>`
