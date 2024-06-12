@@ -4,7 +4,7 @@ import {
     LocaleAdapterInstance,
     LocaleMessages,
 } from "use-rainbowkit-vue";
-import { createI18n } from "vue-i18n";
+import { createI18n, I18n, VueI18n } from "vue-i18n";
 import arAr from "./locales/ar_AR.json";
 import enUs from "./locales/en_US.json";
 import es419 from "./locales/es_419.json";
@@ -25,58 +25,102 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
     type AdditionalLocaleMessages= {
         [K in Locale]?: LocaleMessages;
     };
+    
     function create(
         app: App,
-        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:AdditionalLocaleMessages }
+        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:AdditionalLocaleMessages, i18n?: I18n<any,any,any,any,true> }
     ): LocaleAdapterInstance {
         type MessageSchema = typeof enUs;
+        const defaultMessages =  {
+            ar: arAr,
+            "ar-AR": arAr,
+            en: enUs,
+            "en-US": enUs,
+            es: es419,
+            "es-419": es419,
+            fr: frFR,
+            "fr-FR": frFR,
+            hi: hiIN,
+            "hi-IN": hiIN,
+            id: idID,
+            "id-ID": idID,
+            ja: jaJP,
+            "ja-JP": jaJP,
+            ko: koKR,
+            "ko-KR": koKR,
+            pt: ptBR,
+            "pt-BR": ptBR,
+            ru: ruRU,
+            "ru-RU": ruRU,
+            th: thTH,
+            "th-TH": thTH,
+            tr: trTR,
+            "tr-TR": trTR,
+            ua: ukUA,
+            "uk-UA": ukUA,
+            zh: zhCN,
+            "zh-CN": zhCN,
+        };
+
+        if(options?.i18n){            
+            Object.keys(options.i18n.global.messages).forEach((locale)=>{
+                const currentMessages = defaultMessages[locale as Locale];
+                if(currentMessages){
+                    options.i18n?.global.mergeLocaleMessage(locale,currentMessages);
+                }
+            });
+
+            return {
+                name: "vue-i18n",
+                currentLocale: options.i18n.global.locale.value,
+                fallbackLocale: options.i18n.global.fallbackLocale.value,
+                messages: options.i18n.global.messages.value,
+               //// @ts-expect-error Type instantiation is excessively deep and possibly infinite
+                t: (
+                    _fallbackLocale: string,
+                    _currentLocale: string,
+                    _messages: LocaleMessages,
+                    key: string,
+                    ...params: Record<string, any>[]
+                ) => newI18n.global.t(key, params),
+                n: (
+                    _fallbackLocale: string,
+                    _currentLocale: string,
+                    value: number,
+                    ..._params: Record<string, any>[]
+                ) => newI18n.global.n(value),
+                changeLocale: (
+                    adapter: Ref<LocaleAdapterInstance>,
+                    newLocale: Locale
+                ) => {
+                    newI18n.global.locale.value = newLocale;
+                    adapter.value = {
+                        ...adapter.value,
+                        messages: newI18n.global.messages.value,
+                        currentLocale: newLocale,
+                    };
+                },
+            };
+        }
+
         const currentLocale = options?.currentLocale ?? 'en-US';
         const fallbackLocale = options?.fallbackLocale ?? 'en-US';
         
-        const i18n = createI18n<[MessageSchema], Locale,false>({
+        const newI18n = createI18n<[MessageSchema], Locale,false>({
             locale: currentLocale,
             fallbackLocale: fallbackLocale,
             legacy: false,
             globalInjection: true,
-            messages: {
-                ar: arAr,
-                "ar-AR": arAr,
-                en: enUs,
-                "en-US": enUs,
-                es: es419,
-                "es-419": es419,
-                fr: frFR,
-                "fr-FR": frFR,
-                hi: hiIN,
-                "hi-IN": hiIN,
-                id: idID,
-                "id-ID": idID,
-                ja: jaJP,
-                "ja-JP": jaJP,
-                ko: koKR,
-                "ko-KR": koKR,
-                pt: ptBR,
-                "pt-BR": ptBR,
-                ru: ruRU,
-                "ru-RU": ruRU,
-                th: thTH,
-                "th-TH": thTH,
-                tr: trTR,
-                "tr-TR": trTR,
-                ua: ukUA,
-                "uk-UA": ukUA,
-                zh: zhCN,
-                "zh-CN": zhCN,
-            },
+            messages: defaultMessages
         });
-        app.use(i18n);
+        app.use(newI18n);
 
         const messages = options?.messages;
         if (messages) {
             Object.keys(messages).forEach((locale)=>{
                 const currentMessages = messages[locale as Locale];
                 if(currentMessages){
-                    i18n.global.mergeLocaleMessage(locale,currentMessages);
+                    newI18n.global.mergeLocaleMessage(locale,currentMessages);
                 }
             });
         }
@@ -85,7 +129,7 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
             name: "vue-i18n",
             currentLocale,
             fallbackLocale,
-            messages: i18n.global.messages.value,
+            messages: newI18n.global.messages.value,
            //// @ts-expect-error Type instantiation is excessively deep and possibly infinite
             t: (
                 _fallbackLocale: string,
@@ -93,21 +137,21 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
                 _messages: LocaleMessages,
                 key: string,
                 ...params: Record<string, any>[]
-            ) => i18n.global.t(key, params),
+            ) => newI18n.global.t(key, params),
             n: (
                 _fallbackLocale: string,
                 _currentLocale: string,
                 value: number,
                 ..._params: Record<string, any>[]
-            ) => i18n.global.n(value),
+            ) => newI18n.global.n(value),
             changeLocale: (
                 adapter: Ref<LocaleAdapterInstance>,
                 newLocale: Locale
             ) => {
-                i18n.global.locale.value = newLocale;
+                newI18n.global.locale.value = newLocale;
                 adapter.value = {
                     ...adapter.value,
-                    messages: i18n.global.messages.value,
+                    messages: newI18n.global.messages.value,
                     currentLocale: newLocale,
                 };
             },
