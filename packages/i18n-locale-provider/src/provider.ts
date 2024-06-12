@@ -4,7 +4,7 @@ import {
     LocaleAdapterInstance,
     LocaleMessages,
 } from "use-rainbowkit-vue";
-import { createI18n, I18n, VueI18n } from "vue-i18n";
+import { createI18n, I18n } from "vue-i18n";
 import arAr from "./locales/ar_AR.json";
 import enUs from "./locales/en_US.json";
 import es419 from "./locales/es_419.json";
@@ -62,41 +62,39 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
             "zh-CN": zhCN,
         };
 
-        if(options?.i18n){            
-            Object.keys(options.i18n.global.messages).forEach((locale)=>{
+        const i18n = options?.i18n;
+        if(i18n){            
+            Object.keys(i18n.global.messages).forEach((locale)=>{
                 const currentMessages = defaultMessages[locale as Locale];
                 if(currentMessages){
-                    options.i18n?.global.mergeLocaleMessage(locale,currentMessages);
+                    ///Merge the default messages first 
+                    i18n.global.mergeLocaleMessage(locale,currentMessages);
+                    if(options.messages){
+                        ///Overwrite default message or add new messages  
+                        const overridenMessages = options.messages[locale as Locale];
+                        if(overridenMessages){
+                            i18n.global.mergeLocaleMessage(locale,overridenMessages);
+                        }
+                    }
                 }
             });
 
             return {
                 name: "vue-i18n",
-                currentLocale: options.i18n.global.locale.value,
-                fallbackLocale: options.i18n.global.fallbackLocale.value,
-                messages: options.i18n.global.messages.value,
-               //// @ts-expect-error Type instantiation is excessively deep and possibly infinite
-                t: (
-                    _fallbackLocale: string,
-                    _currentLocale: string,
-                    _messages: LocaleMessages,
-                    key: string,
-                    ...params: Record<string, any>[]
-                ) => newI18n.global.t(key, params),
-                n: (
-                    _fallbackLocale: string,
-                    _currentLocale: string,
-                    value: number,
-                    ..._params: Record<string, any>[]
-                ) => newI18n.global.n(value),
+                currentLocale: i18n.global.locale.value,
+                fallbackLocale: i18n.global.fallbackLocale.value,
+                messages: i18n.global.messages.value,
+                // @ts-expect-error Type instantiation is excessively deep and possibly infinite
+                t: (_fallbackLocale: string, _currentLocale: string, _messages: LocaleMessages, key: string, ...params: Record<string, any>[]) => i18n.global.t(key, params),
+                n: (_fallbackLocale: string, _currentLocale: string, value: number, ..._params: Record<string, any>[]) => i18n.global.n(value),
                 changeLocale: (
                     adapter: Ref<LocaleAdapterInstance>,
                     newLocale: Locale
                 ) => {
-                    newI18n.global.locale.value = newLocale;
+                    i18n.global.locale.value = newLocale;
                     adapter.value = {
                         ...adapter.value,
-                        messages: newI18n.global.messages.value,
+                        messages: i18n.global.messages.value,
                         currentLocale: newLocale,
                     };
                 },
@@ -104,8 +102,7 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
         }
 
         const currentLocale = options?.currentLocale ?? 'en-US';
-        const fallbackLocale = options?.fallbackLocale ?? 'en-US';
-        
+        const fallbackLocale = options?.fallbackLocale ?? 'en-US';      
         const newI18n = createI18n<[MessageSchema], Locale,false>({
             locale: currentLocale,
             fallbackLocale: fallbackLocale,

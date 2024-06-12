@@ -51,12 +51,13 @@ import {
     scroll,
     polygonZkEvm,
     immutableZkEvm,
-    createRainbowKitDefaultLocaleAdapter
+    //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
-//import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
+import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
 import { Chain } from 'viem';
 import { App, h } from 'vue';
+import { createI18n } from 'vue-i18n';
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
@@ -82,14 +83,33 @@ export function createRainbowKitConfig(app: App) : App{
 
     function configure():RainbowKitPluginOptions{
 
-        //const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
+        const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
-        //const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh', messages:{ "zh": { "wallet.module": "Additional text" }}});
+
+        ///if having existing i18n 
+        const newI18n = createI18n({
+            locale: 'en',
+            fallbackLocale: 'en',
+            legacy: true,
+            globalInjection: true,
+            messages: {
+                'en': {
+                    "wallet.module": "The wording is the default word"
+                }
+            }
+        });
+
+        app.use(newI18n);
+        
+        const i18nAdapter = createI18nAdapter(app,{ 
+            messages:{ "en": { "wallet.module": "You can override the existing language with same key or add your new language wording" }},
+            i18n: newI18n
+        });
         const authAdapter = createAuthAdapter(app);
 
-        ///If want to change locale and don't want to use vue-i18n, use default locale adapter
-        const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
-        const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en' , message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording." }}})
+        //If want to change locale and don't want to use vue-i18n, use default locale adapter
+        //const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
+        //const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en' , message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording" }}})
         
         return {
             chains: [
@@ -100,7 +120,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
-            locale: defaultLocaleAdapter,
+            locale: i18nAdapter,
             wallets: [
                 {
                     groupName: "Populars",
