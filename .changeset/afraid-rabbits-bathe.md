@@ -3,4 +3,4 @@
 "use-rainbowkit-vue": minor
 ---
 
-Fixed auth issues and make 'messages' optional
+Fixed auth bugs and "messages" optional
