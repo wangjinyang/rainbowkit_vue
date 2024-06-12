@@ -1,7 +1,7 @@
 {
   "name": "use-rainbowkit-vue-i18n-locale-provider",
   "private": false,
-  "version": "1.0.0",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
