@@ -10,7 +10,7 @@ import type { WalletConnector } from "@/types/composables/wallet";
 import type { AuthenticationConfig } from "@/types/composables/account";
 import type { ResponsiveValue } from '@/css'
 import { ConnectModalIntroComponentSetupFn } from '@/components'
-import { DisclaimerComponentSetupFn } from '@/types/components/Others/disclaimer';
+import { DisclaimerComponentSetupFn } from '@/types/components/Common/disclaimer';
 import { Address } from 'viem';
 
 export type WalletButtonContext = {

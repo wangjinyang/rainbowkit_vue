@@ -1,15 +1,15 @@
-import type { ConnectionStatus } from "@/types";
+import type { Address, ConnectionStatus } from "@/types";
 import { useAuthenticationConfigContext } from "@/composables/authentication";
 import { computed, ComputedRef, Ref } from "vue";
 
-export function useConnectionStatus(isConnected:Ref<boolean>, isConnecting: Ref<boolean>): ComputedRef<ConnectionStatus> {
+export function useConnectionStatus(isConnected:Ref<boolean>, isConnecting: Ref<boolean>, address?: Ref<undefined> | Ref<`0x${string}`> | Ref<`0x${string}` | undefined>): ComputedRef<ConnectionStatus> {
     const { status } = useAuthenticationConfigContext();
     return computed(()=>{
-        if(isConnecting.value){
+        if(!address?.value){
             return 'disconnected';
         }
 
-        if(!(isConnected.value)){
+        if(!address?.value){
             return 'disconnected';
         }
     
@@ -24,7 +24,7 @@ export function useConnectionStatus(isConnected:Ref<boolean>, isConnecting: Ref<
             return status.value;
         }
 
-        return 'unknown';
+        return 'connected';
     });
     
 }

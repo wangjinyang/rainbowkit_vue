@@ -4,7 +4,7 @@ import './utils/array.extension';
 export { RainbowKitVuePlugin } from "./RainbowKitVuePlugin";
 
 ///locale adapter
-export { createRainbowKitDefaultAdapter } from "./locales/adapters/RainbowkitDefaultAdapter";
+export { createRainbowKitDefaultLocaleAdapter } from "./locales/adapters/RainbowkitDefaultLocaleAdapter";
 
 //types
 export {
@@ -72,7 +72,8 @@ export {
     useAddRecentTransasction,
     useClearRecentTransactions,
     useRainbowKitAccountContext,
-    useRainbowKitChainContext  
+    useRainbowKitChainContext,
+    useReady
 } from "./composables"
 
 ///components

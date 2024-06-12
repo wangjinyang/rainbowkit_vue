@@ -51,9 +51,9 @@ import {
     scroll,
     polygonZkEvm,
     immutableZkEvm,
-    //createRainbowKitDefaultAdapter
+    createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
-import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
+//import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
 import { Chain } from 'viem';
 import { App, h } from 'vue';
@@ -82,14 +82,14 @@ export function createRainbowKitConfig(app: App) : App{
 
     function configure():RainbowKitPluginOptions{
 
-        const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
+        //const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
-        const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh', message: { 'module.wallet': 'additional text' } });
+        //const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh', messages:{ "zh": { "wallet.module": "Additional text" }}});
         const authAdapter = createAuthAdapter(app);
 
         ///If want to change locale and don't want to use vue-i18n, use default locale adapter
-        ///const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultAdapter();
-        ///const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en-US' })
+        const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
+        const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en' , message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording." }}})
         
         return {
             chains: [
@@ -100,7 +100,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
-            locale: i18nAdapter,
+            locale: defaultLocaleAdapter,
             wallets: [
                 {
                     groupName: "Populars",
@@ -164,7 +164,7 @@ export function createRainbowKitConfig(app: App) : App{
                 }
             ],
             auth: {
-                allowAuthenticate: true,
+                allowAuthenticate: false,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,

@@ -21,7 +21,7 @@ import {
   Chains,
   Transports,
 } from '../types';
-import { createRainbowKitDefaultAdapter } from '@/locales/adapters/RainbowkitDefaultAdapter'
+import { createRainbowKitDefaultLocaleAdapter } from '@/locales/adapters/RainbowkitDefaultLocaleAdapter'
 
 import { createRainbowKitChainContext } from "@/composables/chain"
 import { createApplicationInfoContext} from "@/composables/application"

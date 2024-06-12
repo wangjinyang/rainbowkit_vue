@@ -22,9 +22,12 @@ import zhCN from "./locales/zh_CN.json";
 
 export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
 
+    type AdditionalLocaleMessages= {
+        [K in Locale]?: LocaleMessages;
+    };
     function create(
         app: App,
-        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:Record<Locale,LocaleMessages> }
+        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:AdditionalLocaleMessages }
     ): LocaleAdapterInstance {
         type MessageSchema = typeof enUs;
         const currentLocale = options?.currentLocale ?? 'en-US';
@@ -71,7 +74,10 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
         const messages = options?.messages;
         if (messages) {
             Object.keys(messages).forEach((locale)=>{
-                i18n.global.mergeLocaleMessage(locale,messages[locale as Locale]);
+                const currentMessages = messages[locale as Locale];
+                if(currentMessages){
+                    i18n.global.mergeLocaleMessage(locale,currentMessages);
+                }
             });
         }
 

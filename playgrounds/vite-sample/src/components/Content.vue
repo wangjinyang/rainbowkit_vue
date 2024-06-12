@@ -9,14 +9,15 @@ import {
 } from "use-rainbowkit-vue";
 import { useSendTransaction, useSignMessage, useSignTypedData } from "@wagmi/vue";
 import { Address, parseEther } from "viem";
-import { useI18n } from "vue-i18n";
+//import { useI18n } from "vue-i18n";
+
 const { openConnectModal, openAccountModal, openChainModal, connectModalOpen, accountModalOpen, chainModalOpen } = useModalContext();
 const { connectionStatus,address, isConnected, chainId } = useRainbowKitAccountContext();
-const { changeLocale } = useLocale();
+const { changeLocale,t } = useLocale();
 const { changeTheme } = useThemeContext();
-const { t } = useI18n();
+//const { t } = useI18n();
 
-console.log("Additional Text:", t('module.wallet'));
+console.log("Additional Text:", t('wallet.module'));
 const {
     data: transactionData,
     error: transactionError,
@@ -52,6 +53,7 @@ const {
     <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }" v-else>
       Rainbowkit Vue Example - {{ connectionStatus }}
     </h2>
+    <span style="margin-bottom: 20px;"> My additional text written here: {{ t('wallet.module') }} </span>
     <table class="card">
       <thead>
         <tr>
@@ -108,7 +110,7 @@ const {
                       {{ data.chain?.name ?? data.chain?.id }}
                     </button>
                     <button @click="openAccountModal" type="button" v-if="data.account">
-                      {{ data.account?.displayName }} {{ data.account?.displayBalance ? ` ${data.account.balance}` : '' }}
+                      {{ data.account?.displayName }} {{ data.account?.displayBalance && data.account.balance ? ` ${data.account.balance}` : '' }}
                     </button>
                   </div>
                 </div>

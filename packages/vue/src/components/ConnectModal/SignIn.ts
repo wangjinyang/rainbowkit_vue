@@ -43,7 +43,6 @@ export const SignIn = defineComponent({
             import.meta.glob<{ default: string }>('../../assets/sign.png', { eager: true })['../../assets/sign.png']
                 .default
         )
-
         const getNonce = async () => {
             try {
                 const nonce = await adapter?.value?.getNonce()
@@ -110,12 +109,10 @@ export const SignIn = defineComponent({
                 }
             }
         }
-
-        onMounted(async () => {
+        onMounted(() => {
             ///load after component mounted: action button would show preparing status
-            await getNonce()
+            getNonce()
         })
-
         return () => {
             if (slots.default) {
                 return slots.default({ 
@@ -147,7 +144,7 @@ export const SignIn = defineComponent({
                     padding: '24',
                     paddingX: '18',
                     gap: isMobile ? '32' : '24',
-                    style: { paddingTop: isMobile ? '60px' : '32px' }
+                    style: { paddingTop: isMobile ? '60px' : '36px' }
                 }, ()=>h(Container, {
                     display: 'flex',
                     alignItems: 'center',
@@ -163,8 +160,8 @@ export const SignIn = defineComponent({
                     }, ()=>[
                         h(AsyncImage, {
                             height: 40,
-                            src: signInIcon.value,
-                            width: 40
+                            width: 40,
+                            src: signInIcon.value
                         }),
 
                         h(Text, {
@@ -191,53 +188,60 @@ export const SignIn = defineComponent({
                             h(Text, {
                                 color: 'error',
                                 textAlign: 'center',
+                                weight: 'bold',
                                 size: isMobile ? '16' : '14'
                             }, () => signInRefs.value.errorMessage)
                         ] : []
+                    ]),
+
+                    h(Container, {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '8',
+                        width: 'full',
+                        alignItems: isMobile ? undefined : 'center'
+                    },()=> [
+                        h(ActionButton, {
+                            disabled: !signInRefs.value.nonce || signInRefs.value.status === 'verifying' || signInRefs.value.status === 'signing',
+                            label: !signInRefs.value.nonce ? t('sign_in.message.preparing') :
+                                signInRefs.value.status === 'signing' ? t('sign_in.signature.waiting') :
+                                    signInRefs.value.status === 'verifying' ? t('sign_in.signature.verifying') : t('sign_in.message.send'),
+                            size: isMobile ? 'large' : 'medium',
+                            onAction: async () => await signIn()
+                        }),
+    
+                        ...isMobile ? [
+                            h(ActionButton, {
+                                label: 'cancel',
+                                size: 'large',
+                                type: 'secondary',
+                                onAction: props.onClosed
+                            })
+                        ] : [
+                            h(Container, {
+                                as: 'button',
+                                borderRadius: 'full',
+                                display: 'block',
+                                paddingX: '10',
+                                paddingY: '5',
+                                target: "_blank",
+                                transition: 'default',
+                                rel:"noreferrer",
+                                style: { willChange: 'transform' },
+                                class: touchable({ active: 'shrink', hover: 'grow' }),
+                                onClick: props.onClosed,
+                            }, ()=>h(Text, {
+                                color: 'closeButton',
+                                size: isMobile ? '16' : '14',
+                                weight: 'bold'
+                            }, () => t('sign_in.message.cancel')))
+                        ],
+    
+                        
                     ])
                 ])),
 
-                h(Container, {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8',
-                    width: 'full',
-                    alignItems: isMobile ? 'center' : undefined
-                },()=> [
-                    h(ActionButton, {
-                        disabled: !signInRefs.value.nonce || signInRefs.value.status === 'verifying' || signInRefs.value.status === 'signing',
-                        label: !signInRefs.value.nonce ? t('sign_in.message.preparing') :
-                            signInRefs.value.status === 'signing' ? t('sign_in.signature.waiting') :
-                                signInRefs.value.status === 'verifying' ? t('sign_in.signature.verifying') : t('sign_in.message.send'),
-                        size: isMobile ? 'large' : 'medium',
-                        onClick: signIn
-                    }),
 
-                    ...isMobile ? [
-                        h(ActionButton, {
-                            label: 'cancel',
-                            size: 'large',
-                            type: 'secondary',
-                            onAction: props.onClosed
-                        })
-                    ] : [],
-
-                    h(Container, {
-                        as: 'button',
-                        borderRadius: 'full',
-                        display: 'block',
-                        paddingX: '10',
-                        paddingY: '5',
-                        transition: 'default',
-                        style: { willChange: 'transform' },
-                        class: touchable({ active: 'shrink', hover: 'grow' }),
-                        onClick: props.onClosed,
-                    }, ()=>h(Text, {
-                        color: 'closeButton',
-                        size: isMobile ? '16' : '14',
-                        weight: 'bold'
-                    }, () => t('sign_in.message.cancel')))
-                ])
             ]);
         };
 

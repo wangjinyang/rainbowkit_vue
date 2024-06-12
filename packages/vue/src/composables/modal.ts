@@ -13,7 +13,7 @@ import { useWalletButtonContext } from "@/composables/button";
 import { useWindow} from "@/composables/window";
 import { largeScreenMinWidth } from '@/css'
 import { useAccountEffect, useConfig } from '@wagmi/vue'
-import { computed, inject, reactive, ref, toRefs, watch } from 'vue'
+import { computed, inject, reactive, ref, toRef, toRefs, watch } from 'vue'
 
 export function configureModalSizeContext() {
   const { connector } = useWalletButtonContext()
@@ -71,7 +71,7 @@ export function configureModalContext() {
       accountModalOpen.value = false;
       chainModalOpen.value = false;
     }
-  })
+  });
 
   watch([()=> connectionStatus.value,()=> chainId.value],([newConnectionStatus,newChainId])=>{
     const isCurrentChainSupported = chains.some((chain) => chain.id === newChainId);
@@ -112,8 +112,9 @@ export function configureModalContext() {
         accountModalOpen.value = false;
         chainModalOpen.value = false;
       }
-    })
-  });
+    });
+
+  },{ flush: 'post' });
 
   useAccountEffect({
     onConnect: ()=> {

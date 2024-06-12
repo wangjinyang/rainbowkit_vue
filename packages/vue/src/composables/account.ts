@@ -1,14 +1,13 @@
 import { useConnectionStatus } from "@/composables/connection";
 import { useAuthenticationConfigContext } from "@/composables/authentication";
-//import { Address, Chain } from "@/types"
 import { useAccount, useAccountEffect } from '@wagmi/vue'
-import { ref, watch, /*computed*/} from 'vue'
+import { ref, watch } from 'vue'
 
 export function useRainbowKitAccountContext(){  
   const { connector, isConnected, isConnecting, chainId, isDisconnected, isReconnecting, chain, address, addresses,status } = useAccount();
   const { status: authenticationStatus, adapter } = useAuthenticationConfigContext();
   const connectorUID = ref<string>()
-  const connectionStatus = useConnectionStatus(isConnected,isConnecting);
+  const connectionStatus = useConnectionStatus(isConnected,isConnecting,address);
   
   watch(
     [ ()=> connector.value?.id, ()=> connector.value?.emitter, ()=>authenticationStatus?.value, ()=> connectorUID.value ],

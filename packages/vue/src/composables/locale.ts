@@ -1,4 +1,4 @@
-import { createRainbowKitDefaultAdapter } from '@/locales/adapters/RainbowkitDefaultAdapter'
+import { createRainbowKitDefaultLocaleAdapter } from '@/locales/adapters/RainbowkitDefaultLocaleAdapter'
 import {
   LocaleAdapterContextKey,
   type Context,
@@ -12,7 +12,7 @@ import { inject, ref } from 'vue'
 export function createLocaleContext(
   option: RainbowKitPluginConfig
 ): Context<LocaleAdapterInstance> {
-  const defaultAdapter = createRainbowKitDefaultAdapter().install({ 
+  const defaultAdapter = createRainbowKitDefaultLocaleAdapter().install({ 
     locale: detectedBrowserLocale() ?? 'en', 
     fallbackLocale: detectedBrowserLocale() ?? 'en' 
   });
