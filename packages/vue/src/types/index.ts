@@ -28,11 +28,11 @@ export * from "./components/Buttons/connectButton";
 export * from "./components/Buttons/actionButton";
 
 ///Others
-export * from "./components/Others/container";
-export * from "./components/Others/focusTrap";
-export * from "./components/Others/disclaimer";
-export * from "./components/Others/qrCode";
-export * from "./components/Others/rainbowkitProvider";
+export * from "./components/Common/container";
+export * from "./components/Common/focusTrap";
+export * from "./components/Common/disclaimer";
+export * from "./components/Common/qrCode";
+export * from "./components/Common/rainbowkitProvider";
 
 ///CSS
 export * from "./css/reset.css.type";

@@ -7,6 +7,7 @@ export const CloseIcon = defineComponent({
         return () => {
             if (isMobile) {
                 return h(Icon, {
+                    style: { cursor: 'pointer' },
                     fillSvg: "none",
                     fillColor: "currentColor",
                     height: "11.5",
@@ -18,6 +19,7 @@ export const CloseIcon = defineComponent({
             }
 
             return h(Icon,{
+                style: { cursor: 'pointer' },
                 fillSvg: "none",
                 fillColor: "currentColor",
                 height: "10",

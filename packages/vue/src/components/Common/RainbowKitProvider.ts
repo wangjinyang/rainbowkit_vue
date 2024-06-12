@@ -12,6 +12,8 @@ import { Container } from "@/components/Common/Container";
 import { SignInRefType, Address, Chain, GetEnsAvatarReturnType, GetEnsNameReturnType, DisconnectMutate } from "@/types";
 import { MobileWalletSteps, MobileWalletSummary, RainbowKitChain, WalletConnector, WalletStep, WalletSummary } from "@/types";
 import { computed, DefineComponent, defineComponent, h, SlotsType } from "vue";
+import { useRainbowKitAccountContext } from "@/composables/account";
+import { useReady } from "@/composables";
 
 export const RainbowKitProvider = defineComponent({
     slots: Object as SlotsType<{
@@ -89,7 +91,12 @@ export const RainbowKitProvider = defineComponent({
             return `rainbowkit_locale_${adapter.value.currentLocale}_${mode.value}`;
         });
 
+        ///preload 
+        //useRainbowKitAccountContext();
+        //const ready = useReady();
+
         return ()=>{
+            //if(!ready.value) return undefined;
             return h(Container,{ key: applicationKey.value },()=>[
                 h(StyleComponent,{ themeId: "data-rk-vue" }, ()=> css.value),
                 h(ConnectModal,{ 

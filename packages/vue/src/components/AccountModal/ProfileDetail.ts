@@ -1,4 +1,4 @@
-import { useLocale,useShowRecentTransactionContext } from "@/composables";
+import { useLocale,useRainbowKitAccountContext,useRainbowKitBalance,useShowRecentTransactionContext } from "@/composables";
 import { abbreviateETHBalance, isMobile } from "@/utils";
 import { GetEnsAvatarReturnType, GetEnsNameReturnType, Address } from "@/types";
 import { Container } from "@/components/Common/Container";
@@ -10,12 +10,11 @@ import { CopiedIcon } from "@/components/Icons/CopiedIcon";
 import { CopyIcon } from "@/components/Icons/CopyIcon";
 import { DisconnectIcon } from "@/components/Icons/DisconnectIcon"
 import { CloseIcon } from "@/components/Icons/CloseIcon"
-import { useBalance } from "@wagmi/vue";
-import { formatUnits } from "viem";
 import { defineComponent, h, PropType, ref, SlotsType, watch } from "vue";
 
 const createProfileDetailProps = {
     address: String as PropType<Address>,
+    chainId: Number,
     ensAvatar: String as PropType<GetEnsAvatarReturnType>,
     ensName: String as PropType<GetEnsNameReturnType>
 } as const;
@@ -40,17 +39,21 @@ export const ProfileDetail = defineComponent({
         const titleId = "rk_profile_title";
         const copiedAddress = ref<boolean>(false);
         const abbreviatedBalance = ref<string | undefined>();
-        const symbol = ref<string | undefined>();
+        
         const showRecentTransaction = useShowRecentTransactionContext();
-        const { data: balance } = useBalance({ address: props.address });
+        const { chainId,  address } = useRainbowKitAccountContext();
+        const { balance, symbol, value:values } = useRainbowKitBalance(address,chainId);
     
         const { t } = useLocale();
-        watch(() => balance.value, (newBalance) => {
-            if (!newBalance) return;
-            const currentBalance = formatUnits(newBalance.value, newBalance.decimals);
+        console.log("Balance:",balance.value);
+        console.log("Symbol:",symbol.value);
+        console.log("Symbol:",address.value);
+
+        /*watch([values, decimals, symbol], ([newValues, newDecimals, newSymbol]) => {
+            if (!newValues || !newValues || !newDecimals || !newSymbol) return;
+            const currentBalance = formatUnits(newValues as bigint, newDecimals);
             abbreviatedBalance.value = abbreviateETHBalance(parseFloat(currentBalance));
-            symbol.value = newBalance.symbol;
-        })
+        })*/
     
         const copyAddressAction = () => {
             if (!props.address) return;
@@ -77,7 +80,7 @@ export const ProfileDetail = defineComponent({
                     formattedBalance: `${abbreviatedBalance.value}${symbol.value}`,
                     symbol: symbol.value,
                     abbreviatedBalance: abbreviatedBalance.value,
-                    balance: balance.value?.value
+                    balance: values.value
                 }));
             }
 
@@ -142,7 +145,7 @@ export const ProfileDetail = defineComponent({
                                     id: titleId,
                                     size: isMobile? '16': '14',
                                     weight: 'semibold'
-                                },()=> `${abbreviatedBalance.value}${symbol.value}`))
+                                },()=> balance.value))
                             ] : []
                         ]),
                     ]),

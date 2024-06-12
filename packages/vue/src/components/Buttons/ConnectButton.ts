@@ -22,15 +22,15 @@ export const createConnectButtonProps = {
         default: 'Connect Wallet'
     },
     accountStatus: {
-        type: [ Object, String ] as PropType<ResponsiveValue<AccountStatus>>,
+        type: [Object, String] as PropType<ResponsiveValue<AccountStatus>>,
         default: 'full'
     },
     chainStatus: {
-        type: [ Object, String ] as PropType<ResponsiveValue<ChainStatus>>,
+        type: [Object, String] as PropType<ResponsiveValue<ChainStatus>>,
         default: () => ({ largeScreen: 'full', smallScreen: 'icon' })
     },
     showBalance: {
-        type: [ Object, Boolean ] as PropType<ResponsiveValue<boolean>>,
+        type: [Object, Boolean] as PropType<ResponsiveValue<boolean>>,
         default: () => ({ largeScreen: true, smallScreen: false })
     }
 } as const;
@@ -79,8 +79,8 @@ export const ConnectButton = defineComponent({
         const showRecentTransaction = useShowRecentTransactionContext()
         const transactions = useRecentTransactions()
         const currentChainId = useChainId()
-        const chainId = computed(()=> isConnected.value ? connectedChainId.value : currentChainId.value)
-        const { balance, symbol, decimals, shouldShowBalance } = useRainbowKitBalance(address,chainId)
+        const chainId = computed(() => isConnected.value ? connectedChainId.value : currentChainId.value)
+        const { balance, symbol, decimals, shouldShowBalance } = useRainbowKitBalance(address, chainId)
         const { mode } = useThemeContext();
 
         const applicationKey = computed(() => {
@@ -88,7 +88,7 @@ export const ConnectButton = defineComponent({
         });
         const isSelectedChainSupported = computed<boolean>((() => (chains?.value?.some((chain) => chain.id === chainId.value) ?? false)))
         const hasChainIcon = computed(() => selectedChain.value?.iconUrl !== undefined)
-        
+
         const hasPendingTransactions = computed(() => {
             if (!showRecentTransaction.value) return false
             if (!transactions) return false
@@ -107,35 +107,35 @@ export const ConnectButton = defineComponent({
 
         const computeResponsiveChainStatus = () => {
             if (typeof props.chainStatus === 'string') {
-              return props.chainStatus;
+                return props.chainStatus;
             }
-        
+
             if (props.chainStatus) {
-              return normalizeResponsiveValue(props.chainStatus)[
-                isMobile ? 'smallScreen' : 'largeScreen'
-              ];
+                return normalizeResponsiveValue(props.chainStatus)[
+                    isMobile ? 'smallScreen' : 'largeScreen'
+                ];
             }
         };
 
-        const enableChainModal = computed(()=>{ 
+        const enableChainModal = computed(() => {
             const hasMultipleChains = (chains?.value?.length ?? 0) > 1;
             const hasSelectedChain = selectedChain.value !== undefined;
             const hasInitialChain = initialChainId?.value !== undefined;
             const enableChainModalOnConnect = ignoreChainModalOnConnect?.value ?? true;
-            const alreadyConnected =  connectionStatus.value === 'connected';
+            const alreadyConnected = connectionStatus.value === 'connected';
             const isUnauthenticated = connectionStatus.value === 'unauthenticated';
             const showChainStatus = computeResponsiveChainStatus() !== 'none';
 
-            return ( 
-                (((!hasInitialChain && enableChainModalOnConnect) || alreadyConnected) || isUnauthenticated) 
+            return (
+                (((!hasInitialChain && enableChainModalOnConnect) || alreadyConnected) || isUnauthenticated)
                 && (hasMultipleChains || showChainStatus)
-                && hasSelectedChain 
-           );
+                && hasSelectedChain
+            );
         });
 
         return () => {
             if (slots.custom) {
-                return h(()=>slots.custom({
+                return h(() => slots.custom({
                     account: address.value
                         ? {
                             address: address.value,
@@ -170,17 +170,20 @@ export const ConnectButton = defineComponent({
                 }));
             }
 
-            return h(Container,{
+            return h(Container, {
                 'data-rk-vue': true,
                 key: applicationKey.value,
-            },()=>h(Container,{
+            }, () => h(Container, {
                 display: 'flex',
                 gap: '12',
-            },()=>[
-                
+            }, () => [
+
                 ///Switch network button 
                 ...enableChainModal.value ? [
-                    h(Container,{
+                    h(Container, {
+                        display: 'flex',
+                        gap: '12',
+                    }, () => h(Container, {
                         as: 'button',
                         alignItems: 'center',
                         borderRadius: 'connectButton',
@@ -191,26 +194,26 @@ export const ConnectButton = defineComponent({
                         paddingY: '8',
                         gap: '6',
                         type: 'button',
-                        color: isSelectedChainSupported.value ? 'connectButtonText': 'connectButtonTextError',
+                        color: isSelectedChainSupported.value ? 'connectButtonText' : 'connectButtonTextError',
                         background: isSelectedChainSupported.value ? 'connectButtonBackground' : 'connectButtonBackgroundError',
                         class: touchable({ active: 'shrink', hover: 'grow' }),
-                        display: mapResponsiveValue(props.chainStatus, (value)=> (value === 'none' ? 'none' : 'flex')),
+                        display: mapResponsiveValue(props.chainStatus, (value) => (value === 'none' ? 'none' : 'flex')),
                         transition: 'default',
                         onClick: openChainModal.value,
                         'aria-label': 'Chain-Selector',
-                    },()=>[
+                    }, () => [
                         ...isSelectedChainSupported.value ? [
-                            h(Container,{
+                            h(Container, {
                                 alignItems: 'center',
                                 display: 'flex',
                                 gap: '6'
-                            },()=>[
+                            }, () => [
                                 ...hasChainIcon.value && selectedChain.value ? [
-                                    h(Container,{
+                                    h(Container, {
                                         display: mapResponsiveValue(props.chainStatus, (value) => value === 'full' || value === 'icon' ? 'block' : 'none'),
                                         height: '24',
                                         width: '24'
-                                    }, ()=>h(AsyncImage,{
+                                    }, () => h(AsyncImage, {
                                         alt: selectedChain.value?.name ?? "Chain icon",
                                         background: selectedChain.value?.iconBackground,
                                         borderRadius: 'full',
@@ -219,34 +222,42 @@ export const ConnectButton = defineComponent({
                                         src: selectedChain.value?.iconUrl
                                     })),
                                 ] : [],
-    
-                                h(Container,{
-                                    display:  mapResponsiveValue(props.chainStatus, (value) => {
+
+                                h(Container, {
+                                    display: mapResponsiveValue(props.chainStatus, (value) => {
                                         if (value === 'icon' && !selectedChain?.value?.iconUrl) {
-                                          return 'block'
+                                            return 'block'
                                         }
                                         return value === 'full' || value === 'name' ? 'block' : 'none'
                                     }),
-                                },()=> selectedChain.value.name ?? selectedChain.value.id ?? '')
+                                }, () => selectedChain.value.name ?? selectedChain.value.id ?? '')
                             ])
                         ] : [
                             ...isConnected.value ? [
-                                h(Container,{
+                                h(Container, {
                                     alignItems: 'center',
                                     display: 'flex',
                                     height: '24',
                                     paddingX: '4',
-                                },()=> t('connect_wallet.wrong_network.label')),
-                            ]: []
+                                }, () => t('connect_wallet.wrong_network.label')),
+                            ] : []
                         ],
-                        
-                        h(DropdownIcon,{})
+
+                        h(DropdownIcon, {})
                     ]),
+
+                    )
                 ] : [],
 
                 ///logged in button
                 ...address.value && connectionStatus.value === 'connected'? [
-                    h(Container,{
+                    h(Container, {
+                        'data-rk-vue': true,
+                        key: applicationKey.value,
+                    }, () => h(Container, {
+                        display: 'flex',
+                        gap: '12',
+                    }, () => h(Container, {
                         as: 'button',
                         alignItems: 'center',
                         background: 'connectButtonBackground',
@@ -259,17 +270,17 @@ export const ConnectButton = defineComponent({
                         transition: 'default',
                         type: 'button',
                         class: touchable({ active: 'shrink', hover: 'grow' }),
-                        onClick: openAccountModal.value 
-                    },()=>[
+                        onClick: openAccountModal.value
+                    }, () => [
                         ...balance.value !== undefined ? [
-                            h(Container,{
+                            h(Container, {
                                 padding: '8',
                                 paddingLeft: '12',
                                 display: mapResponsiveValue(props.showBalance, (value) => (value ? 'block' : 'none')),
-                            },()=> balance.value)
+                            }, () => balance.value)
                         ] : [],
 
-                        h(Container,{
+                        h(Container, {
                             borderColor: 'connectButtonBackground',
                             borderRadius: 'connectButton',
                             borderStyle: 'solid',
@@ -283,39 +294,41 @@ export const ConnectButton = defineComponent({
                             background: normalizeResponsiveValue(props.showBalance)[isMobile ? 'smallScreen' : 'largeScreen']
                                 ? 'connectButtonInnerBackground'
                                 : 'connectButtonBackground'
-                        },()=>h(Container,{
+                        }, () => h(Container, {
                             alignItems: 'center',
                             display: 'flex',
                             gap: '6',
                             height: '24'
-                        },()=>[
-                            h(Container,{
-                                display: mapResponsiveValue(props.accountStatus, (value)=> value === 'full' || value === 'avatar' ? 'block' : 'none')
-                            },()=>h(Avatar,{
+                        }, () => [
+                            h(Container, {
+                                display: mapResponsiveValue(props.accountStatus, (value) => value === 'full' || value === 'avatar' ? 'block' : 'none')
+                            }, () => h(Avatar, {
                                 size: 24,
                                 address: address.value!,
                                 imageUrl: avatar.value,
                                 loading: hasPendingTransactions.value
                             })),
 
-                            h(Container,{
+                            h(Container, {
                                 alignItems: 'center',
                                 display: 'flex',
                                 gap: '6'
-                            },()=>[
-                                h(Container,{
-                                    display: mapResponsiveValue(props.accountStatus, (value)=> value === 'full' || value === 'avatar' ? 'block' : 'none')
-                                },()=> name.value),
+                            }, () => [
+                                h(Container, {
+                                    display: mapResponsiveValue(props.accountStatus, (value) => value === 'full' || value === 'avatar' ? 'block' : 'none')
+                                }, () => name.value),
 
-                                h(DropdownIcon,{})
+                                h(DropdownIcon, {})
                             ])
                         ]))
                     ])
+
+                    ))
                 ] : [],
-                
+
                 ///Connect button
-                ...(!address.value && connectionStatus.value === 'disconnected') ? [
-                    h(Container,{
+                ...(connectionStatus.value === 'disconnected') || (connectionStatus.value === 'unauthenticated') ? [
+                    h(Container, {
                         as: 'button',
                         type: 'button',
                         background: 'accentColor',
@@ -327,10 +340,10 @@ export const ConnectButton = defineComponent({
                         height: '40',
                         paddingX: '14',
                         class: touchable({ active: 'shrink', hover: 'grow' }),
-                        onClick: openConnectModal.value ,
-                    },()=> props.label === 'Connect Wallet' ? t('connect_wallet.label') : props.label)
+                        onClick: openConnectModal.value,
+                    }, () => props.label === 'Connect Wallet' ? t('connect_wallet.label') : props.label)
                 ] : []
-                
+
             ]));
         }
     },

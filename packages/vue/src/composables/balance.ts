@@ -40,42 +40,56 @@ export function useRainbowKitBalance(address: Ref<Address| undefined>, chainId: 
   const value = ref<BigInt>();
   const balance = ref<string>();
 
-  watch([address,chainId], async ([newAddress, _]) =>{
-    if(!newAddress) return;
-    if(context.value.currencyAddress){
-      const balances = await readContract(config,{
-        abi: erc20Abi,
-        address: context.value.currencyAddress, 
-        functionName: 'balanceOf', 
-        args: [newAddress], 
-      });
+  const readBalanceBySelectedCurrencyAddress = async(address: Address)=>{
+    if(!context.value.currencyAddress) return;
+    const balances = await readContract(config,{
+      abi: erc20Abi,
+      address: context.value.currencyAddress, 
+      functionName: 'balanceOf', 
+      args: [address], 
+    });
 
-      const decimal = await readContract(config,{
-        address: context.value.currencyAddress, 
-        abi: erc20Abi, 
-        functionName: 'decimals', 
-      });
+    const decimal = await readContract(config,{
+      address: context.value.currencyAddress, 
+      abi: erc20Abi, 
+      functionName: 'decimals', 
+    });
 
-      const symbols = await readContract(config,{ 
-        address: context.value.currencyAddress, 
-        abi: erc20Abi, 
-        functionName: 'symbol', 
-      });
+    const symbols = await readContract(config,{ 
+      address: context.value.currencyAddress, 
+      abi: erc20Abi, 
+      functionName: 'symbol', 
+    });
 
-      const formattedBalance = parseFloat(formatUnits(balances, decimal));
-      symbol.value = symbols;
-      decimals.value = decimal;
-      value.value = balances;
-      balance.value = `${abbreviateETHBalance(formattedBalance)} ${symbol.value}`;
-      return;
-    }
+    const formattedBalance = parseFloat(formatUnits(balances, decimal));
+    symbol.value = symbols;
+    decimals.value = decimal;
+    value.value = balances;
+    balance.value = `${abbreviateETHBalance(formattedBalance)} ${symbol.value}`;
+  }
 
-    const result = await getBalance(config,{ address: newAddress });
+  const readBalanceByNative = async(address: Address)=>{
+    if(context.value.currencyAddress) return;
+    const result = await getBalance(config,{ address: address });
     const formattedBalance = parseFloat(formatUnits(result.value,result.decimals));
     symbol.value = result.symbol;
     decimals.value = result.decimals;
     value.value = result.value;
     balance.value = `${abbreviateETHBalance(formattedBalance)} ${result.symbol}`;
+  }
+
+  if(address.value){
+    readBalanceBySelectedCurrencyAddress(address.value);
+    readBalanceByNative(address.value);
+  }
+
+  watch([address,chainId], async ([newAddress, _]) =>{
+    if(!newAddress) return;
+    if(context.value.currencyAddress){
+      await readBalanceBySelectedCurrencyAddress(newAddress);
+      return;
+    }
+    await readBalanceByNative(newAddress);
   })
 
   return { shouldShowBalance, balance, symbol, decimals, value, ...toRefs(reactive(context.value)) }

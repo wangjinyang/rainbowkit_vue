@@ -10,7 +10,7 @@ import type { WalletList } from "../../types/composables/wallet";
 import type { AuthenticateOption } from "../../types/composables/account";
 import type { ResponsiveValue } from "../../css"
 import { ConnectModalIntroComponentSetupFn } from "../../components/ConnectModal/ConnectModalIntro";
-import { DisclaimerComponentSetupFn } from "../components/Others/disclaimer";
+import { DisclaimerComponentSetupFn } from "../components/Common/disclaimer";
 
 export type Chains = readonly [Chain, ...Chain[]];
 export type Transports = Record<Chains[number]['id'], Transport>;

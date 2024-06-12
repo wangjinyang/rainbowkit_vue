@@ -116,19 +116,18 @@ export const ConnectModal = defineComponent({
                 identifier: titleId,
                 bottomSheetOnMobile: true,
                 padding: '0',
-                wide: true
             },()=>h(SignIn,{
                 onClosed: onAuthCancel,
-                onClosedModal: props.onClosed
+                onClosedModal: props.onClosed,
             },{
-                default: (props: { 
+                default: slots.authenticate ? (props: { 
                     signIn: () => Promise<void>; 
                     verify: (message: any, signature: `0x${string}` | undefined) => Promise<void>; 
                     signMessage: (message: any) => Promise<`0x${string}` | undefined>; 
                     getNonce: () => Promise<void>; 
                     signInInfo: SignInRefType; address: `0x${string}` | undefined; 
                     chain: Chain | undefined; 
-                }) => slots.authenticate ? slots.authenticate(props) : undefined
+                }) => slots.authenticate(props) : undefined
             }))
         }
     },
