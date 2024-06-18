@@ -119,15 +119,15 @@ export function configureRainbowKitChainContext(){
   }
   Object.assign(context,{ 
     initialChainId: initialChainId?.value, 
-    rainbowKitChains: rainbowKitChains ?? chains?.value 
+    rainbowKitChains: chains?.value ?? rainbowKitChains 
   });
 }
 
 export function createRainbowKitChainContext(
   option: RainbowKitPluginOptions):Context<RainbowKitChainContext>{
   const chains: Array<RainbowKitChain> = option.chains.map((chain)=>{
-    const selectedMetadata = metadata[chain.id];
-    return { selectedMetadata, ...chain } as RainbowKitChain
+    const selectedMetadata = metadata[chain.id] ?? { iconBackground: undefined, iconUrl: undefined };
+    return { ...selectedMetadata, ...chain } as RainbowKitChain
   });
  
   const context = ref<RainbowKitChainContext>({ 
