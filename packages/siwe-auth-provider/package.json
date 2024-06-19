@@ -22,7 +22,7 @@
     }
   },
   "peerDependencies": {
-    "use-rainbowkit-vue": "file:../../packages/vue",
+    "use-rainbowkit-vue": "../../packages/vue",
     "typescript": ">=5.0.4",
     "vue": ">=3",
     "vue-auth3": ">=1.0.10",
