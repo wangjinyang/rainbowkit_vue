@@ -62,8 +62,7 @@ export const ChainModal = defineComponent({
         const isCurrentChainSupported = computed(() => chains.some((chain) => chain.id === chainId.value))
         const chainIconSize = computed(() => (isMobile ? '36' : '28'))
         const { rainbowKitChains: rkChains } = useRainbowKitChainContext()
-        console.log("Calling chains:",rkChains?.value)
-
+      
         return () => {
             
             return h(Dialog, {

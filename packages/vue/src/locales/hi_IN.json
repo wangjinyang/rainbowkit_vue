@@ -54,17 +54,17 @@
     },
     "recent": "हाल ही में",
     "status": {
-      "opening": "%{wallet}खोल रहा है...",
+      "opening": "{wallet}खोल रहा है...",
       "connecting": "जोड़ रहा है",
-      "connect_mobile": "जारी रखें %{wallet}",
-      "not_installed": "%{wallet} स्थापित नहीं है",
-      "not_available": "%{wallet} उपलब्ध नहीं है",
+      "connect_mobile": "जारी रखें {wallet}",
+      "not_installed": "{wallet} स्थापित नहीं है",
+      "not_available": "{wallet} उपलब्ध नहीं है",
       "confirm": "एक्सटेंशन में कनेक्शन की पुष्टि करें",
       "confirm_mobile": "वॉलेट में कनेक्शन अनुरोध स्वीकार करें"
     },
     "secondary_action": {
       "get": {
-        "description": "क्या आपके पास %{wallet}नहीं है ?",
+        "description": "क्या आपके पास {wallet}नहीं है ?",
         "label": "प्राप्त करें"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "स्कैन करें विथ %{wallet}",
+    "title": "स्कैन करें विथ {wallet}",
     "fallback_title": "अपने फोन से स्कैन करें"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "%{wallet}के साथ शुरू करें",
-    "short_title": "%{wallet}प्राप्त करें",
+    "title": "{wallet}के साथ शुरू करें",
+    "short_title": "{wallet}प्राप्त करें",
     "mobile": {
-      "title": "मोबाइल के लिए %{wallet}",
+      "title": "मोबाइल के लिए {wallet}",
       "description": "मोबाइल वॉलेट का उपयोग करके Ethereum की दुनिया का अन्वेषण करें।",
       "download": {
         "label": "ऐप प्राप्त करें"
       }
     },
     "extension": {
-      "title": "%{wallet} के लिए %{browser}",
+      "title": "{wallet} के लिए {browser}",
       "description": "अपने पसंदीदा वेब ब्राउज़र से अपने वॉलेट तक पहुंचें।",
       "download": {
-        "label": "करें जोड़ें %{browser}"
+        "label": "करें जोड़ें {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} के लिए %{platform}",
+      "title": "{wallet} के लिए {platform}",
       "description": "अपने शक्तिशाली डेस्कटॉप से आपके वॉलेट की स्वतंत्रता द्वारा पहुंच।",
       "download": {
-        "label": "को जोड़ें %{platform}"
+        "label": "को जोड़ें {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "स्थापित करें %{wallet}",
+    "title": "स्थापित करें {wallet}",
     "description": "iOS या Android पर डाउनलोड करने के लिए अपने फोन से स्कैन करें",
     "continue": {
       "label": "जारी रखें"
@@ -186,7 +186,7 @@
     "title": "नेटवर्क स्विच करें",
     "wrong_network": "गलत नेटवर्क का पता चला, जारी रखने के लिए स्विच करें या कनेक्ट करें।",
     "confirm": "वॉलेट में पुष्टि करें",
-    "switching_not_supported": "आपका वॉलेट नेटवर्क्स को %{appName}से स्विच करना समर्थन नहीं करता . बजाय अपने वॉलेट के भीतर से नेटवर्क स्विच करने का प्रयास करें।",
+    "switching_not_supported": "आपका वॉलेट नेटवर्क्स को {appName}से स्विच करना समर्थन नहीं करता . बजाय अपने वॉलेट के भीतर से नेटवर्क स्विच करने का प्रयास करें।",
     "switching_not_supported_fallback": "आपका वॉलेट इस एप से नेटवर्क्स स्विच करने का समर्थन नहीं करता। बजाय उसके, अपना वॉलेट द्वारा नेटवर्क्स स्विच करने की कोशिश करें।",
     "disconnect": "डिकनेक्ट",
     "connected": "कनेक्ट किया गया"
@@ -203,7 +203,7 @@
       "label": "एक्सप्लोरर पर अधिक देखें"
     },
     "transactions": {
-      "description": "%{appName} लेन - देन यहां दिखाई देंगे...",
+      "description": "{appName} लेन - देन यहां दिखाई देंगे...",
       "description_fallback": "आपके लेन-देन यहां दिखाई देंगे...",
       "recent": {
         "title": "हाल के लेन - देन"

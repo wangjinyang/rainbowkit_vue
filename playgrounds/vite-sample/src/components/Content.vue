@@ -17,7 +17,6 @@ const { changeLocale,t } = useLocale();
 const { changeTheme } = useThemeContext();
 //const { t } = useI18n();
 
-console.log("Additional Text:", t('wallet.module'));
 const {
     data: transactionData,
     error: transactionError,
@@ -120,7 +119,7 @@ const {
           <td>
             <div :style="{ display: 'flex' }">
             <button
-              @click="()=>changeLocale('en')"
+              @click="()=>changeLocale('id')"
               :style="{
                 backgroundColor: 'blue',
                 color: 'white',

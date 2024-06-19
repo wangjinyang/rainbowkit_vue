@@ -54,17 +54,17 @@
     },
     "recent": "Reciente",
     "status": {
-      "opening": "Abriendo %{wallet}...",
+      "opening": "Abriendo {wallet}...",
       "connecting": "Conectando",
-      "connect_mobile": "Continuar en %{wallet}",
-      "not_installed": "%{wallet} no está instalado",
-      "not_available": "%{wallet} no está disponible",
+      "connect_mobile": "Continuar en {wallet}",
+      "not_installed": "{wallet} no está instalado",
+      "not_available": "{wallet} no está disponible",
       "confirm": "Confirma la conexión en la extensión",
       "confirm_mobile": "Aceptar la solicitud de conexión en la cartera"
     },
     "secondary_action": {
       "get": {
-        "description": "¿No tienes %{wallet}?",
+        "description": "¿No tienes {wallet}?",
         "label": "OBTENER"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "Escanea con %{wallet}",
+    "title": "Escanea con {wallet}",
     "fallback_title": "Escanea con tu teléfono"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "Comienza con %{wallet}",
-    "short_title": "Obtener %{wallet}",
+    "title": "Comienza con {wallet}",
+    "short_title": "Obtener {wallet}",
     "mobile": {
-      "title": "%{wallet} para móvil",
+      "title": "{wallet} para móvil",
       "description": "Use la billetera móvil para explorar el mundo de Ethereum.",
       "download": {
         "label": "Obtener la aplicación"
       }
     },
     "extension": {
-      "title": "%{wallet} para %{browser}",
+      "title": "{wallet} para {browser}",
       "description": "Acceda a su billetera directamente desde su navegador web favorito.",
       "download": {
-        "label": "Añadir a %{browser}"
+        "label": "Añadir a {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} para %{platform}",
+      "title": "{wallet} para {platform}",
       "description": "Acceda a su billetera de forma nativa desde su potente escritorio.",
       "download": {
-        "label": "Añadir a %{platform}"
+        "label": "Añadir a {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "Instalar %{wallet}",
+    "title": "Instalar {wallet}",
     "description": "Escanee con su teléfono para descargar en iOS o Android",
     "continue": {
       "label": "Continuar"
@@ -186,7 +186,7 @@
     "title": "Cambiar redes",
     "wrong_network": "Se detectó la red incorrecta, cambia o desconéctate para continuar.",
     "confirm": "Confirmar en la cartera",
-    "switching_not_supported": "Tu cartera no admite cambiar las redes desde %{appName}. Intenta cambiar las redes desde tu cartera.",
+    "switching_not_supported": "Tu cartera no admite cambiar las redes desde {appName}. Intenta cambiar las redes desde tu cartera.",
     "switching_not_supported_fallback": "Su billetera no admite el cambio de redes desde esta aplicación. Intente cambiar de red desde dentro de su billetera en su lugar.",
     "disconnect": "Desconectar",
     "connected": "Conectado"
@@ -203,7 +203,7 @@
       "label": "Ver más en el explorador"
     },
     "transactions": {
-      "description": "%{appName} transacciones aparecerán aquí...",
+      "description": "{appName} transacciones aparecerán aquí...",
       "description_fallback": "Tus transacciones aparecerán aquí...",
       "recent": {
         "title": "Transacciones recientes"

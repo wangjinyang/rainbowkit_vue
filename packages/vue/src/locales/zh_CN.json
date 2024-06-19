@@ -54,17 +54,17 @@
     },
     "recent": "近期",
     "status": {
-      "opening": "正在打开 %{wallet}...",
+      "opening": "正在打开 {wallet}...",
       "connecting": "正在连接",
-      "connect_mobile": "在 %{wallet}中继续",
-      "not_installed": "%{wallet} 尚未安装",
-      "not_available": "%{wallet} 不可用",
+      "connect_mobile": "在 {wallet}中继续",
+      "not_installed": "{wallet} 尚未安装",
+      "not_available": "{wallet} 不可用",
       "confirm": "在扩展中确认连接",
       "confirm_mobile": "在钱包中接受连接请求"
     },
     "secondary_action": {
       "get": {
-        "description": "没有 %{wallet}吗？",
+        "description": "没有 {wallet}吗？",
         "label": "获取"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "使用 %{wallet}扫描",
+    "title": "使用 {wallet}扫描",
     "fallback_title": "使用您的手机扫描"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "开始使用 %{wallet}",
-    "short_title": "获取 %{wallet}",
+    "title": "开始使用 {wallet}",
+    "short_title": "获取 {wallet}",
     "mobile": {
-      "title": "%{wallet} 用于移动",
+      "title": "{wallet} 用于移动",
       "description": "使用移动钱包探索以太坊的世界。",
       "download": {
         "label": "获取应用"
       }
     },
     "extension": {
-      "title": "%{wallet} 为 %{browser}",
+      "title": "{wallet} 为 {browser}",
       "description": "从您最喜欢的网络浏览器直接访问您的钱包。",
       "download": {
-        "label": "添加到 %{browser}"
+        "label": "添加到 {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} 对于 %{platform}",
+      "title": "{wallet} 对于 {platform}",
       "description": "从您强大的桌面原生访问您的钱包。",
       "download": {
-        "label": "添加到 %{platform}"
+        "label": "添加到 {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "安装 %{wallet}",
+    "title": "安装 {wallet}",
     "description": "用手机扫描下载 iOS 或 Android",
     "continue": {
       "label": "继续"
@@ -186,7 +186,7 @@
     "title": "切换网络",
     "wrong_network": "检测到错误的网络，请切换或断开连接以继续。",
     "confirm": "在钱包中确认",
-    "switching_not_supported": "您的钱包不支持从 %{appName}切换网络。请尝试从您的钱包内部切换网络。",
+    "switching_not_supported": "您的钱包不支持从 {appName}切换网络。请尝试从您的钱包内部切换网络。",
     "switching_not_supported_fallback": "您的钱包不支持从此应用切换网络。尝试从您的钱包内切换网络。",
     "disconnect": "断开连接",
     "connected": "已连接"
@@ -203,7 +203,7 @@
       "label": "在浏览器上查看更多"
     },
     "transactions": {
-      "description": "%{appName} 交易将会出现在这里...",
+      "description": "{appName} 交易将会出现在这里...",
       "description_fallback": "您的交易将会出现在这里...",
       "recent": {
         "title": "最近交易"

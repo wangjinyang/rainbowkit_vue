@@ -107,7 +107,8 @@ export function createRainbowKitDefaultLocaleAdapter(): LocaleAdapter {
             keys.map((key) => {
 
                 const value = newPlaceHolder[key];
-                const formattedKey = `%{${key}}`;
+                const formattedKey = `{${key}}`;
+                
 
                 if (isObject(value) || isArray(value)) return; /// currently no support for object and array
                 if (isBoolean(value)) {

@@ -45,9 +45,7 @@ export const ProfileDetail = defineComponent({
         const { balance, symbol, value:values } = useRainbowKitBalance(address,chainId);
     
         const { t } = useLocale();
-        console.log("Balance:",balance.value);
-        console.log("Symbol:",symbol.value);
-        console.log("Symbol:",address.value);
+      
 
         /*watch([values, decimals, symbol], ([newValues, newDecimals, newSymbol]) => {
             if (!newValues || !newValues || !newDecimals || !newSymbol) return;

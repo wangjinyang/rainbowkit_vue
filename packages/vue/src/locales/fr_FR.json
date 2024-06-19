@@ -54,17 +54,17 @@
     },
     "recent": "Récents",
     "status": {
-      "opening": "Ouverture %{wallet}...",
+      "opening": "Ouverture {wallet}...",
       "connecting": "Connect :)ing",
-      "connect_mobile": "Continuer dans %{wallet}",
-      "not_installed": "%{wallet} n'est pas installé",
-      "not_available": "%{wallet} n'est pas disponible",
+      "connect_mobile": "Continuer dans {wallet}",
+      "not_installed": "{wallet} n'est pas installé",
+      "not_available": "{wallet} n'est pas disponible",
       "confirm": "Confirmez la connexion dans l'extension",
       "confirm_mobile": "Accepter la demande de connexion dans le portefeuille"
     },
     "secondary_action": {
       "get": {
-        "description": "Vous n'avez pas de %{wallet}?",
+        "description": "Vous n'avez pas de {wallet}?",
         "label": "OBTENIR"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "Scannez avec %{wallet}",
+    "title": "Scannez avec {wallet}",
     "fallback_title": "Scannez avec votre téléphone"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "Commencez avec %{wallet}",
-    "short_title": "Obtenez %{wallet}",
+    "title": "Commencez avec {wallet}",
+    "short_title": "Obtenez {wallet}",
     "mobile": {
-      "title": "%{wallet} pour mobile",
+      "title": "{wallet} pour mobile",
       "description": "Utilisez le portefeuille mobile pour explorer le monde d'Ethereum.",
       "download": {
         "label": "Obtenez l'application"
       }
     },
     "extension": {
-      "title": "%{wallet} pour %{browser}",
+      "title": "{wallet} pour {browser}",
       "description": "Accédez à votre portefeuille directement depuis votre navigateur web préféré.",
       "download": {
-        "label": "Ajouter à %{browser}"
+        "label": "Ajouter à {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} pour %{platform}",
+      "title": "{wallet} pour {platform}",
       "description": "Accédez à votre portefeuille nativement depuis votre puissant ordinateur de bureau.",
       "download": {
-        "label": "Ajouter à %{platform}"
+        "label": "Ajouter à {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "Installer %{wallet}",
+    "title": "Installer {wallet}",
     "description": "Scannez avec votre téléphone pour télécharger sur iOS ou Android",
     "continue": {
       "label": "Continuer"
@@ -186,7 +186,7 @@
     "title": "Changer de Réseaux",
     "wrong_network": "Mauvais réseau détecté, changez ou déconnectez-vous pour continuer.",
     "confirm": "Confirmer dans le portefeuille",
-    "switching_not_supported": "Votre portefeuille ne supporte pas le changement de réseaux depuis %{appName}. Essayez de changer de réseau depuis votre portefeuille.",
+    "switching_not_supported": "Votre portefeuille ne supporte pas le changement de réseaux depuis {appName}. Essayez de changer de réseau depuis votre portefeuille.",
     "switching_not_supported_fallback": "Votre portefeuille ne prend pas en charge le changement de réseaux à partir de cette application. Essayez de changer de réseau à partir de votre portefeuille à la place.",
     "disconnect": "Déconnecter",
     "connected": "Connecté"
@@ -203,7 +203,7 @@
       "label": "Voir plus sur l'explorateur"
     },
     "transactions": {
-      "description": "%{appName} transactions apparaîtront ici...",
+      "description": "{appName} transactions apparaîtront ici...",
       "description_fallback": "Vos transactions apparaîtront ici...",
       "recent": {
         "title": "Transactions Récentes"

@@ -54,17 +54,17 @@
     },
     "recent": "최근",
     "status": {
-      "opening": "%{wallet}열기 ...",
+      "opening": "{wallet}열기 ...",
       "connecting": "연결 중",
-      "connect_mobile": "%{wallet}에서 계속 진행",
-      "not_installed": "%{wallet} 가 설치되어 있지 않습니다",
-      "not_available": "%{wallet} 를 사용할 수 없습니다",
+      "connect_mobile": "{wallet}에서 계속 진행",
+      "not_installed": "{wallet} 가 설치되어 있지 않습니다",
+      "not_available": "{wallet} 를 사용할 수 없습니다",
       "confirm": "확장 프로그램에서 연결을 확인하세요",
       "confirm_mobile": "지갑에서 연결 요청을 수락하십시오"
     },
     "secondary_action": {
       "get": {
-        "description": "%{wallet}가 없나요?",
+        "description": "{wallet}가 없나요?",
         "label": "GET"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "%{wallet}로 스캔하기",
+    "title": "{wallet}로 스캔하기",
     "fallback_title": "휴대폰으로 스캔하기"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "%{wallet}로 시작하세요",
-    "short_title": "%{wallet}얻기",
+    "title": "{wallet}로 시작하세요",
+    "short_title": "{wallet}얻기",
     "mobile": {
-      "title": "모바일용 %{wallet}",
+      "title": "모바일용 {wallet}",
       "description": "모바일 지갑으로 이더리움 세계를 탐험하세요.",
       "download": {
         "label": "앱 받기"
       }
     },
     "extension": {
-      "title": "%{browser}용 %{wallet}",
+      "title": "{browser}용 {wallet}",
       "description": "가장 좋아하는 웹 브라우저에서 바로 지갑에 접근하세요.",
       "download": {
-        "label": "추가하기 %{browser}"
+        "label": "추가하기 {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} 용 %{platform}",
+      "title": "{wallet} 용 {platform}",
       "description": "강력한 데스크톱에서 네이티브로 지갑에 접근하세요.",
       "download": {
-        "label": "%{platform}에 추가"
+        "label": "{platform}에 추가"
       }
     }
   },
   "get_mobile": {
-    "title": "설치하기 %{wallet}",
+    "title": "설치하기 {wallet}",
     "description": "iOS 또는 Android에서 다운로드하기 위해 휴대폰으로 스캔하세요",
     "continue": {
       "label": "계속"
@@ -186,7 +186,7 @@
     "title": "네트워크 전환",
     "wrong_network": "잘못된 네트워크를 탐지했습니다, 계속하려면 전환하거나 연결을 해제하세요.",
     "confirm": "지갑에서 승인",
-    "switching_not_supported": "지갑에서 %{appName}네트워크를 전환하는 것은 지원되지 않습니다. 대신 지갑 내에서 네트워크를 전환해 보세요.",
+    "switching_not_supported": "지갑에서 {appName}네트워크를 전환하는 것은 지원되지 않습니다. 대신 지갑 내에서 네트워크를 전환해 보세요.",
     "switching_not_supported_fallback": "당신의 지갑은 이 앱에서 네트워크를 바꾸는 것을 지원하지 않습니다. 대신 지갑 내에서 네트워크를 변경해 보세요.",
     "disconnect": "연결 해제",
     "connected": "연결됨"
@@ -203,7 +203,7 @@
       "label": "탐색기에서 더 보기"
     },
     "transactions": {
-      "description": "%{appName} 거래가 여기에 나타납니다...",
+      "description": "{appName} 거래가 여기에 나타납니다...",
       "description_fallback": "여기에 트랜잭션이 표시됩니다...",
       "recent": {
         "title": "최근 거래 내역"
