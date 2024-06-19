@@ -15,13 +15,14 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
     
     function create(
         app: App,
-        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:AdditionalLocaleMessages, i18n?: I18n<any,any,any,any,true> }
+        options?: { currentLocale?: Locale; fallbackLocale?: Locale, messages?:AdditionalLocaleMessages, i18n?: I18n<any,any,any,any,false> }
     ): LocaleAdapterInstance {
 
         const defaultMessages = fetchAllTranslations();
         const i18n = options?.i18n;
-        if(i18n){            
-            Object.keys(i18n.global.messages).forEach((locale)=>{
+        if(i18n){   
+           
+            Object.keys(i18n.global.messages.value).forEach((locale)=>{
                 const currentMessages = defaultMessages[locale as Locale];
                 if(currentMessages){
                     ///Merge the default messages first 
@@ -36,13 +37,35 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
                 }
             });
 
+            if(!i18n.global.messages.value){
+                i18n.global.mergeLocaleMessage(i18n.global.locale.value,defaultMessages[i18n.global.locale.value as Locale]);
+            }         
+
+            if(typeof i18n.global.fallbackLocale.value === 'string'){
+                i18n.global.mergeLocaleMessage(i18n.global.fallbackLocale.value,defaultMessages[i18n.global.fallbackLocale.value as Locale]);
+            }else if(Array.isArray(i18n.global.fallbackLocale.value)){
+                for(const locale of i18n.global.fallbackLocale.value){
+                    console.log(locale);
+                    i18n.global.mergeLocaleMessage(locale,defaultMessages[locale as Locale]);
+                }
+            }
+
             return {
                 name: "vue-i18n",
                 currentLocale: i18n.global.locale.value,
                 fallbackLocale: i18n.global.fallbackLocale.value,
                 messages: i18n.global.messages.value,
-                // @ts-expect-error Type instantiation is excessively deep and possibly infinite
-                t: (_fallbackLocale: string, _currentLocale: string, _messages: LocaleMessages, key: string, ...params: Record<string, any>[]) => i18n.global.t(key, params),
+                t: (_fallbackLocale: string, _currentLocale: string, _messages: LocaleMessages, key: string, ...params: Record<string, any>[])=>{
+                    if(params.length > 0){
+                        const mergeParams = params.reduce((param,currentParam)=>{
+                            return { ...param, currentParam }
+                        })[0];
+                        console.log(mergeParams);
+                        // @ts-expect-error Type instantiation is excessively deep and possibly infinite
+                        return i18n.global.t(key,mergeParams);
+                    }
+                    return i18n.global.t(key);
+                },
                 n: (_fallbackLocale: string, _currentLocale: string, value: number, ..._params: Record<string, any>[]) => i18n.global.n(value),
                 changeLocale: (
                     adapter: Ref<LocaleAdapterInstance>,
@@ -79,13 +102,32 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
             });
         }
 
+        if(!newI18n.global.messages.value){
+            newI18n.global.mergeLocaleMessage(newI18n.global.locale.value,defaultMessages[newI18n.global.locale.value as Locale]);
+        }         
+        
+        if(typeof newI18n.global.fallbackLocale.value === 'string'){
+            newI18n.global.mergeLocaleMessage(newI18n.global.fallbackLocale.value,defaultMessages[newI18n.global.fallbackLocale.value as Locale]);
+        }else if(Array.isArray(newI18n.global.fallbackLocale.value)){
+            for(const locale of newI18n.global.fallbackLocale.value){
+                newI18n.global.mergeLocaleMessage(locale,defaultMessages[locale as Locale]);
+            }
+        }
+
         return {
             name: "vue-i18n",
             currentLocale,
             fallbackLocale,
             messages: newI18n.global.messages.value,
-            //// @ts-expect-error Type instantiation is excessively deep and possibly infinite
-            t: (_fallbackLocale: string, _currentLocale: string, _messages: LocaleMessages, key: string, ...params: Record<string, any>[]) => newI18n.global.t(key, params),
+            t: (_fallbackLocale: string, _currentLocale: string, _messages: LocaleMessages, key: string, ...params: Record<string, any>[]) =>{
+                if(params.length > 0){
+                    const mergeParams = params.reduce((param,currentParam)=>{
+                        return { ...param, currentParam }
+                    })[0];
+                    return newI18n.global.t(key,mergeParams);
+                }
+                return newI18n.global.t(key);
+            },
             n: (_fallbackLocale: string, _currentLocale: string, value: number, ..._params: Record<string, any>[]) => newI18n.global.n(value),
             changeLocale: (adapter: Ref<LocaleAdapterInstance>, newLocale: Locale) => {
                 newI18n.global.locale.value = newLocale;

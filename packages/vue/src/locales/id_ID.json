@@ -54,17 +54,17 @@
     },
     "recent": "Terkini",
     "status": {
-      "opening": "Membuka %{wallet}...",
+      "opening": "Membuka {wallet}...",
       "connecting": "Menghubungkan",
-      "connect_mobile": "Lanjutkan di %{wallet}",
-      "not_installed": "%{wallet} tidak terpasang",
-      "not_available": "%{wallet} tidak tersedia",
+      "connect_mobile": "Lanjutkan di {wallet}",
+      "not_installed": "{wallet} tidak terpasang",
+      "not_available": "{wallet} tidak tersedia",
       "confirm": "Konfirmasikan koneksi di ekstensi",
       "confirm_mobile": "Terima permintaan koneksi di dompet"
     },
     "secondary_action": {
       "get": {
-        "description": "Tidak memiliki %{wallet}?",
+        "description": "Tidak memiliki {wallet}?",
         "label": "DAPATKAN"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "Pindai dengan %{wallet}",
+    "title": "Pindai dengan {wallet}",
     "fallback_title": "Pindai dengan ponsel Anda"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "Mulai dengan %{wallet}",
-    "short_title": "Dapatkan %{wallet}",
+    "title": "Mulai dengan {wallet}",
+    "short_title": "Dapatkan {wallet}",
     "mobile": {
-      "title": "%{wallet} untuk Mobile",
+      "title": "{wallet} untuk Mobile",
       "description": "Gunakan dompet mobile untuk menjelajahi dunia Ethereum.",
       "download": {
         "label": "Dapatkan aplikasinya"
       }
     },
     "extension": {
-      "title": "%{wallet} untuk %{browser}",
+      "title": "{wallet} untuk {browser}",
       "description": "Akses dompet Anda langsung dari browser web favorit Anda.",
       "download": {
-        "label": "Tambahkan ke %{browser}"
+        "label": "Tambahkan ke {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} untuk %{platform}",
+      "title": "{wallet} untuk {platform}",
       "description": "Akses dompet Anda secara native dari desktop yang kuat Anda.",
       "download": {
-        "label": "Tambahkan ke %{platform}"
+        "label": "Tambahkan ke {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "Instal %{wallet}",
+    "title": "Instal {wallet}",
     "description": "Pindai dengan ponsel Anda untuk mengunduh di iOS atau Android",
     "continue": {
       "label": "Lanjutkan"
@@ -186,7 +186,7 @@
     "title": "Alihkan Jaringan",
     "wrong_network": "Jaringan yang salah terdeteksi, alihkan atau diskonek untuk melanjutkan.",
     "confirm": "Konfirmasi di Dompet",
-    "switching_not_supported": "Dompet Anda tidak mendukung pengalihan jaringan dari %{appName}. Coba alihkan jaringan dari dalam dompet Anda.",
+    "switching_not_supported": "Dompet Anda tidak mendukung pengalihan jaringan dari {appName}. Coba alihkan jaringan dari dalam dompet Anda.",
     "switching_not_supported_fallback": "Wallet Anda tidak mendukung penggantian jaringan dari aplikasi ini. Cobalah ganti jaringan dari dalam wallet Anda.",
     "disconnect": "Putuskan koneksi",
     "connected": "Terkoneksi"
@@ -203,7 +203,7 @@
       "label": "Lihat lebih banyak di penjelajah"
     },
     "transactions": {
-      "description": "%{appName} transaksi akan muncul di sini...",
+      "description": "{appName} transaksi akan muncul di sini...",
       "description_fallback": "Transaksi Anda akan muncul di sini...",
       "recent": {
         "title": "Transaksi Terbaru"

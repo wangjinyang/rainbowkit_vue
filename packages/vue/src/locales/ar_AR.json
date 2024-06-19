@@ -54,17 +54,17 @@
     },
     "recent": "الأخير",
     "status": {
-      "opening": "جار فتح %{wallet}...",
+      "opening": "جار فتح {wallet}...",
       "connecting": "جارٍ الاتصال",
-      "connect_mobile": "استمر في %{wallet}",
-      "not_installed": "%{wallet} غير مثبت",
-      "not_available": "%{wallet} غير متاح",
+      "connect_mobile": "استمر في {wallet}",
+      "not_installed": "{wallet} غير مثبت",
+      "not_available": "{wallet} غير متاح",
       "confirm": "تأكيد الاتصال في الامتداد",
       "confirm_mobile": "قبل طلب الاتصال في المحفظة"
     },
     "secondary_action": {
       "get": {
-        "description": "لا يوجد لديك %{wallet}؟",
+        "description": "لا يوجد لديك {wallet}؟",
         "label": "احصل"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "المسح باستخدام %{wallet}",
+    "title": "المسح باستخدام {wallet}",
     "fallback_title": "المسح باستخدام هاتفك"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "ابدأ مع %{wallet}",
-    "short_title": "احصل على %{wallet}",
+    "title": "ابدأ مع {wallet}",
+    "short_title": "احصل على {wallet}",
     "mobile": {
-      "title": "%{wallet} للجوال",
+      "title": "{wallet} للجوال",
       "description": "استخدم محفظة الموبايل لاستكشاف عالم Ethereum.",
       "download": {
         "label": "احصل على التطبيق"
       }
     },
     "extension": {
-      "title": "%{wallet} لـ %{browser}",
+      "title": "{wallet} لـ {browser}",
       "description": "وصول لمحفظتك مباشرة من متصفح الويب المفضل لديك.",
       "download": {
-        "label": "أضف إلى %{browser}"
+        "label": "أضف إلى {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} لـ %{platform}",
+      "title": "{wallet} لـ {platform}",
       "description": "قم بالوصول إلى محفظتك بشكل أصلي من كمبيوترك القوي.",
       "download": {
-        "label": "أضف إلى %{platform}"
+        "label": "أضف إلى {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "قم بالتثبيت %{wallet}",
+    "title": "قم بالتثبيت {wallet}",
     "description": "استخدم هاتفك للتحميل على iOS أو Android",
     "continue": {
       "label": "استمر"
@@ -186,7 +186,7 @@
     "title": "تبديل الشبكات",
     "wrong_network": "تم اكتشاف شبكة غير صحيحة، قم بالتبديل أو القطع للمتابعة.",
     "confirm": "التأكيد في المحفظة",
-    "switching_not_supported": "محفظتك لا تدعم التبديل بين الشبكات من %{appName}. جرب التبديل بين الشبكات من داخل المحفظة بدلاً من ذلك.",
+    "switching_not_supported": "محفظتك لا تدعم التبديل بين الشبكات من {appName}. جرب التبديل بين الشبكات من داخل المحفظة بدلاً من ذلك.",
     "switching_not_supported_fallback": "محفظتك لا تدعم تبديل الشبكات من هذا التطبيق. حاول تبديل الشبكات من داخل المحفظة بدلاً من ذلك.",
     "disconnect": "قطع الاتصال",
     "connected": "متصل"
@@ -203,7 +203,7 @@
       "label": "عرض المزيد على المستكشف"
     },
     "transactions": {
-      "description": "%{appName} ستظهر المعاملات هنا...",
+      "description": "{appName} ستظهر المعاملات هنا...",
       "description_fallback": "سوف تظهر معاملاتك هنا...",
       "recent": {
         "title": "المعاملات الأخيرة"

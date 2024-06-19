@@ -54,17 +54,17 @@
     },
     "recent": "ล่าสุด",
     "status": {
-      "opening": "กำลังเปิด %{wallet}...",
+      "opening": "กำลังเปิด {wallet}...",
       "connecting": "กำลังเชื่อมต่อ",
-      "connect_mobile": "ดำเนินการต่อใน %{wallet}",
-      "not_installed": "%{wallet} ไม่ได้ติดตั้ง",
-      "not_available": "%{wallet} ไม่สามารถใช้ได้",
+      "connect_mobile": "ดำเนินการต่อใน {wallet}",
+      "not_installed": "{wallet} ไม่ได้ติดตั้ง",
+      "not_available": "{wallet} ไม่สามารถใช้ได้",
       "confirm": "ยืนยันการเชื่อมต่อในส่วนขยาย",
       "confirm_mobile": "ยอมรับคำขอเชื่อมต่อในกระเป๋าเงิน"
     },
     "secondary_action": {
       "get": {
-        "description": "ไม่มี %{wallet}?",
+        "description": "ไม่มี {wallet}?",
         "label": "รับ"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "สแกนด้วย %{wallet}",
+    "title": "สแกนด้วย {wallet}",
     "fallback_title": "สแกนด้วยโทรศัพท์ของคุณ"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "เริ่มต้นกับ %{wallet}",
-    "short_title": "รับ %{wallet}",
+    "title": "เริ่มต้นกับ {wallet}",
+    "short_title": "รับ {wallet}",
     "mobile": {
-      "title": "%{wallet} สำหรับมือถือ",
+      "title": "{wallet} สำหรับมือถือ",
       "description": "ใช้กระเป๋าระบบมือถือในการสำรวจโลกของ Ethereum.",
       "download": {
         "label": "รับแอป"
       }
     },
     "extension": {
-      "title": "%{wallet} สำหรับ %{browser}",
+      "title": "{wallet} สำหรับ {browser}",
       "description": "เข้าถึงกระเป๋าเงินของคุณได้โดยตรงจากบราวเซอร์ที่คุณชื่นชอบ.",
       "download": {
-        "label": "เพิ่มไปยัง %{browser}"
+        "label": "เพิ่มไปยัง {browser}"
       }
     },
     "desktop": {
-      "title": "%{wallet} สำหรับ %{platform}",
+      "title": "{wallet} สำหรับ {platform}",
       "description": "เข้าถึงกระเป๋าเงินของคุณโดยตรงจากคอมพิวเตอร์ที่มีประสิทธิภาพของคุณ",
       "download": {
-        "label": "เพิ่มไปยัง %{platform}"
+        "label": "เพิ่มไปยัง {platform}"
       }
     }
   },
   "get_mobile": {
-    "title": "ติดตั้ง %{wallet}",
+    "title": "ติดตั้ง {wallet}",
     "description": "สแกนด้วยโทรศัพท์ของคุณเพื่อดาวน์โหลดบน iOS หรือ Android",
     "continue": {
       "label": "ดำเนินการต่อ"
@@ -186,7 +186,7 @@
     "title": "เปลี่ยนเครือข่าย",
     "wrong_network": "ตรวจสอบพบเครือข่ายที่ไม่ถูกต้อง สลับหรือตัดการเชื่อมต่อเพื่อดำเนินการต่อ.",
     "confirm": "ยืนยันใน Wallet",
-    "switching_not_supported": "กระเป๋าสตางค์ของคุณไม่สนับสนุนการเปลี่ยนเครือข่ายจาก %{appName}ลองเปลี่ยนเครือข่ายจากภายในกระเป๋าสตางค์ของคุณแทน",
+    "switching_not_supported": "กระเป๋าสตางค์ของคุณไม่สนับสนุนการเปลี่ยนเครือข่ายจาก {appName}ลองเปลี่ยนเครือข่ายจากภายในกระเป๋าสตางค์ของคุณแทน",
     "switching_not_supported_fallback": "กระเป๋าสตางค์ของคุณไม่สนับสนุนการสลับเครือข่ายจากแอปนี้ ลองสลับเครือข่ายจากภายในกระเป๋าสตางค์ของคุณแทน",
     "disconnect": "ตัดการเชื่อมต่อ",
     "connected": "เชื่อมต่อแล้ว"
@@ -203,7 +203,7 @@
       "label": "ดูเพิ่มเติมบน explorer"
     },
     "transactions": {
-      "description": "%{appName} รายการจะปรากฎที่นี่...",
+      "description": "{appName} รายการจะปรากฎที่นี่...",
       "description_fallback": "การทำธุรกรรมของคุณจะปรากฎที่นี่...",
       "recent": {
         "title": "ธุรกรรมล่าสุด"

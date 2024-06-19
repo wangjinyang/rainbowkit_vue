@@ -54,17 +54,17 @@
     },
     "recent": "Son",
     "status": {
-      "opening": "%{wallet}açılıyor...",
+      "opening": "{wallet}açılıyor...",
       "connecting": "Bağlanıyor",
-      "connect_mobile": "%{wallet}'da devam edin",
-      "not_installed": "%{wallet} yüklü değil",
-      "not_available": "%{wallet} kullanılabilir değil",
+      "connect_mobile": "{wallet}'da devam edin",
+      "not_installed": "{wallet} yüklü değil",
+      "not_available": "{wallet} kullanılabilir değil",
       "confirm": "Bağlantıyı eklentide onaylayın",
       "confirm_mobile": "Cüzdanında bağlantı isteğini kabul et"
     },
     "secondary_action": {
       "get": {
-        "description": "%{wallet}yok mu?",
+        "description": "{wallet}yok mu?",
         "label": "AL"
       },
       "install": {
@@ -85,7 +85,7 @@
     }
   },
   "connect_scan": {
-    "title": "%{wallet}ile tarama yapın",
+    "title": "{wallet}ile tarama yapın",
     "fallback_title": "Telefonunuzla tarama yapın"
   },
   "connector_group": {
@@ -125,32 +125,32 @@
     }
   },
   "get_options": {
-    "title": "%{wallet}ile başlayın",
-    "short_title": "%{wallet}Edinin",
+    "title": "{wallet}ile başlayın",
+    "short_title": "{wallet}Edinin",
     "mobile": {
-      "title": "%{wallet} Mobil İçin",
+      "title": "{wallet} Mobil İçin",
       "description": "Mobil cüzdanı kullanarak Ethereum dünyasını keşfedin.",
       "download": {
         "label": "Uygulamayı alın"
       }
     },
     "extension": {
-      "title": "%{wallet} için %{browser}",
+      "title": "{wallet} için {browser}",
       "description": "Cüzdanınıza favori web tarayıcınızdan doğrudan erişin.",
       "download": {
-        "label": "%{browser}'e ekle"
+        "label": "{browser}'e ekle"
       }
     },
     "desktop": {
-      "title": "%{wallet} için %{platform}",
+      "title": "{wallet} için {platform}",
       "description": "Güçlü masaüstünüzden cüzdanınıza yerel olarak erişin.",
       "download": {
-        "label": "%{platform}ekleyin"
+        "label": "{platform}ekleyin"
       }
     }
   },
   "get_mobile": {
-    "title": "%{wallet}'i yükleyin",
+    "title": "{wallet}'i yükleyin",
     "description": "iOS veya Android'de indirmek için telefonunuzla tarayın",
     "continue": {
       "label": "Devam et"
@@ -186,7 +186,7 @@
     "title": "Ağları Değiştir",
     "wrong_network": "Yanlış ağ algılandı, devam etmek için bağlantıyı kesin veya değiştirin.",
     "confirm": "Cüzdanında Onayla",
-    "switching_not_supported": "Cüzdanınız %{appName}. ağları değiştirmeyi desteklemiyor. Bunun yerine cüzdanınızdan ağları değiştirmeyi deneyin.",
+    "switching_not_supported": "Cüzdanınız {appName}. ağları değiştirmeyi desteklemiyor. Bunun yerine cüzdanınızdan ağları değiştirmeyi deneyin.",
     "switching_not_supported_fallback": "Cüzdanınız bu uygulamadan ağları değiştirmeyi desteklemiyor. Bunun yerine cüzdanınızdaki ağları değiştirmeyi deneyin.",
     "disconnect": "Bağlantıyı Kes",
     "connected": "Bağlı"
@@ -203,7 +203,7 @@
       "label": "Explorer üzerinde daha fazlasını görün"
     },
     "transactions": {
-      "description": "%{appName} işlem burada görünecek...",
+      "description": "{appName} işlem burada görünecek...",
       "description_fallback": "İşlemleriniz burada görünecek...",
       "recent": {
         "title": "Son İşlemler"

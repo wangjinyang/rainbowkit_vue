@@ -120,7 +120,7 @@ const {
           <td>
             <div :style="{ display: 'flex' }">
             <button
-              @click="()=>changeLocale('en')"
+              @click="()=>changeLocale('id')"
               :style="{
                 backgroundColor: 'blue',
                 color: 'white',

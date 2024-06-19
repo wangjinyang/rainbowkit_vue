@@ -86,23 +86,17 @@ export function createRainbowKitConfig(app: App) : App{
 
     ///if having existing i18n 
     const newI18n = createI18n({
-        locale: 'en',
-        fallbackLocale: 'en',
-        legacy: true,
+        locale: 'zh',
+        fallbackLocale: [ 'en', 'zh' ],
+        legacy: false,
         globalInjection: true,
-        messages: {
-            'en': {
-                "wallet.module": "This wording is the default word"
-            }
-        }
+        messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
     });
 
     function configure():RainbowKitPluginOptions{
-
+       
         const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
-
-        app.use(newI18n);
         
         const i18nAdapter = createI18nAdapter(app,{ 
             messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
