@@ -45,7 +45,6 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
                 i18n.global.mergeLocaleMessage(i18n.global.fallbackLocale.value,defaultMessages[i18n.global.fallbackLocale.value as Locale]);
             }else if(Array.isArray(i18n.global.fallbackLocale.value)){
                 for(const locale of i18n.global.fallbackLocale.value){
-                    console.log(locale);
                     i18n.global.mergeLocaleMessage(locale,defaultMessages[locale as Locale]);
                 }
             }
@@ -60,7 +59,6 @@ export const RainbowKitVueI18nLocaleAdapterPlugin = () => {
                         const mergeParams = params.reduce((param,currentParam)=>{
                             return { ...param, currentParam }
                         })[0];
-                        console.log(mergeParams);
                         // @ts-expect-error Type instantiation is excessively deep and possibly infinite
                         return i18n.global.t(key,mergeParams);
                     }
