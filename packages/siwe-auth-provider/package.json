@@ -1,7 +1,7 @@
 {
   "name": "use-rainbowkit-vue-siwe-auth-provider",
   "private": false,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -22,7 +22,7 @@
     }
   },
   "peerDependencies": {
-    "use-rainbowkit-vue": ">=0.2.2",
+    "use-rainbowkit-vue": ">=0.2.3",
     "typescript": ">=5.0.4",
     "vue": ">=3",
     "vue-auth3": ">=1.0.10",
