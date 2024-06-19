@@ -102,12 +102,10 @@ export function createRainbowKitConfig(app: App) : App{
         const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
 
-        
-
         app.use(newI18n);
         
         const i18nAdapter = createI18nAdapter(app,{ 
-            messages:{ "en": { "wallet.module": "You can override the existing language with same key or add your new language wording" }},
+            messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
             i18n: newI18n
         });
         const authAdapter = createAuthAdapter(app);
