@@ -59,6 +59,7 @@ createApp(App).use(RainbowKitVuePlugin,{
 import { RainbowKitProvider, ConnectButton } from "use-rainbowkit-vue";
 </script>
 <template>
+    <div id="rainbowkit-modal"></div>
     <div class="content">
         <RainbowKitProvider>
             <ConnectButton />
