@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.29.0",
-    "@wagmi/vue": "^0.0.11",
+    "@wagmi/vue": "^0.0.18",
     "buffer": "^6.0.3",
     "siwe": "^2.1.4",
-    "use-rainbowkit-vue": "../../packages/vue",
-    "use-rainbowkit-vue-i18n-locale-provider": "../../packages/i18n-locale-provider",
-    "use-rainbowkit-vue-siwe-auth-provider": "../../packages/siwe-auth-provider",
+    "use-rainbowkit-vue": "^0.2.0",
+    "use-rainbowkit-vue-i18n-locale-provider": "^1.1.0",
+    "use-rainbowkit-vue-siwe-auth-provider": "^1.1.0",
     "viem": "^2.9.32",
     "vue": "^3.4.27",
     "vue-i18n": "^9.13.1"
