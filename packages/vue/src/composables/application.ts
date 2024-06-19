@@ -19,6 +19,8 @@ export function createApplicationInfoContext(
     accountModalTeleportTarget, 
     connectModalIntro
   } = option
+
+  
   const context = shallowRef<AppInfoContext>({
     name: appName,
     disclaimer: disclaimer,
@@ -35,7 +37,13 @@ export function createApplicationInfoContext(
 export function useAppContext() : UseAppContextReturnType {
   const context = inject(AppContextKey)
   if (!context) throw Error(`Could not find injected '${String(AppContextKey)}' instance.`);
-  return { ...toRefs(reactive({  name: context.value.name, learnMoreUrl: context.value.learnMoreUrl })), 
+  return { ...toRefs(reactive({  
+      name: context.value.name,
+      learnMoreUrl: context.value.learnMoreUrl, 
+      connectModalTeleportTarget: context.value.connectModalTeleportTarget,  
+      chainModalTeleportTarget: context.value.chainModalTeleportTarget,
+      accountModalTeleportTarget: context.value.accountModalTeleportTarget,
+    })), 
     disclaimer: shallowRef(context.value.disclaimer), 
     connectModalIntro: shallowRef(context.value.connectModalIntro)
   }

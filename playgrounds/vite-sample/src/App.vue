@@ -4,6 +4,7 @@ import { RainbowKitProvider } from "use-rainbowkit-vue";
 </script>
 
 <template>
+  <div id="rainbowkit-modal"></div>
   <RainbowKitProvider>
     <Content />
   </RainbowKitProvider>

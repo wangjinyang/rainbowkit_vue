@@ -51,21 +51,24 @@ import {
     scroll,
     polygonZkEvm,
     immutableZkEvm,
+    RainbowKitChain,
     //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
-import { Chain } from 'viem';
+
 import { App, h } from 'vue';
 import { createI18n } from 'vue-i18n';
+//import { Chain } from 'viem';
+
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
     const avalanche = {
         id: 43_114,
         name: 'Avalanche',
-        //iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png',
-        //iconBackground: '#fff',
+        iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png',
+        iconBackground: '#fff',
         nativeCurrency: { name: 'Avalanche', symbol: 'AVAX', decimals: 18 },
         rpcUrls: {
             default: { http: ['https://api.avax.network/ext/bc/C/rpc'] },
@@ -79,7 +82,7 @@ export function createRainbowKitConfig(app: App) : App{
                 blockCreated: 11_907_934,
             },
         },
-    } as const satisfies Chain;
+    } as const satisfies RainbowKitChain;
 
     function configure():RainbowKitPluginOptions{
 
@@ -121,6 +124,7 @@ export function createRainbowKitConfig(app: App) : App{
                 avalanche
             ],
             locale: i18nAdapter,
+            connectModalTeleportTarget: '#rainbowkit-modal',
             wallets: [
                 {
                     groupName: "Populars",
