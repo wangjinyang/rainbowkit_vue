@@ -1,6 +1,6 @@
 {
   "name": "use-rainbowkit-vue",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "private": false,
   "type": "module",
   "files": [
@@ -76,7 +76,8 @@
     "vue-tsc": "^1.8.27"
   },
   "overrides": {
-    "i18next": "^23.2.3"
+    "i18next": "^23.2.3",
+    "ws": "8.17.1"
   },
   "repository": {
     "type": "git",

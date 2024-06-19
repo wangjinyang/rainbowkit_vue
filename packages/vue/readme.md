@@ -28,7 +28,7 @@ import {
  } from 'use-rainbowkit-vue'
 import 'use-rainbowkit-vue/style.css';
 
-///All options are optional, except 'appName' and 'projectId'  options. 
+///All options are optional, except 'appName', 'projectId' and 'chains' options. 
 createApp(App).use(RainbowKitVuePlugin,{ 
     appName: 'RainbowKit demo', 
     projectId: "YOUR_PROJECT_ID",
