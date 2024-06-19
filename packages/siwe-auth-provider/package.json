@@ -37,7 +37,7 @@
     "vue": ">=3"
   },
   "devDependencies": {
-    "use-rainbowkit-vue": "^0.2.2",
+    "use-rainbowkit-vue": "workspace:*",
     "@vitejs/plugin-vue": "^5.0.4",
     "resolve-tspaths": "^0.8.19",
     "typescript": "^5.2.2",
