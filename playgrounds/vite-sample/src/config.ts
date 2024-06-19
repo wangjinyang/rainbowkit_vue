@@ -84,23 +84,25 @@ export function createRainbowKitConfig(app: App) : App{
         },
     } as const satisfies RainbowKitChain;
 
+    ///if having existing i18n 
+    const newI18n = createI18n({
+        locale: 'en',
+        fallbackLocale: 'en',
+        legacy: true,
+        globalInjection: true,
+        messages: {
+            'en': {
+                "wallet.module": "This wording is the default word"
+            }
+        }
+    });
+
     function configure():RainbowKitPluginOptions{
 
         const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
 
-        ///if having existing i18n 
-        const newI18n = createI18n({
-            locale: 'en',
-            fallbackLocale: 'en',
-            legacy: true,
-            globalInjection: true,
-            messages: {
-                'en': {
-                    "wallet.module": "The wording is the default word"
-                }
-            }
-        });
+        
 
         app.use(newI18n);
         
@@ -111,10 +113,20 @@ export function createRainbowKitConfig(app: App) : App{
         const authAdapter = createAuthAdapter(app);
 
         //If want to change locale and don't want to use vue-i18n, use default locale adapter
-        //const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
-        //const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en' , message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording" }}})
+        /*
+          const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
+          const defaultLocaleAdapter = createDefaultLocaleAdapter({ 
+            locale: 'en', 
+            fallbackLocale:  'en' , 
+            message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording" }}
+          })
+        */
         
+        ///All options are optional, except 'appName' and 'projectId'  options. 
         return {
+            ///Default options 
+            appName: 'RainbowKit Vue Demo',
+            projectId: 'YOUR_PROJECT_ID',
             chains: [
                 mainnet,
                 zkSync,
@@ -124,7 +136,6 @@ export function createRainbowKitConfig(app: App) : App{
                 avalanche
             ],
             locale: i18nAdapter,
-            connectModalTeleportTarget: '#rainbowkit-modal',
             wallets: [
                 {
                     groupName: "Populars",
@@ -192,9 +203,6 @@ export function createRainbowKitConfig(app: App) : App{
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,
-            currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
-            appName: 'RainbowKit Vue Demo',
-            projectId: 'YOUR_PROJECT_ID',
             avatar: ({ size },_)=>{
                 return ()=> h('div',{
                     style: {
@@ -216,7 +224,13 @@ export function createRainbowKitConfig(app: App) : App{
                     h(DisclaimerLink, { href: RAINBOW_TERMS }, () => 'Disclaimer')
                 ])
             },
-            connectModalIntro: ()=>{
+
+            ///Extra options
+            connectModalTeleportTarget: '#rainbowkit-modal',
+            chainModalTeleportTarget: '#rainbowkit-modal',
+            accountModalTeleportTarget: "#rainbowkit-modal",
+            currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',           
+            connectModalIntro: (/*{ compactModalEnabled, getWallet }*/)=>{
                 return ()=>{
                     return h('div','You can start your journey here by using web3 wallet.');
                 }
@@ -224,6 +238,6 @@ export function createRainbowKitConfig(app: App) : App{
         };
     }
 
-    app.use(RainbowKitVuePlugin,configure());
+    app.use(newI18n).use(RainbowKitVuePlugin,configure());
     return app;
 }
