@@ -15,7 +15,7 @@ export const createChainBoxProps = {
     },
     currentChainId: {
         type: [Number,undefined] as PropType<number|undefined>,
-        required: true
+        required: false
     },
     switchChain: {
         type: Function as PropType<ReturnType<typeof useSwitchChain>['switchChain']>,
@@ -32,7 +32,7 @@ export const createChainBoxProps = {
     },
     iconBackground: {
         type: [String, undefined ] as PropType<string|undefined>,
-        required: true
+        required: false
     },
     isConnected: {
         type: Boolean as PropType<boolean>,

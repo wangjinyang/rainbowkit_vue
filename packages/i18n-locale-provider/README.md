@@ -15,9 +15,30 @@ npm install vue-i18n use-rainbowkit-vue use-rainbowkit-vue-i18n-locale-provider
 ```ts
 import { RainbowKitVuePlugin  } from "use-rainbowkit-vue";
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
+import { createI18n } from 'vue-i18n';
+
+///If having existing i18n
+const i18n = createI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
+    legacy: true,
+    globalInjection: true,
+    messages: {
+        'en': {
+            "wallet.module": "This wording is the default word"
+        }
+    }
+});
+
 const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
-const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh' });
-app.use(RainbowKitVuePlugin,{
+const i18nAdapter = createI18nAdapter(app,{ 
+    currentLocale: 'zh', /// No need to assign, if you having existing i18n
+    fallbackLocale: 'zh', /// No need to assign, if you having existing i18n
+    messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
+    i18n
+});
+
+app.use(i18n).use(RainbowKitVuePlugin,{
     adapter: i18nAdapter
 })
 ```

@@ -39,6 +39,16 @@ createApp(App).use(RainbowKitVuePlugin,{
         immutableZkEvm,
         avalanche
     ],
+    ///Extra options
+    connectModalTeleportTarget: '#rainbowkit-modal', /// Make sure this element exists
+    chainModalTeleportTarget: '#rainbowkit-modal', /// Make sure this element exists
+    accountModalTeleportTarget: "#rainbowkit-modal", /// Make sure this element exists
+    currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',           
+    connectModalIntro: (/*{ compactModalEnabled, getWallet }*/)=>{
+        return ()=>{
+            return h('div','You can start your journey here by using web3 wallet.');
+        }
+    },
 })
 ```
 
@@ -49,6 +59,7 @@ createApp(App).use(RainbowKitVuePlugin,{
 import { RainbowKitProvider, ConnectButton } from "use-rainbowkit-vue";
 </script>
 <template>
+    <div id="rainbowkit-modal"></div>
     <div class="content">
         <RainbowKitProvider>
             <ConnectButton />

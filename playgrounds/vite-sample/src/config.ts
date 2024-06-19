@@ -51,20 +51,24 @@ import {
     scroll,
     polygonZkEvm,
     immutableZkEvm,
-    createRainbowKitDefaultLocaleAdapter
+    RainbowKitChain,
+    //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
-//import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
+import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
-import { Chain } from 'viem';
+
 import { App, h } from 'vue';
+import { createI18n } from 'vue-i18n';
+//import { Chain } from 'viem';
+
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
     const avalanche = {
         id: 43_114,
         name: 'Avalanche',
-        //iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png',
-        //iconBackground: '#fff',
+        iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5805.png',
+        iconBackground: '#fff',
         nativeCurrency: { name: 'Avalanche', symbol: 'AVAX', decimals: 18 },
         rpcUrls: {
             default: { http: ['https://api.avax.network/ext/bc/C/rpc'] },
@@ -78,20 +82,49 @@ export function createRainbowKitConfig(app: App) : App{
                 blockCreated: 11_907_934,
             },
         },
-    } as const satisfies Chain;
+    } as const satisfies RainbowKitChain;
+
+    ///if having existing i18n 
+    const newI18n = createI18n({
+        locale: 'en',
+        fallbackLocale: 'en',
+        legacy: true,
+        globalInjection: true,
+        messages: {
+            'en': {
+                "wallet.module": "This wording is the default word"
+            }
+        }
+    });
 
     function configure():RainbowKitPluginOptions{
 
-        //const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
+        const { create: createI18nAdapter } = RainbowKitVueI18nLocaleAdapterPlugin();
         const { create: createAuthAdapter } = RainbowKitVueSiweAuthAdapterPlugin();
-        //const i18nAdapter = createI18nAdapter(app,{ currentLocale: 'zh', fallbackLocale: 'zh', messages:{ "zh": { "wallet.module": "Additional text" }}});
+
+        app.use(newI18n);
+        
+        const i18nAdapter = createI18nAdapter(app,{ 
+            messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
+            i18n: newI18n
+        });
         const authAdapter = createAuthAdapter(app);
 
-        ///If want to change locale and don't want to use vue-i18n, use default locale adapter
-        const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
-        const defaultLocaleAdapter = createDefaultLocaleAdapter({ locale: 'en', fallbackLocale:  'en' , message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording." }}})
+        //If want to change locale and don't want to use vue-i18n, use default locale adapter
+        /*
+          const { install: createDefaultLocaleAdapter } = createRainbowKitDefaultLocaleAdapter();
+          const defaultLocaleAdapter = createDefaultLocaleAdapter({ 
+            locale: 'en', 
+            fallbackLocale:  'en' , 
+            message: { "en": { "wallet.module": "You can override the existing language with same key or add your new language wording" }}
+          })
+        */
         
+        ///All options are optional, except 'appName' and 'projectId'  options. 
         return {
+            ///Default options 
+            appName: 'RainbowKit Vue Demo',
+            projectId: 'YOUR_PROJECT_ID',
             chains: [
                 mainnet,
                 zkSync,
@@ -100,7 +133,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
-            locale: defaultLocaleAdapter,
+            locale: i18nAdapter,
             wallets: [
                 {
                     groupName: "Populars",
@@ -168,9 +201,6 @@ export function createRainbowKitConfig(app: App) : App{
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,
-            currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
-            appName: 'RainbowKit Vue Demo',
-            projectId: 'YOUR_PROJECT_ID',
             avatar: ({ size },_)=>{
                 return ()=> h('div',{
                     style: {
@@ -192,7 +222,13 @@ export function createRainbowKitConfig(app: App) : App{
                     h(DisclaimerLink, { href: RAINBOW_TERMS }, () => 'Disclaimer')
                 ])
             },
-            connectModalIntro: ()=>{
+
+            ///Extra options
+            connectModalTeleportTarget: '#rainbowkit-modal',
+            chainModalTeleportTarget: '#rainbowkit-modal',
+            accountModalTeleportTarget: "#rainbowkit-modal",
+            currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',           
+            connectModalIntro: (/*{ compactModalEnabled, getWallet }*/)=>{
                 return ()=>{
                     return h('div','You can start your journey here by using web3 wallet.');
                 }
@@ -200,6 +236,6 @@ export function createRainbowKitConfig(app: App) : App{
         };
     }
 
-    app.use(RainbowKitVuePlugin,configure());
+    app.use(newI18n).use(RainbowKitVuePlugin,configure());
     return app;
 }

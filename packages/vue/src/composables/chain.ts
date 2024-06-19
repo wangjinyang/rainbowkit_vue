@@ -25,7 +25,6 @@ import {
 import { inject, ref, computed, toRefs, reactive } from 'vue'
 import { useConfig } from '@wagmi/vue'
 
-///Need to override viem to support icon background and icon url 
 const arbitrumIcon: RainbowKitChainMetadata = {
   iconBackground: '#96bedc',
   iconUrl: import.meta.glob<{ default: string }>('../assets/chains/arbitrum.svg',{ query: '?url', eager: true })['../assets/chains/arbitrum.svg'].default
@@ -91,6 +90,11 @@ const roninIcon: RainbowKitChainMetadata = {
   iconUrl: import.meta.glob<{ default: string }>('../assets/chains/ronin.svg',{ query: '?url', eager: true })['../assets/chains/ronin.svg'].default
 }
 
+const unknownIcon: RainbowKitChainMetadata = {
+  iconBackground: ' #808080',
+  iconUrl: import.meta.glob<{ default: string }>('../assets/chains/unknown.svg',{ query: '?url', eager: true })['../assets/chains/unknown.svg'].default
+}
+
 const metadata: Record<number, RainbowKitChainMetadata> = {
   [arbitrum.id]: arbitrumIcon,
   [base.id]: baseIcon,
@@ -119,15 +123,16 @@ export function configureRainbowKitChainContext(){
   }
   Object.assign(context,{ 
     initialChainId: initialChainId?.value, 
-    rainbowKitChains: rainbowKitChains ?? chains?.value 
+    rainbowKitChains: chains?.value ?? rainbowKitChains 
   });
 }
 
 export function createRainbowKitChainContext(
   option: RainbowKitPluginOptions):Context<RainbowKitChainContext>{
   const chains: Array<RainbowKitChain> = option.chains.map((chain)=>{
-    const selectedMetadata = metadata[chain.id];
-    return { selectedMetadata, ...chain } as RainbowKitChain
+    const selectedMetadata = metadata[chain.id] ?? unknownIcon;
+
+    return { ...selectedMetadata, ...chain } as RainbowKitChain
   });
  
   const context = ref<RainbowKitChainContext>({ 

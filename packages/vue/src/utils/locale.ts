@@ -15,6 +15,43 @@ export const detectedBrowserLocale = () => {
     }
 };
 
+export type Resources = {
+  [K in Locale]: LocaleMessages;
+};
+
+export const fetchAllTranslations = (): Resources =>{
+  return {
+    ar: fetchTranslations("ar"),
+    "ar-AR": fetchTranslations("ar-AR"),
+    en: fetchTranslations("en"),
+    "en-US": fetchTranslations("en-US"),
+    es: fetchTranslations("es"),
+    "es-419": fetchTranslations("es-419"),
+    fr: fetchTranslations("fr"),
+    "fr-FR": fetchTranslations("fr-FR"),
+    hi: fetchTranslations("hi"),
+    "hi-IN": fetchTranslations("hi-IN"),
+    id: fetchTranslations("id"),
+    "id-ID": fetchTranslations("id-ID"),
+    ja: fetchTranslations("ja"),
+    "ja-JP": fetchTranslations("ja-JP"),
+    ko: fetchTranslations("ko"),
+    "ko-KR": fetchTranslations("ko-KR"),
+    pt: fetchTranslations("pt"),
+    "pt-BR": fetchTranslations("pt-BR"),
+    ru: fetchTranslations("ru"),
+    "ru-RU": fetchTranslations("ru-RU"),
+    th: fetchTranslations("th"),
+    "th-TH": fetchTranslations("th-TH"),
+    tr: fetchTranslations("tr"),
+    "tr-TR": fetchTranslations("tr-TR"),
+    ua: fetchTranslations("ua"),
+    "uk-UA": fetchTranslations("uk-UA"),
+    zh: fetchTranslations("zh"),
+    "zh-CN": fetchTranslations("zh-CN"),
+  };
+}
+
 export const fetchTranslations = (locale: Locale): LocaleMessages => {
     switch (locale) {
       case 'ar':

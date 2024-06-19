@@ -6,6 +6,9 @@ export { RainbowKitVuePlugin } from "./RainbowKitVuePlugin";
 ///locale adapter
 export { createRainbowKitDefaultLocaleAdapter } from "./locales/adapters/RainbowkitDefaultLocaleAdapter";
 
+///locale
+export { fetchAllTranslations } from "./utils/locale";
+
 //types
 export {
     RainbowKitConfigContextKey,
