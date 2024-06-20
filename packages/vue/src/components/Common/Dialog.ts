@@ -67,7 +67,10 @@ export const Dialog = defineComponent({
             return classesInArray.join(' ')
         });
 
-        function handleBackdrop() {
+        function handleBackdrop(event: MouseEvent | TouchEvent) {
+            if(event instanceof MouseEvent){
+                if(event.button == 2) return false;
+            }
             emit('closed');
             document.body.blur();
             return true;
@@ -96,6 +99,7 @@ export const Dialog = defineComponent({
                 class: content,
                 active: props.open,
                 clickOutsideDeactivates: handleBackdrop,
+                returnFocusOnDeactivate: false,
                 escapeDeactivates: handleEscape,
                 role: 'document'
             },()=> h(Container, {
