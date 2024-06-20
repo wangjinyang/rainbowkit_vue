@@ -29,7 +29,7 @@ export type RainbowKitPluginConfig = {
   showRecentTransactions?: boolean
   coolMode?: boolean
   initialChainId? : number
-  ignoreChainModalOnConnect?: boolean,
+  enableChainModalOnConnect?: boolean,
   currencyAddress?: Address,
   showBalance?: ResponsiveValue<boolean>,
   disclaimer?: DisclaimerComponentSetupFn,

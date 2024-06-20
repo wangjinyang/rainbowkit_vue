@@ -127,6 +127,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
+            enableChainModalOnConnect: false,
             locale: i18nAdapter,
             wallets: [
                 {

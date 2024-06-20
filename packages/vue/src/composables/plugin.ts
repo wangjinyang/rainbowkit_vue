@@ -96,7 +96,7 @@ export function getDefaultPluginOptions(chains: Chains):
   const showRecentTransactions = true;
 
   return {
-    ignoreChainModalOnConnect: true,
+    enableChainModalOnConnect: true,
     connectModalTeleportTarget: 'body', 
     chainModalTeleportTarget: 'body', 
     accountModalTeleportTarget: 'body', 
@@ -169,7 +169,7 @@ export function useRainbowKitPlugin() {
       theme,
       coolMode,
       showRecentTransactions,
-      ignoreChainModalOnConnect,
+      enableChainModalOnConnect: ignoreChainModalOnConnect,
       connectModalTeleportTarget, 
       chainModalTeleportTarget, 
       accountModalTeleportTarget, 

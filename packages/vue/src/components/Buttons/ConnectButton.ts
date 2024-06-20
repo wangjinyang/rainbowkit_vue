@@ -73,7 +73,7 @@ export const ConnectButton = defineComponent({
     setup(props, { slots }) {
         const { chainId: connectedChainId, address, connectionStatus, isConnected } = useRainbowKitAccountContext()
         const { t, adapter } = useLocale()
-        const { rainbowKitChains: chains, chainByIds, initialChainId, ignoreChainModalOnConnect } = useRainbowKitChainContext()
+        const { rainbowKitChains: chains, chainByIds, initialChainId, enableChainModalOnConnect: ignoreChainModalOnConnect } = useRainbowKitChainContext()
         const { name, avatar } = useEnsMetadata()
         const { accountModalOpen, connectModalOpen, chainModalOpen, openAccountModal, openChainModal, openConnectModal } = useModalContext()
         const showRecentTransaction = useShowRecentTransactionContext()

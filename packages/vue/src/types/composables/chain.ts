@@ -12,7 +12,7 @@ export interface RainbowKitChain extends Chain {
 export interface RainbowKitChainContext{
     rainbowKitChains?: Array<RainbowKitChain>;
     initialChainId?: number;
-    ignoreChainModalOnConnect?: boolean,
+    enableChainModalOnConnect?: boolean,
 }
 export type UseRainbowKitChainContextReturnType = {
     [K in keyof RainbowKitChainContext]: ToRef<UnwrapRef<RainbowKitChainContext[K]>>
