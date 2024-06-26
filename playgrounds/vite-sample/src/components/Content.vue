@@ -7,16 +7,16 @@ import {
   useLocale,
   useThemeContext,
 } from "use-rainbowkit-vue";
-import { useSendTransaction, useSignMessage, useSignTypedData } from "@wagmi/vue";
+import { useAccount, useSendTransaction, useSignMessage, useSignTypedData } from "@wagmi/vue";
 import { Address, parseEther } from "viem";
 //import { useI18n } from "vue-i18n";
 
 const { openConnectModal, openAccountModal, openChainModal, connectModalOpen, accountModalOpen, chainModalOpen } = useModalContext();
 const { connectionStatus,address, isConnected, chainId } = useRainbowKitAccountContext();
+const { isConnected: isConnectedFromWagmi } = useAccount();
 const { changeLocale,t } = useLocale();
 const { changeTheme } = useThemeContext();
 //const { t } = useI18n();
-
 const {
     data: transactionData,
     error: transactionError,
@@ -46,11 +46,11 @@ const {
       height: '100%',
       justifyContent: 'flex-start',
     }">
-    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }" v-if="address">
-      Rainbowkit Vue Example - {{ connectionStatus }}
+    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }">
+      Rainbowkit Vue Example - {{ connectionStatus }} - From wagmi: {{ isConnectedFromWagmi }}
     </h2>
-    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }" v-else>
-      Rainbowkit Vue Example - {{ connectionStatus }}
+    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }">
+      Rainbowkit Vue Example - {{ connectionStatus }} - From rainbowkit: {{ isConnected }}
     </h2>
     <span style="margin-bottom: 20px;"> My additional text written here: {{ t('wallet.module') }} </span>
     <table class="card">

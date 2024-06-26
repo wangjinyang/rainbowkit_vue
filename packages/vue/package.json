@@ -27,7 +27,7 @@
   },
   "peerDependencies": {
     "@tanstack/vue-query": ">=5.0.0",
-    "@wagmi/vue": ">=0.0.18",
+    "@wagmi/vue": ">=0.0.23",
     "typescript": ">=5.0.4",
     "viem": "2.x",
     "vue": ">=3"
@@ -61,7 +61,7 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "@wagmi/vue": "^0.0.18",
+    "@wagmi/vue": "^0.0.23",
     "autoprefixer": "^10.4.19",
     "buffer": "^6.0.3",
     "npm-run-all2": "^6.1.1",

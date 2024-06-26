@@ -20,6 +20,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
   }
 
   const connectWallet = async (connector: Connector) => {
+    console.log("Coinbase preference:",connector);
     const chainId = await computeChainId(connector);
     const result = await connectAsync({ chainId, connector })
 
@@ -135,7 +136,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
       if(connectors.some((connector)=> connector.id === wallet.id)){
         continue;
       }
-      
+
       connectors.push({
         ...wallet,
         ready: wallet.installed ?? true,

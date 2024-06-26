@@ -84,7 +84,7 @@ export function getDefaultPluginOptions(chains: Chains):
       groupName: 'Popular',
       wallets: [
         metaMaskWallet,
-        coinbaseWallet,
+        coinbaseWallet(),
         ledgerWallet,
         rainbowWallet
       ]

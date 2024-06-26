@@ -1,4 +1,4 @@
-import { useModalSizeContext, useThemeContext } from "@/composables";
+import { useModalSizeContext } from "@/composables";
 import { Sprinkles,  dialogContentMobile, bottomSheetOverrides, dialogContentWideMobile, dialogContentCompactMode, dialogContentWideDesktop, dialogContent, overlay, content } from "@/css";
 import { Container } from "@/components/Common/Container";
 import { FocusTrap } from "@/components/Common/FocusTrap";

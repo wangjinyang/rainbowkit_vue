@@ -163,6 +163,7 @@ export const getConnectors = (items: WalletList, params: WalletConnectorsParam) 
       showQrModal: true
     }
 
+    
     if (isWalletConnect) {
       connectors.push(createConnector(generateWalletMetadata(item, params)))
       continue
@@ -218,7 +219,7 @@ export const getDefaultWallets = (
   const wallets: WalletList = [
     {
       groupName: 'Popular',
-      wallets: [rainbowWallet, coinbaseWallet, metaMaskWallet, ledgerWallet]
+      wallets: [rainbowWallet, coinbaseWallet('all'), metaMaskWallet, ledgerWallet]
     }
   ]
 

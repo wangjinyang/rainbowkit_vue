@@ -41,6 +41,7 @@ createApp(App).use(RainbowKitVuePlugin,{
         avalanche
     ],
     ///Extra options
+    enableChainModalOnConnect: false, /// by default is true
     connectModalTeleportTarget: '#rainbowkit-modal', /// Make sure this element exists
     chainModalTeleportTarget: '#rainbowkit-modal', /// Make sure this element exists
     accountModalTeleportTarget: "#rainbowkit-modal", /// Make sure this element exists
