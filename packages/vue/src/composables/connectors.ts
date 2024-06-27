@@ -20,7 +20,6 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
   }
 
   const connectWallet = async (connector: Connector) => {
-    console.log("Coinbase preference:",connector);
     const chainId = await computeChainId(connector);
     const result = await connectAsync({ chainId, connector })
 

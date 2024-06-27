@@ -116,9 +116,10 @@ export function createRainbowKitConfig(app: App) : App{
         
         ///All options are optional, except 'appName', 'projectId' and 'chains' options.
         
-        const coinbase = coinbaseWallet();
-        const smartWalletCoinbase = coinbaseWallet('smartWalletOnly');
-        const eoaCoinbase = coinbaseWallet('eoaOnly');
+        const coinbase = coinbaseWallet.all;
+        const smartWalletCoinbase = coinbaseWallet.smartWallet;
+        const eoaCoinbase = coinbaseWallet.eoa;
+
         return {
             ///Default options 
             appName: 'RainbowKit Vue Demo',
@@ -139,8 +140,8 @@ export function createRainbowKitConfig(app: App) : App{
                     wallets: [
                         metaMaskWallet,
                         coinbase,
-                        eoaCoinbase,
                         smartWalletCoinbase,
+                        eoaCoinbase,
                         rainbowWallet,
                         walletConnectWallet,
                     ],

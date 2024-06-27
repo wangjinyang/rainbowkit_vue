@@ -9,15 +9,31 @@ export interface CoinbaseWalletOptions {
   appIcon?: string;
 }
 
-export const coinbaseWallet = (preference:CoinbaseWalletParameters<'4'>['preference'] = 'all') =>{
-  if(preference === 'eoaOnly' || preference === 'all'){
+const getCoinbaseWallet = (preference:CoinbaseWalletParameters<'4'>['preference'] = 'all') =>{
+  if(preference === 'eoaOnly'){
     const isCoinbaseInjected = hasInjectedProvider({ flag: 'isCoinbaseWallet' });
-    ///When user does not have coinbase extension installed, smart wallet popup screen would always display, return smart wallet instances would do. 
-    return isCoinbaseInjected ? preference === 'eoaOnly' ? eoa : all : smartWallet;
+    return isCoinbaseInjected ? eoa : all;
+  }
+
+  if(preference === 'all'){
+    return all;
   }
 
   return smartWallet;
 }
+
+export const coinbaseWallet = {
+  get all() {
+    return getCoinbaseWallet('all')
+  },
+  get smartWallet(){
+    return getCoinbaseWallet('smartWalletOnly')
+  },
+  get eoa(){
+    return getCoinbaseWallet('eoaOnly')
+  },
+} as const;
+
 
 const all = ({
   appName,
@@ -25,19 +41,17 @@ const all = ({
 }: CoinbaseWalletOptions) : Wallet=> {
 
   const getUri = (uri: string) => uri;
+  const isCoinbaseInjected = hasInjectedProvider({ flag: 'isCoinbaseWallet' });
   const ios = isIOS;
 
   return {
-    id: 'coinbase',
-    name: 'Coinbase Wallet',
+    id: isCoinbaseInjected ? 'coinbase' : 'coinbase-smart-wallet',
+    name: isCoinbaseInjected ?'Coinbase Wallet' : 'Coinbase Smart Wallet',
     shortName: 'Coinbase',
     rdns: 'com.coinbase.wallet',
     iconUrl:  (import.meta.glob<{ default: string }>('./coinbaseWallet.svg',{ query: '?url',eager: true }))['./coinbaseWallet.svg'].default,
     iconAccent: '#2c5ff6',
     iconBackground: '#2c5ff6',
-    // If the coinbase wallet browser extension is not installed, a popup will appear
-    // prompting the user to connect or create a wallet via passkey. This means if you either have
-    // or don't have the coinbase wallet browser extension installed it'll do some action anyways
     installed: true,
     downloadUrls: {
       android: 'https://play.google.com/store/apps/details?id=org.toshi',
@@ -129,7 +143,7 @@ const smartWallet = ({
   const getUri = (uri: string) => uri;
   const ios = isIOS;
   return {
-    id: 'smart-wallet-coinbase',
+    id: 'coinbase-smart-wallet',
     name: 'Coinbase Smart Wallet',
     shortName: 'Coinbase',
     iconUrl:  (import.meta.glob<{ default: string }>('./coinbaseWallet.svg',{ query: '?url',eager: true }))['./coinbaseWallet.svg'].default,
@@ -231,7 +245,7 @@ const eoa = ({
   const ios = isIOS;
 
   return {
-    id: 'eoa-coinbase',
+    id: 'coinbase-eoa',
     name: 'Coinbase Wallet',
     shortName: 'Coinbase',
     rdns: 'com.coinbase.wallet',

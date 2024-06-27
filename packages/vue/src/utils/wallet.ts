@@ -219,7 +219,7 @@ export const getDefaultWallets = (
   const wallets: WalletList = [
     {
       groupName: 'Popular',
-      wallets: [rainbowWallet, coinbaseWallet('all'), metaMaskWallet, ledgerWallet]
+      wallets: [rainbowWallet, coinbaseWallet.all, metaMaskWallet, ledgerWallet]
     }
   ]
 
