@@ -115,7 +115,6 @@ export function createRainbowKitConfig(app: App) : App{
         */
         
         ///All options are optional, except 'appName', 'projectId' and 'chains' options.
-        
         const coinbase = coinbaseWallet.all;
         const smartWalletCoinbase = coinbaseWallet.smartWallet;
         const eoaCoinbase = coinbaseWallet.eoa;
