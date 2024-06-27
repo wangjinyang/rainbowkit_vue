@@ -4,11 +4,8 @@ import { computed, ComputedRef, Ref } from "vue";
 
 export function useConnectionStatus(isConnected:Ref<boolean>, isConnecting: Ref<boolean>, address?: Ref<undefined> | Ref<`0x${string}`> | Ref<`0x${string}` | undefined>): ComputedRef<ConnectionStatus> {
     const { status } = useAuthenticationConfigContext();
+    
     return computed(()=>{
-        if(!address?.value){
-            return 'disconnected';
-        }
-
         if(!address?.value){
             return 'disconnected';
         }

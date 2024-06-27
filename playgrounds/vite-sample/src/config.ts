@@ -7,7 +7,6 @@ import {
     braveWallet,
     clvWallet,
     coin98Wallet,
-    coinbaseWallet,
     coreWallet,
     dawnWallet,
     desigWallet,
@@ -52,6 +51,7 @@ import {
     polygonZkEvm,
     immutableZkEvm,
     RainbowKitChain,
+    coinbaseWallet,
     //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
@@ -114,7 +114,11 @@ export function createRainbowKitConfig(app: App) : App{
           })
         */
         
-        ///All options are optional, except 'appName' and 'projectId'  options. 
+        ///All options are optional, except 'appName', 'projectId' and 'chains' options.
+        const coinbase = coinbaseWallet.all;
+        const smartWalletCoinbase = coinbaseWallet.smartWallet;
+        const eoaCoinbase = coinbaseWallet.eoa;
+
         return {
             ///Default options 
             appName: 'RainbowKit Vue Demo',
@@ -127,13 +131,16 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
+            enableChainModalOnConnect: false, // by default is true
             locale: i18nAdapter,
             wallets: [
                 {
                     groupName: "Populars",
                     wallets: [
                         metaMaskWallet,
-                        coinbaseWallet,
+                        coinbase,
+                        smartWalletCoinbase,
+                        eoaCoinbase,
                         rainbowWallet,
                         walletConnectWallet,
                     ],
@@ -150,7 +157,6 @@ export function createRainbowKitConfig(app: App) : App{
                         braveWallet,
                         clvWallet,
                         coin98Wallet,
-                        coinbaseWallet,
                         coreWallet,
                         dawnWallet,
                         desigWallet,

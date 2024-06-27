@@ -16,7 +16,6 @@ const { connectionStatus,address, isConnected, chainId } = useRainbowKitAccountC
 const { changeLocale,t } = useLocale();
 const { changeTheme } = useThemeContext();
 //const { t } = useI18n();
-
 const {
     data: transactionData,
     error: transactionError,
@@ -46,10 +45,7 @@ const {
       height: '100%',
       justifyContent: 'flex-start',
     }">
-    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }" v-if="address">
-      Rainbowkit Vue Example - {{ connectionStatus }}
-    </h2>
-    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }" v-else>
+    <h2 :style="{ textTransform: 'uppercase', marginTop: 0 }">
       Rainbowkit Vue Example - {{ connectionStatus }}
     </h2>
     <span style="margin-bottom: 20px;"> My additional text written here: {{ t('wallet.module') }} </span>
@@ -152,7 +148,7 @@ const {
             <WalletButton wallet="metamask"/>
           </td>
           <td>
-            <WalletButton wallet="coinbase"/>
+            <WalletButton wallet="coinbase-smart-wallet"/>
           </td>
         </tr>
         <tr>

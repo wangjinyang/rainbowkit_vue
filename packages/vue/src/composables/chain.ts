@@ -138,7 +138,7 @@ export function createRainbowKitChainContext(
   const context = ref<RainbowKitChainContext>({ 
     initialChainId: option.initialChainId, 
     rainbowKitChains:chains, 
-    ignoreChainModalOnConnect: option.ignoreChainModalOnConnect 
+    enableChainModalOnConnect: option.enableChainModalOnConnect 
   });
   return context;
 }

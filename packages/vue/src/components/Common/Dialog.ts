@@ -1,4 +1,4 @@
-import { useModalSizeContext, useThemeContext } from "@/composables";
+import { useModalSizeContext } from "@/composables";
 import { Sprinkles,  dialogContentMobile, bottomSheetOverrides, dialogContentWideMobile, dialogContentCompactMode, dialogContentWideDesktop, dialogContent, overlay, content } from "@/css";
 import { Container } from "@/components/Common/Container";
 import { FocusTrap } from "@/components/Common/FocusTrap";
@@ -67,7 +67,10 @@ export const Dialog = defineComponent({
             return classesInArray.join(' ')
         });
 
-        function handleBackdrop() {
+        function handleBackdrop(event: MouseEvent | TouchEvent) {
+            if(event instanceof MouseEvent){
+                if(event.button == 2) return false;
+            }
             emit('closed');
             document.body.blur();
             return true;
@@ -96,6 +99,7 @@ export const Dialog = defineComponent({
                 class: content,
                 active: props.open,
                 clickOutsideDeactivates: handleBackdrop,
+                returnFocusOnDeactivate: false,
                 escapeDeactivates: handleEscape,
                 role: 'document'
             },()=> h(Container, {

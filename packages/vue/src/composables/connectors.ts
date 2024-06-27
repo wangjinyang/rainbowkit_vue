@@ -6,7 +6,7 @@ import { computed, ComputedRef } from 'vue'
 
 export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : ComputedRef<Array<WalletConnector>> {
   const MAX_RECENT_WALLETS = 3
-  const { rainbowKitChains,initialChainId, ignoreChainModalOnConnect } = useRainbowKitChainContext()
+  const { rainbowKitChains,initialChainId, enableChainModalOnConnect: ignoreChainModalOnConnect } = useRainbowKitChainContext()
   const { connectAsync, connectors: defaultUntypedConnector } = useConnect()
   const currentChainId = useChainId();
  
@@ -135,7 +135,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
       if(connectors.some((connector)=> connector.id === wallet.id)){
         continue;
       }
-      
+
       connectors.push({
         ...wallet,
         ready: wallet.installed ?? true,

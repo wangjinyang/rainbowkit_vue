@@ -2,9 +2,10 @@ import { normalizeResponsiveValue } from '@/css'
 import { ShowBalanceContextKey, Address, type Context, type RainbowKitPluginOptions, type ShowBalanceContext } from '@/types'
 import { abbreviateETHBalance, isMobile } from '@/utils'
 import { computed, inject, ref, toRefs,reactive, Ref, watch } from 'vue'
-import { useBalance, useConfig, useReadContract } from '@wagmi/vue'
+import { useConfig } from '@wagmi/vue'
+import { multicall } from '@wagmi/core'
 import { erc20Abi, formatUnits } from 'viem'
-import { getBalance, readContract } from '@wagmi/vue/actions'
+import { getBalance } from '@wagmi/vue/actions'
 
 export function createRainbowKitBalanceContext(
   option: RainbowKitPluginOptions
@@ -41,25 +42,34 @@ export function useRainbowKitBalance(address: Ref<Address| undefined>, chainId: 
   const balance = ref<string>();
 
   const readBalanceBySelectedCurrencyAddress = async(address: Address)=>{
-    if(!context.value.currencyAddress) return;
-    const balances = await readContract(config,{
-      abi: erc20Abi,
-      address: context.value.currencyAddress, 
-      functionName: 'balanceOf', 
-      args: [address], 
+      if(!context.value.currencyAddress) return;
+
+      const contract = {
+        address: context.value.currencyAddress,
+        abi: erc20Abi,
+      } as const;
+
+      const account = await multicall(config,{
+        contracts:[
+          {
+            ...contract,
+            functionName: 'balanceOf', 
+            args: [ address ], 
+          },
+          {
+            ...contract,
+            functionName: 'decimals', 
+          },
+          {
+            ...contract,
+            functionName: 'symbol', 
+          },
+        ]
     });
 
-    const decimal = await readContract(config,{
-      address: context.value.currencyAddress, 
-      abi: erc20Abi, 
-      functionName: 'decimals', 
-    });
-
-    const symbols = await readContract(config,{ 
-      address: context.value.currencyAddress, 
-      abi: erc20Abi, 
-      functionName: 'symbol', 
-    });
+    const balances = account[0].result ?? BigInt(0);
+    const decimal = account[1].result ?? 18;
+    const symbols = account[2].result ?? '';
 
     const formattedBalance = parseFloat(formatUnits(balances, decimal));
     symbol.value = symbols;
