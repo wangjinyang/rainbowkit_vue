@@ -50,13 +50,13 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             },
             signOut: async () => {
                 const auth = useAuth();
-                await auth.logout({ redirect: false });
+                await auth.logout({ redirect: 'follow' });
             },
             async verify({ message, signature }) {
                 const auth = useAuth();
                 const response = await auth.login({
+                    redirect: 'follow',
                     method: "POST",
-                    redirect: false,
                     data: {
                         message: JSON.stringify(message),
                         signature

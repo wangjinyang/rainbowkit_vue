@@ -115,12 +115,12 @@ export function configureModalContext() {
     });
   },{ flush: 'pre', immediate: true });
 
-  watch(()=>isConnected.value,()=>{
-    if(isConnected.value){
+  watch(()=>isConnected.value,(connected)=>{
+    if(connected){
       closeAllModal.value(status?.value === 'unauthenticated');
     }
 
-    if(!isConnected.value){
+    if(!connected){
       closeAllModal.value(false)
       connectorUID.value = undefined
       adapter?.value?.signOut()
