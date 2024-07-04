@@ -1,8 +1,9 @@
 import { useConnectionStatus } from "@/composables/connection";
 import { useAuthenticationConfigContext } from "@/composables/authentication";
-import { useAccount, useAccountEffect } from '@wagmi/vue'
+import { useAccount } from '@wagmi/vue'
 import { ref, watch } from 'vue'
 
+///add binance wallet , backend chains 
 export function useRainbowKitAccountContext(){  
   const { connector, isConnected, isConnecting, chainId, isDisconnected, isReconnecting, chain, address, addresses,status } = useAccount();
   const { status: authenticationStatus, adapter } = useAuthenticationConfigContext();
@@ -31,13 +32,6 @@ export function useRainbowKitAccountContext(){
     }
   );
 
-  useAccountEffect({
-    onDisconnect: async () => {
-      connectorUID.value = undefined
-      await adapter?.value?.signOut()
-    }
-  })
-
   return {
     connector,
     address,
@@ -49,6 +43,7 @@ export function useRainbowKitAccountContext(){
     isReconnecting,
     chain,
     connectionStatus,
-    status
+    status,
+    connectorUID,
   }
 }

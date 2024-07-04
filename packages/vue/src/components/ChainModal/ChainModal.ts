@@ -34,8 +34,12 @@ export const ChainModal = defineComponent({
         const pendingChainId = ref<number>()
         const { chainId: connectedChainId, isConnected } = useRainbowKitAccountContext()
         const currentChainId = useChainId();
-        const chainId = computed(()=> isConnected.value ? connectedChainId.value : currentChainId.value);
         const { chains } = useConfig()
+        const chainId = computed(()=> { 
+            if(isConnected.value) return connectedChainId.value;
+            if(chains.some((chain) => chain.id === currentChainId.value)) return currentChainId.value;
+            return chains[0].id;
+        });
         const { t } = useLocale()
         const { disconnect } = useDisconnect()
         const { chainModalTeleportTarget:target } = useAppContext();
@@ -59,7 +63,7 @@ export const ChainModal = defineComponent({
         })
 
         const titleId = 'rk_chain_modal_title'
-        const isCurrentChainSupported = computed(() => chains.some((chain) => chain.id === chainId.value))
+        const isCurrentChainSupported = computed(() => chains.some((chain) => chain.id === chainId.value));
         const chainIconSize = computed(() => (isMobile ? '36' : '28'))
         const { rainbowKitChains: rkChains } = useRainbowKitChainContext()
       

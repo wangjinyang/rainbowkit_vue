@@ -23,6 +23,9 @@ export function useEnsMetadata(){
                 getEnsAvatar(config, { name: normalize(ensName), chainId}).then((ensAvatar)=>{
                     avatar.value = ensAvatar;
                 })
+            }).catch((reason)=>{
+                if(!address) return;
+                name.value = formatAddress(address);
             });
         }catch(ex){
             if(!address) return;

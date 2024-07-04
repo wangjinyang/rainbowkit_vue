@@ -3,6 +3,7 @@ import {
     bifrostWallet,
     bitgetWallet,
     bitskiWallet,
+    binanceWallet,
     bloomWallet,
     braveWallet,
     clvWallet,
@@ -52,6 +53,7 @@ import {
     immutableZkEvm,
     RainbowKitChain,
     coinbaseWallet,
+    arbitrum,
     //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
@@ -123,15 +125,18 @@ export function createRainbowKitConfig(app: App) : App{
             ///Default options 
             appName: 'RainbowKit Vue Demo',
             projectId: 'YOUR_PROJECT_ID',
+            initialChainId: mainnet.id,
             chains: [
-                mainnet,
-                zkSync,
-                scroll,
-                polygonZkEvm,
-                immutableZkEvm,
-                avalanche
+                //mainnet,
+                arbitrum,
+                //mainnet,
+                //zkSync,
+                //scroll,
+                //polygonZkEvm,
+                //immutableZkEvm,
+                //avalanche
             ],
-            enableChainModalOnConnect: false, // by default is true
+            enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
             wallets: [
                 {
@@ -151,6 +156,7 @@ export function createRainbowKitConfig(app: App) : App{
                         metaMaskWallet,
                         argentWallet,
                         bifrostWallet,
+                        binanceWallet,
                         bitgetWallet,
                         bitskiWallet,
                         bloomWallet,
