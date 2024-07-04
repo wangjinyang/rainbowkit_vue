@@ -1,11 +1,27 @@
 import { useConnectionStatus } from "@/composables/connection";
 import { useAuthenticationConfigContext } from "@/composables/authentication";
-import { useAccount } from '@wagmi/vue'
-import { ref, watch } from 'vue'
+import { UseAccountReturnType, useConfig } from '@wagmi/vue'
+import { onScopeDispose, reactive, readonly, ref, toRefs, watch } from 'vue'
+import { getAccount, watchAccount } from "@wagmi/vue/actions";
+
+///Rewrite use account
+export function useRainbowKitAccount(): UseAccountReturnType {
+  const config = useConfig();
+  const account = reactive(getAccount(config))
+  const unsubscribe = watchAccount(config, {
+    onChange(current,prev) {
+      Object.assign(account,{
+        ...current
+      });
+    },
+  })
+  onScopeDispose(() => unsubscribe())
+  return toRefs(readonly(account)) as UseAccountReturnType
+}
 
 ///add binance wallet , backend chains 
 export function useRainbowKitAccountContext(){  
-  const { connector, isConnected, isConnecting, chainId, isDisconnected, isReconnecting, chain, address, addresses,status } = useAccount();
+  const { connector, isConnected, isConnecting, chainId, isDisconnected, isReconnecting, chain, address, addresses,status } = useRainbowKitAccount();
   const { status: authenticationStatus, adapter } = useAuthenticationConfigContext();
   const connectorUID = ref<string>()
   const connectionStatus = useConnectionStatus(isConnected,isConnecting,address);

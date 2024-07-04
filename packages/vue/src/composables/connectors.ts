@@ -3,6 +3,10 @@ import { useRainbowKitChainContext } from '@/composables/chain'
 import { type WagmiConnectorInstance, type WalletInstance, type WalletConnector, mainnet } from '@/types'
 import { useConnect, Connector, useChainId } from '@wagmi/vue'
 import { computed, ComputedRef } from 'vue'
+import {
+  METAMASK_WALLET_ID,
+  MetaMaskConnector,
+} from '@/wallets/metaMaskWallet/metaMaskWallet';
 
 export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : ComputedRef<Array<WalletConnector>> {
   const MAX_RECENT_WALLETS = 3
@@ -57,6 +61,10 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
     if (connector.id === 'coinbase') {
       // @ts-expect-error
       return provider.qrUrl
+    }
+
+    if (connector.id === METAMASK_WALLET_ID) {
+        return await (connector as unknown as MetaMaskConnector).getDisplayUri();
     }
 
     return new Promise<string>((resolve)=>{

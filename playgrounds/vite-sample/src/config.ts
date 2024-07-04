@@ -127,15 +127,15 @@ export function createRainbowKitConfig(app: App) : App{
             projectId: 'YOUR_PROJECT_ID',
             initialChainId: mainnet.id,
             chains: [
-                //mainnet,
+                mainnet,
                 arbitrum,
-                //mainnet,
-                //zkSync,
-                //scroll,
-                //polygonZkEvm,
-                //immutableZkEvm,
-                //avalanche
+                zkSync,
+                scroll,
+                polygonZkEvm,
+                immutableZkEvm,
+                avalanche
             ],
+            multiInjectedProviderDiscovery: false,
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
             wallets: [
@@ -203,7 +203,7 @@ export function createRainbowKitConfig(app: App) : App{
                 }
             ],
             auth: {
-                allowAuthenticate: false,
+                allowAuthenticate: true,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,

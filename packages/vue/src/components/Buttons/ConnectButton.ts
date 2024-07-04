@@ -15,6 +15,7 @@ import { computed, defineComponent, h, PropType, SlotsType, watch } from "vue";
 import { formatAddress, formatENS, isMobile } from "@/utils";
 import { useChainId } from "@wagmi/vue";
 import { useThemeContext } from "@/composables";
+import { ButtonSpinnerIcon } from "../Icons/ButtonSpinnerIcon";
 
 export const createConnectButtonProps = {
     label: {
@@ -35,7 +36,6 @@ export const createConnectButtonProps = {
     }
 } as const;
 
-///TODO : Buffer library causing delay for useAccount() as Buffer library is needed for wallet-connect. 
 export const ConnectButton = defineComponent({
     props: createConnectButtonProps,
     slots: Object as SlotsType<{
@@ -261,6 +261,26 @@ export const ConnectButton = defineComponent({
                     
                 ],
 
+                ///loading
+                ...(connectionStatus.value === 'connecting') ? [
+                    h(Container,{
+                        as: 'button',
+                        alignItems: 'center',
+                        background: 'connectButtonBackground',
+                        borderRadius: 'connectButton',
+                        boxShadow: 'connectButton',
+                        color: 'connectButtonText',
+                        display: 'flex',
+                        fontFamily: 'body',
+                        fontWeight: 'bold',
+                        transition: 'default',
+                        type: 'button',
+                        paddingX: '24',
+                        paddingY: '8',
+                        class: touchable({ active: 'shrink', hover: 'grow' }),
+                    },()=> h(ButtonSpinnerIcon,{ width: 24, height: 24 })),
+                ] : [],
+
                 ///logged in button
                 ...address.value && connectionStatus.value === 'connected'? [
                     h(Container, {
@@ -337,6 +357,8 @@ export const ConnectButton = defineComponent({
 
                     ))
                 ] : [],
+
+                
 
                 ///Connect button
                 ...(connectionStatus.value === 'disconnected') || (connectionStatus.value === 'unauthenticated') ? [
