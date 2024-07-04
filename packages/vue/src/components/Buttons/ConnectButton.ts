@@ -15,6 +15,7 @@ import { computed, defineComponent, h, PropType, SlotsType, watch } from "vue";
 import { formatAddress, formatENS, isMobile } from "@/utils";
 import { useChainId } from "@wagmi/vue";
 import { useThemeContext } from "@/composables";
+import { ButtonSpinnerIcon } from "../Icons/ButtonSpinnerIcon";
 
 export const createConnectButtonProps = {
     label: {
@@ -35,7 +36,6 @@ export const createConnectButtonProps = {
     }
 } as const;
 
-///TODO : Buffer library causing delay for useAccount() as Buffer library is needed for wallet-connect. 
 export const ConnectButton = defineComponent({
     props: createConnectButtonProps,
     slots: Object as SlotsType<{
@@ -86,7 +86,6 @@ export const ConnectButton = defineComponent({
         const applicationKey = computed(() => {
             return `rainbowkit_locale_${adapter.value.currentLocale}_${mode.value}`;
         });
-        const isSelectedChainSupported = computed<boolean>((() => (chains?.value?.some((chain) => chain.id === chainId.value) ?? false)))
         const hasChainIcon = computed(() => selectedChain.value?.iconUrl !== undefined)
 
         const hasPendingTransactions = computed(() => {
@@ -102,8 +101,16 @@ export const ConnectButton = defineComponent({
             if (!selectedChainId && chains?.value && !initialChainId?.value) {
                 selectedChainId = chains?.value[0].id;
             }
+
+            const isSupported = chains?.value?.some((chain) => chain.id === selectedChainId) ?? false;
+            if(!isSupported && chains?.value && !isConnected.value){
+                selectedChainId = initialChainId?.value ?? chains?.value[0].id;
+            }
+
             return chainByIds.value[selectedChainId ?? mainnet.id];
         });
+
+        const isSelectedChainSupported = computed<boolean>((() => (chains?.value?.some((chain) => chain.id === selectedChain.value.id) ?? false)))
 
         const computeResponsiveChainStatus = () => {
             if (typeof props.chainStatus === 'string') {
@@ -118,21 +125,24 @@ export const ConnectButton = defineComponent({
         };
 
         const enableChainModal = computed(() => {
-            const hasMultipleChains = (chains?.value?.length ?? 0) > 1;
+            const hasChainSetup = (chains?.value?.length ?? 0) >= 1;
             const hasSelectedChain = selectedChain.value !== undefined;
-            const hasInitialChain = initialChainId?.value !== undefined;
+            //const hasInitialChain = initialChainId?.value !== undefined;
             const enableChainModalOnConnect = ignoreChainModalOnConnect?.value ?? true;
             const alreadyConnected = connectionStatus.value === 'connected';
             const isUnauthenticated = connectionStatus.value === 'unauthenticated';
             const showChainStatus = computeResponsiveChainStatus() !== 'none';
 
-            return (
-                (((!hasInitialChain && enableChainModalOnConnect) || alreadyConnected) || isUnauthenticated)
-                && (hasMultipleChains || showChainStatus)
+            const result = (
+                (enableChainModalOnConnect || alreadyConnected || isUnauthenticated)
+                && (hasChainSetup || showChainStatus)
                 && hasSelectedChain
             );
+
+            return result;
         });
 
+        
         return () => {
             if (slots.custom) {
                 return h(() => slots.custom({
@@ -247,6 +257,28 @@ export const ConnectButton = defineComponent({
                     ]),
 
                     )
+                ] : [
+                    
+                ],
+
+                ///loading
+                ...(connectionStatus.value === 'connecting') ? [
+                    h(Container,{
+                        as: 'button',
+                        alignItems: 'center',
+                        background: 'connectButtonBackground',
+                        borderRadius: 'connectButton',
+                        boxShadow: 'connectButton',
+                        color: 'connectButtonText',
+                        display: 'flex',
+                        fontFamily: 'body',
+                        fontWeight: 'bold',
+                        transition: 'default',
+                        type: 'button',
+                        paddingX: '24',
+                        paddingY: '8',
+                        class: touchable({ active: 'shrink', hover: 'grow' }),
+                    },()=> h(ButtonSpinnerIcon,{ width: 24, height: 24 })),
                 ] : [],
 
                 ///logged in button
@@ -326,6 +358,8 @@ export const ConnectButton = defineComponent({
                     ))
                 ] : [],
 
+                
+
                 ///Connect button
                 ...(connectionStatus.value === 'disconnected') || (connectionStatus.value === 'unauthenticated') ? [
                     h(Container, {
@@ -342,7 +376,9 @@ export const ConnectButton = defineComponent({
                         class: touchable({ active: 'shrink', hover: 'grow' }),
                         onClick: openConnectModal.value,
                     }, () => props.label === 'Connect Wallet' ? t('connect_wallet.label') : props.label)
-                ] : []
+                ] : [
+               
+                ]
 
             ]));
         }

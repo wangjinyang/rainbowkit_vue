@@ -67,6 +67,11 @@ export function useRainbowKitBalance(address: Ref<Address| undefined>, chainId: 
         ]
     });
 
+    if(account[0].error || account[1].error || account[2].error){
+      await readBalanceByNative(address);
+      return;
+    }
+
     const balances = account[0].result ?? BigInt(0);
     const decimal = account[1].result ?? 18;
     const symbols = account[2].result ?? '';
@@ -79,7 +84,7 @@ export function useRainbowKitBalance(address: Ref<Address| undefined>, chainId: 
   }
 
   const readBalanceByNative = async(address: Address)=>{
-    if(context.value.currencyAddress) return;
+    //if(context.value.currencyAddress) return;
     const result = await getBalance(config,{ address: address });
     const formattedBalance = parseFloat(formatUnits(result.value,result.decimals));
     symbol.value = result.symbol;

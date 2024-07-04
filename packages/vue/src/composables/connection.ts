@@ -1,4 +1,4 @@
-import type { Address, ConnectionStatus } from "@/types";
+import type { ConnectionStatus } from "@/types";
 import { useAuthenticationConfigContext } from "@/composables/authentication";
 import { computed, ComputedRef, Ref } from "vue";
 
@@ -6,7 +6,12 @@ export function useConnectionStatus(isConnected:Ref<boolean>, isConnecting: Ref<
     const { status } = useAuthenticationConfigContext();
     
     return computed(()=>{
-        if(!address?.value){
+        
+        if(isConnecting.value && address?.value){
+            return 'connecting';
+        }
+
+        if(!isConnected?.value){
             return 'disconnected';
         }
     

@@ -12,7 +12,6 @@ import { useWalletConectors } from "@/composables/connectors";
 import { useAccount, useAccountEffect } from "@wagmi/vue";
 import { computed, defineComponent, h, ref, SlotsType, watch } from "vue";
 import { border, maxWidth, touchable } from "@/css";
-import { useThemeContext } from "@/composables";
 
 export const WalletButton = defineComponent({
     props: {

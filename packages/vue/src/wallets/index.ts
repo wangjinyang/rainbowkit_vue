@@ -4,6 +4,7 @@ export { bitgetWallet } from './bitgetWallet/bitgetWallet';
 export { bitskiWallet } from './bitskiWallet/bitskiWallet';
 export { bloomWallet } from './bloomWallet/bloomWallet';
 export { braveWallet } from './braveWallet/braveWallet';
+export { binanceWallet } from './binanceWallet/binanceWallet';
 export { clvWallet } from './clvWallet/clvWallet';
 export { coin98Wallet } from './coin98Wallet/coin98Wallet';
 export { coinbaseWallet } from './coinbaseWallet/coinbaseWallet';

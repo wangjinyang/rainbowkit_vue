@@ -1,5 +1,5 @@
 import { createDisclaimerComponent, WalletConnector, WalletStep, WalletSummary } from "@/types";
-import { useAppContext, useModalSizeContext, useLocale, useWalletButtonContext, useWalletConectors, useWindow } from "@/composables"
+import { useAppContext, useModalSizeContext, useLocale, useWalletButtonContext, useWalletConectors } from "@/composables"
 import { isSafari, addLatestWalletId } from "@/utils"
 import { ConnectModalIntro, createConnectModalIntroComponent } from "@/components/ConnectModal/ConnectModalIntro";
 import { ConnectDetail } from "@/components/ConnectModal/ConnectDetail";
@@ -16,7 +16,7 @@ import { BackIcon } from "@/components/Icons/BackIcon";
 import { InfoButton } from "@/components/Buttons/InfoButton";
 import { CloseButton } from "@/components/Buttons/CloseButton";
 import { scrollClassName, touchable, sidebarCompactMode, sidebar } from '@/css'
-import { Component, ComponentPublicInstance, computed, DefineComponent, defineComponent, h, onBeforeMount, PropType, ref, SlotsType, watch } from "vue";
+import { Component, computed, defineComponent, h, onBeforeMount, PropType, ref, SlotsType, watch } from "vue";
 import { DisclaimerLink } from "../Common/DisclaimerLink";
 import { DisclaimerText } from "../Common/DisclaimerText";
 

@@ -121,8 +121,9 @@ export function configureRainbowKitChainContext(){
     if(!selectedMetadata || !selectedMetadata.iconUrl || !selectedMetadata.iconBackground) continue;
     rainbowKitChains.push({ ...selectedMetadata, ...chain });
   }
+  const isInitialChainSupported = chains?.value?.some((chain)=> chain.id === initialChainId?.value);
   Object.assign(context,{ 
-    initialChainId: initialChainId?.value, 
+    initialChainId: isInitialChainSupported ? initialChainId?.value : undefined, 
     rainbowKitChains: chains?.value ?? rainbowKitChains 
   });
 }

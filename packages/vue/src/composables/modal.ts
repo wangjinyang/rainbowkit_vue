@@ -12,8 +12,8 @@ import { useAuthenticationConfigContext} from "@/composables/authentication";
 import { useWalletButtonContext } from "@/composables/button";
 import { useWindow} from "@/composables/window";
 import { largeScreenMinWidth } from '@/css'
-import { useAccountEffect, useConfig } from '@wagmi/vue'
-import { computed, inject, reactive, ref, toRef, toRefs, watch } from 'vue'
+import { useConfig } from '@wagmi/vue'
+import { computed, inject, reactive, ref, toRefs, watch } from 'vue'
 
 export function configureModalSizeContext() {
   const { connector } = useWalletButtonContext()
@@ -29,8 +29,8 @@ export function configureModalSizeContext() {
 }
 
 export function configureModalContext() {
-  const { chainId, connectionStatus } = useRainbowKitAccountContext()
-  const { status } = useAuthenticationConfigContext()
+  const { chainId, connectionStatus, connectorUID, isConnected } = useRainbowKitAccountContext()
+  const { status ,adapter } = useAuthenticationConfigContext()
   const { accountModalOpen, chainModalOpen, connectModalOpen, closeAllModal } = useModalContext()
   const { chains } = useConfig()
   const modal = reactive(useModalContext());
@@ -113,22 +113,31 @@ export function configureModalContext() {
         chainModalOpen.value = false;
       }
     });
+  },{ flush: 'pre', immediate: true });
 
-  },{ flush: 'post' });
+  watch(()=>isConnected.value,()=>{
+    if(isConnected.value){
+      closeAllModal.value(status?.value === 'unauthenticated');
+    }
 
-  useAccountEffect({
+    if(!isConnected.value){
+      closeAllModal.value(false)
+      connectorUID.value = undefined
+      adapter?.value?.signOut()
+    }
+
+  },{ flush: 'pre', immediate: true })
+
+  /*useAccountEffect({
     onConnect: ()=> {
+      console.log("Get called from 'onConnect' method");
       return closeAllModal.value(status?.value === 'unauthenticated');
     },
     onDisconnect: ()=>{
       closeAllModal.value(false)
+      connectorUID.value = undefined
+      adapter?.value?.signOut()
     }
-  })
-
-  /*watch(modal,(newModal) => {
-    if(!newModal.isUnauthenticate) return;
-    if(!newModal.closeAllModal) return;
-    newModal.closeAllModal(false);
   })*/
 }
 

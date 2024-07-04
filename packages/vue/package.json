@@ -27,7 +27,7 @@
   },
   "peerDependencies": {
     "@tanstack/vue-query": ">=5.0.0",
-    "@wagmi/vue": ">=0.0.23",
+    "@wagmi/vue": ">=0.0.25",
     "typescript": ">=5.0.4",
     "viem": "2.x",
     "vue": ">=3"
@@ -61,7 +61,7 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "@wagmi/vue": "^0.0.23",
+    "@wagmi/vue": "^0.0.25",
     "autoprefixer": "^10.4.19",
     "buffer": "^6.0.3",
     "npm-run-all2": "^6.1.1",
@@ -76,11 +76,19 @@
     "vue-tsc": "^1.8.27"
   },
   "overrides": {
-    "i18next": "^23.2.3",
     "ws": "8.17.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/0xHoST/rainbowkit_vue.git"
-  }
+  },
+  "license": "MIT",
+  "keywords": [
+    "ens",
+    "ethereum",
+    "vue",
+    "rainbowkit",
+    "wagmi",
+    "blockchain"
+  ]
 }

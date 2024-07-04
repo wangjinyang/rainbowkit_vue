@@ -100,6 +100,7 @@ export {
   bitskiWallet,
   bloomWallet,
   braveWallet,
+  binanceWallet,
   clvWallet,
   coin98Wallet,
   coinbaseWallet,
