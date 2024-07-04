@@ -64,7 +64,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
     }
 
     if (connector.id === METAMASK_WALLET_ID) {
-        return (connector as unknown as MetaMaskConnector).getDisplayUri();
+        return  (connector as unknown as MetaMaskConnector).getDisplayUri();
     }
 
     return new Promise<string>((resolve)=>{

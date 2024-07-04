@@ -124,11 +124,13 @@ export const metaMaskWallet:MetamaskWallet = ( dappParams: MetaMaskWalletOptions
         
         const metamaskConnector = metaMask({
           ...metaMaskWallet.parameters,
-          enableAnalytics: false,
+          enableAnalytics: true,
+          preferDesktop: true,
           extensionOnly: isExtensionInjected ? true : undefined,
           dappMetadata: {
-            name: dappParams.appName,
+            name: dappParams.appName ?? "RainbowKit Metamask",
             iconUrl: dappParams.appIcon,
+            url: "https://rainbowkit.com/"
           },
           modals: {
             install: () => {
@@ -164,26 +166,29 @@ export const metaMaskWallet:MetamaskWallet = ( dappParams: MetaMaskWalletOptions
         const displayUri: { value?: string } = {};
         const getDisplayUri = async () => {
           if (displayUri.value) {
+            console.log("Calling display uri", displayUri.value);
             return displayUri.value;
           }
 
           const provider = await metamaskConnector.getProvider();
-          //console.log("Metamask provider", provider);
+          console.log("Metamask provider", provider);
           displayUri.value = await new Promise((resolve) => {
             const onDisplayUri = (uri: unknown) => {
+              console.log("Calling display uri", uri);
               displayUri.value = uri as string;
             };
             provider.once('display_uri', (uri) => {
+              console.log("Calling display uri", uri);
               provider.on('display_uri', onDisplayUri);
               provider.once('disconnect', () => {
                 provider.removeListener('display_uri', onDisplayUri);
                 displayUri.value = undefined;
               });
-
+             
               resolve(uri as string);
             });
           });
-
+          console.log("displayUri", displayUri.value);
           return displayUri.value;
         };
 
