@@ -1,5 +1,11 @@
 # use-rainbowkit-vue-siwe-auth-provider
 
+## 1.1.3
+
+### Patch Changes
+
+- f92e0a6: Fixed metamask bugs, display balance bugs and siwe fetch redirect bugs
+
 ## 1.1.0
 
 ### Minor Changes

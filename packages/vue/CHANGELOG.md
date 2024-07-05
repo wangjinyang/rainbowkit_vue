@@ -1,5 +1,11 @@
 # use-rainbowkit-vue
 
+## 0.4.1
+
+### Patch Changes
+
+- f92e0a6: Fixed metamask bugs, display balance bugs and siwe fetch redirect bugs
+
 ## 0.4.0
 
 ### Minor Changes
