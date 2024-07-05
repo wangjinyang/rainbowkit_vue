@@ -1,12 +1,13 @@
 import { hasInjectedProvider } from "@/utils/wallet"
-import { isAndroid,isIOS, isMobile } from "@/utils/mobile"
-import type { CreateConnectorFn, CreateWalletFn, Wallet, WalletDetailsParams } from '@/types';
+import { isMobile } from "@/utils/mobile"
+import type { CreateConnectorFn, CreateWalletFn, DefaultWalletOptions, Wallet, WalletDetailsParams } from '@/types';
 import { metaMask, MetaMaskParameters } from "@wagmi/vue/connectors";
 import { createConnector } from "@wagmi/vue";
 
 export const METAMASK_WALLET_ID = 'metaMask';
+export type MetaMaskWalletOptions = DefaultWalletOptions;
 
-export type MetaMaskWalletOptions = Pick<
+export type MetaMaskWalletSDKOptions = Pick<
   Parameters<CreateWalletFn>[0],
   'appName' | 'appIcon'
 >;
@@ -17,28 +18,90 @@ export interface MetamaskWallet {
 }
 
 export interface MetaMaskConnector extends ReturnType<CreateConnectorFn> {
-  getDisplayUri: () => Promise<string>;
+  getDisplayUri: (provider:any) => Promise<string>;
 }
 
-export const metaMaskWallet:MetamaskWallet = ( dappParams: MetaMaskWalletOptions): Wallet => {
-  // Not using the explicit isMetaMask fn to check for MetaMask
-  // so that users can continue to use the MetaMask button
-  // to interact with wallets compatible with window.ethereum.
-  // The connector's getProvider will instead favor the real MetaMask
-  // in window.providers scenarios with multiple wallets injected.
-  // const isMetaMaskInjected = hasInjectedProvider({ flag: 'isMetaMask' });
-  // const shouldUseWalletConnect = !isMetaMaskInjected;
+function _configureCreateMetamaskConnector(
+  information: WalletDetailsParams, 
+  wallet: MetamaskWallet,
+  options:MetaMaskWalletSDKOptions,
+  isExtensionInjected:boolean,
+):CreateConnectorFn{
+  return createConnector((config)=>{  
+      const displayUri: { value?: string } = {};
+      const connector = metaMask({
+        ...wallet.parameters,
+        enableAnalytics: true,
+        extensionOnly: isExtensionInjected ? true : undefined,
+        dappMetadata: {
+          name: options.appName,
+          iconUrl: options.appIcon,
+          url: window.location.href,
+        },
+        logging: {
+          developerMode: true,
+        },
+        checkInstallationImmediately: true,
+        modals: {
+          install: ({ link }) => {
+            return {
+              mount: () => {
+                displayUri.value = link;
+              },
+              unmount: (shouldTerminate) => {
+                if(!shouldTerminate) return;
+                displayUri.value = undefined;
+              },
+            };
+          },
+        },
+      })(config);
+
+      const getChainId = connector.getChainId;
+        connector.getChainId = async () => {
+          try {
+            return await getChainId();
+          } catch {
+            return config.chains[0]?.id ?? 1;
+          }
+      };
+
+      const getDisplayUri = async (provider: any) => {
+        if (displayUri.value) {
+          console.log("Metamask link from get display uri method:", displayUri.value);
+          return displayUri.value;
+        }
+
+        displayUri.value = await new Promise((resolve) => {
+          const onDisplayUri = (uri: unknown) => {
+            displayUri.value = uri as string;
+          };
+          provider.once('display_uri', (uri:string) => {
+            provider.on('display_uri', onDisplayUri);
+            /*provider.once('disconnect', () => {
+              //provider.removeListener('display_uri', onDisplayUri);
+              //displayUri.value = undefined;
+            });*/
+
+            resolve(uri as string);
+          });
+        });
+
+        return displayUri.value;
+      }
+
+      return {
+        getDisplayUri,
+        ...connector,
+        ...information
+      }
+
+    })
+}
+
+export const metaMaskWallet = ({ appName, appIcon }: MetaMaskWalletSDKOptions): Wallet => {
   const isExtensionInjected = hasInjectedProvider({ flag: 'isMetaMask' });
-
-  const getUri = (uri: string) => {
-    return isAndroid
-      ? uri
-      : isIOS
-        ? // currently broken in MetaMask v6.5.0 https://github.com/MetaMask/metamask-mobile/issues/6457
-          `metamask://wc?uri=${encodeURIComponent(uri)}`
-        : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
-  };
-
+  
   return {
     id: METAMASK_WALLET_ID,
     name: 'MetaMask',
@@ -119,80 +182,6 @@ export const metaMaskWallet:MetamaskWallet = ( dappParams: MetaMaskWalletOptions
           },
         }
       : undefined,
-    createConnector: (walletDetails: WalletDetailsParams) => {
-      return createConnector((config) => {
-        
-        const metamaskConnector = metaMask({
-          ...metaMaskWallet.parameters,
-          enableAnalytics: false,
-          extensionOnly: isExtensionInjected ? true : undefined,
-          dappMetadata: {
-            name: dappParams.appName,
-            iconUrl: dappParams.appIcon,
-          },
-          modals: {
-            install: () => {
-              return {
-                mount: () => {},
-                unmount: () => {},
-              };
-            },
-          },
-        })(config);
-
-        /**
-         * Override getChainId to avoid metamask error
-         *
-         * @see https://github.com/rainbow-me/rainbowkit/blob/cdcaa25d66b522119852502f71c8efc02b1abdd9/packages/rainbowkit/src/wallets/useWalletConnectors.ts#L57
-         * And @see https://github.com/wevm/wagmi/blob/275cccb51437908a2d7d3dab0549c6050b6340d3/packages/connectors/src/metaMask.ts#L154
-         */
-        const getChainId = metamaskConnector.getChainId;
-        metamaskConnector.getChainId = async () => {
-          try {
-            return await getChainId();
-          } catch(e) {
-            return config.chains[0]?.id ?? 1;
-          }
-        };
-
-        /**
-         * Metamask emits the display_uri event only once when starting the connection.
-         * On subsequent attempts, it will wait for the first initialization.
-         * However, RainbowKit will listen for the display_uri event on each attempt.
-         * @see https://github.com/MetaMask/metamask-sdk/blob/90f2b7e96bcb7cca2f6c409909435325a615e2c1/packages/sdk/src/provider/initializeMobileProvider.ts#L122
-         */
-        const displayUri: { value?: string } = {};
-        const getDisplayUri = async () => {
-          if (displayUri.value) {
-            return displayUri.value;
-          }
-
-          const provider = await metamaskConnector.getProvider();
-          //console.log("Metamask provider", provider);
-          displayUri.value = await new Promise((resolve) => {
-            const onDisplayUri = (uri: unknown) => {
-              displayUri.value = uri as string;
-            };
-            provider.once('display_uri', (uri) => {
-              provider.on('display_uri', onDisplayUri);
-              provider.once('disconnect', () => {
-                provider.removeListener('display_uri', onDisplayUri);
-                displayUri.value = undefined;
-              });
-
-              resolve(uri as string);
-            });
-          });
-
-          return displayUri.value;
-        };
-
-        return {
-          getDisplayUri,
-          ...metamaskConnector,
-          ...walletDetails,
-        };
-      });
-    },
-  };
+      createConnector: (detail) => _configureCreateMetamaskConnector(detail,metaMaskWallet,{ appName,appIcon },isExtensionInjected)
+  }
 };

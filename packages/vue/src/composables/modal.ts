@@ -12,7 +12,7 @@ import { useAuthenticationConfigContext} from "@/composables/authentication";
 import { useWalletButtonContext } from "@/composables/button";
 import { useWindow} from "@/composables/window";
 import { largeScreenMinWidth } from '@/css'
-import { useConfig } from '@wagmi/vue'
+import { useAccountEffect, useConfig } from '@wagmi/vue'
 import { computed, inject, reactive, ref, toRefs, watch } from 'vue'
 
 export function configureModalSizeContext() {
@@ -115,30 +115,19 @@ export function configureModalContext() {
     });
   },{ flush: 'pre', immediate: true });
 
-  watch(()=>isConnected.value,()=>{
-    if(isConnected.value){
+  watch(()=>isConnected.value,(connected)=>{
+    if(connected){
+      console.log("Authentication status:", status?.value);
       closeAllModal.value(status?.value === 'unauthenticated');
     }
 
-    if(!isConnected.value){
+    if(!connected){
       closeAllModal.value(false)
       connectorUID.value = undefined
       adapter?.value?.signOut()
     }
 
   },{ flush: 'pre', immediate: true })
-
-  /*useAccountEffect({
-    onConnect: ()=> {
-      console.log("Get called from 'onConnect' method");
-      return closeAllModal.value(status?.value === 'unauthenticated');
-    },
-    onDisconnect: ()=>{
-      closeAllModal.value(false)
-      connectorUID.value = undefined
-      adapter?.value?.signOut()
-    }
-  })*/
 }
 
 export function createModalSizeContext(option: RainbowKitPluginOptions): Context<ModalSize> {
