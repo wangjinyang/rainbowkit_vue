@@ -88,7 +88,7 @@ export function createRainbowKitConfig(app: App) : App{
 
     ///if having existing i18n 
     const newI18n = createI18n({
-        locale: 'zh',
+        locale: 'en',
         fallbackLocale: [ 'en', 'zh' ],
         legacy: false,
         globalInjection: true,
@@ -202,7 +202,7 @@ export function createRainbowKitConfig(app: App) : App{
                 }
             ],
             auth: {
-                allowAuthenticate: true,
+                allowAuthenticate: false,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,

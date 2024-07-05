@@ -4,7 +4,7 @@ import { isMobile } from "@/utils";
 import { MobileStatus } from "@/components/ConnectModal/MobileStatus";
 import { MobileOption } from "@/components/ConnectModal/MobileOption";
 import { DesktopOptions } from "@/components/ConnectModal/DesktopOption";
-import { computed, Component, defineComponent, h, PropType, SlotsType } from "vue";
+import { Component, defineComponent, h, PropType, SlotsType } from "vue";
 
 export const ConnectOption = defineComponent({
     props: {

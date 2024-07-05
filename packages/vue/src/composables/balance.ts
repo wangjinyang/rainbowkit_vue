@@ -68,7 +68,7 @@ export function useRainbowKitBalance(address: Ref<Address| undefined>, chainId: 
     });
 
     if(account[0].error || account[1].error || account[2].error){
-      await readBalanceByNative(address);
+      await readBalanceByNative(address,false);
       return;
     }
 
@@ -83,8 +83,8 @@ export function useRainbowKitBalance(address: Ref<Address| undefined>, chainId: 
     balance.value = `${abbreviateETHBalance(formattedBalance)} ${symbol.value}`;
   }
 
-  const readBalanceByNative = async(address: Address)=>{
-    //if(context.value.currencyAddress) return;
+  const readBalanceByNative = async(address: Address, checkValidation: boolean = true)=>{
+    if(checkValidation && context.value.currencyAddress) return;
     const result = await getBalance(config,{ address: address });
     const formattedBalance = parseFloat(formatUnits(result.value,result.decimals));
     symbol.value = result.symbol;

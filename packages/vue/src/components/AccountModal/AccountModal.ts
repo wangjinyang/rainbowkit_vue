@@ -32,8 +32,11 @@ export const AccountModal = defineComponent({
         const titleId = 'rk_account_modal_title'
         const { address } = useRainbowKitAccountContext();
         const { name, avatar } = useEnsMetadata();
-        const { disconnect  } = useDisconnect();
+        const { disconnect,connectors  } = useDisconnect();
         const { accountModalTeleportTarget:target } = useAppContext();
+        const disconnectAll = ()=>{
+            connectors.value.map((connector)=> disconnect({ connector }));
+        }
 
         return ()=>{
             return h(Dialog,{
@@ -44,7 +47,7 @@ export const AccountModal = defineComponent({
                 bottomSheetOnMobile: true,
                 target: target?.value ?? "body"
             },()=>h(ProfileDetail,{
-                onDisconnect: disconnect,
+                onDisconnect: disconnectAll,
                 ensName: name.value,
                 ensAvatar: avatar.value,
                 address: address.value,

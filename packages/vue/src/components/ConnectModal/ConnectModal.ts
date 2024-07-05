@@ -3,7 +3,7 @@ import { Dialog } from "@/components/Common/Dialog";
 import { ConnectOption } from "@/components/ConnectModal/ConnectOption";
 import { SignIn } from "@/components/ConnectModal/SignIn";
 import { MobileWalletSteps, MobileWalletSummary, WalletConnector, WalletStep, WalletSummary, SignInRefType, Address, Chain } from "@/types"
-import { useDisconnect } from '@wagmi/vue'
+import { useConnect, useDisconnect } from '@wagmi/vue'
 import { Component, defineComponent, h, PropType, SlotsType } from "vue"
 
 export const ConnectModal = defineComponent({
@@ -65,12 +65,12 @@ export const ConnectModal = defineComponent({
         }
 
         const onConnectCancel = () => {
+            props.onClosed() 
             if (isConnecting.value) disconnect()
-            props.onClosed()
         }
 
         return ()=>{
-            if(connectionStatus.value === 'disconnected' || connectionStatus.value === 'loading'){
+            if(connectionStatus.value === 'disconnected' || connectionStatus.value === 'loading' || connectionStatus.value === 'connecting'){
                 return h(Dialog,{
                     onClosed: onConnectCancel,
                     open: props.open,

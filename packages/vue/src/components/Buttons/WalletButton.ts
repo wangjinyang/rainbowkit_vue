@@ -39,7 +39,7 @@ export const WalletButton = defineComponent({
         const loading = ref<boolean>(false)
         const isError = ref<boolean>(false)
         const connectors = useWalletConectors()
-        const connectionStatus = useConnectionStatus(isConnected,isConnecting)
+        const connectionStatus = useConnectionStatus()
 
         const filteredConnectors = computed(() =>
             connectors.value
