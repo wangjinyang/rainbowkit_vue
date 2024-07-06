@@ -117,7 +117,6 @@ export function configureModalContext() {
 
   watch(()=>isConnected.value,(connected)=>{
     if(connected){
-      console.log("Authentication status:", status?.value);
       closeAllModal.value(status?.value === 'unauthenticated');
     }
 
