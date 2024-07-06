@@ -15,14 +15,11 @@ import {
   AvatarComponentContextKey,
   RainbowKitChainContextKey,
   TransactionStoreContextKey,
-  LocaleOptions,
   AuthenticationConfigContextKey,
   ModalSize,
   Chains,
   Transports,
 } from '../types';
-import { createRainbowKitDefaultLocaleAdapter } from '@/locales/adapters/RainbowkitDefaultLocaleAdapter'
-
 import { createRainbowKitChainContext } from "@/composables/chain"
 import { createApplicationInfoContext} from "@/composables/application"
 import { createAuthenticationConfigContext } from "@/composables/authentication"
@@ -39,7 +36,7 @@ import { RainbowKitProvider } from '@/components/Common/RainbowKitProvider'
 import { WalletButton } from "@/components/Buttons/WalletButton";
 import { ConnectButton } from "@/components/Buttons/ConnectButton";
 import { getLightTheme, getDarkTheme, getMidnightTheme } from '@/css'
-import { metaMaskWallet, coinbaseWallet, ledgerWallet, rainbowWallet } from '@/wallets'
+import { metaMaskWallet, coinbaseWallet, ledgerWallet, rainbowWallet, safeWallet, braveWallet } from '@/wallets'
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock"
 import { http } from 'viem'
 import { WagmiPlugin, createConfig, createStorage } from '@wagmi/vue'
@@ -86,7 +83,9 @@ export function getDefaultPluginOptions(chains: Chains):
         metaMaskWallet,
         coinbaseWallet.all,
         ledgerWallet,
-        rainbowWallet
+        rainbowWallet,
+        safeWallet,
+        braveWallet,
       ]
     }
   ]

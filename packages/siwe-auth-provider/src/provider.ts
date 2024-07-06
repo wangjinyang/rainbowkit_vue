@@ -41,7 +41,7 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                     chainId
                 })
             },
-            getMessageBody: ({ message }) => parseSiweMessage(message),
+            getMessageBody: ({ message }) => message,
             getNonce: async () => {
                 const auth = useAuth();
                 const nonce = auth.currentToken;
@@ -58,7 +58,7 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                     redirect: 'follow',
                     method: "POST",
                     data: {
-                        message: JSON.stringify(message),
+                        message: JSON.stringify(parseSiweMessage(message)),
                         signature
                     },
                 });

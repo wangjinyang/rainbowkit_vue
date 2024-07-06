@@ -53,7 +53,8 @@ export type {
     ModalContext,
     ModalSize,
     AppInfoContext,
-    RainbowKitChains
+    RainbowKitChains,
+    CreateConnectorFn,
 } from "./types"
 
 ///themes
@@ -76,7 +77,6 @@ export {
     useClearRecentTransactions,
     useRainbowKitAccountContext,
     useRainbowKitChainContext,
-    useReady
 } from "./composables"
 
 ///components
@@ -141,6 +141,21 @@ export {
   zealWallet,
   zerionWallet,
 } from "./wallets";
+
+///utils
+export { 
+    hasInjectedProvider, 
+    getInjectedConnector,
+    getWalletConnectConnector,
+    isAndroid, 
+    isIOS, 
+    isMobile, 
+    isSafari, 
+    isWindows, 
+    isArc, 
+    isMacOS, 
+    isLinux 
+} from "./utils";
 
 export { http } from "@wagmi/vue";
 export * from "@wagmi/vue/chains";

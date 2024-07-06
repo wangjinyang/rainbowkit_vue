@@ -128,12 +128,12 @@ export function createRainbowKitConfig(app: App) : App{
             initialChainId: mainnet.id,
             chains: [
                 mainnet,
-                arbitrum,
-                zkSync,
-                scroll,
-                polygonZkEvm,
-                immutableZkEvm,
-                avalanche
+                //arbitrum,
+                //zkSync,
+                //scroll,
+                //polygonZkEvm,
+                //immutableZkEvm,
+                //avalanche
             ],
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
@@ -152,7 +152,6 @@ export function createRainbowKitConfig(app: App) : App{
                 {
                     groupName: "Others",
                     wallets: [
-                        metaMaskWallet,
                         argentWallet,
                         bifrostWallet,
                         binanceWallet,
@@ -199,7 +198,7 @@ export function createRainbowKitConfig(app: App) : App{
                         zealWallet,
                         zerionWallet,
                     ]
-                }
+                },
             ],
             auth: {
                 allowAuthenticate: false,
@@ -233,11 +232,11 @@ export function createRainbowKitConfig(app: App) : App{
             chainModalTeleportTarget: '#rainbowkit-modal',
             accountModalTeleportTarget: "#rainbowkit-modal",
             currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',           
-            connectModalIntro: (/*{ compactModalEnabled, getWallet }*/)=>{
+            /*connectModalIntro: (/*{ compactModalEnabled, getWallet })=>{
                 return ()=>{
                     return h('div','You can start your journey here by using web3 wallet.');
                 }
-            },
+            },*/
         };
     }
 
