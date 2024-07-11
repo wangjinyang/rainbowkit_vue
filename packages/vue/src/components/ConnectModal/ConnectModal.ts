@@ -57,16 +57,19 @@ export const ConnectModal = defineComponent({
     setup(props, { slots }) {
         const titleId = 'rk_connect_title'
         const { connectionStatus,isConnecting } = useRainbowKitAccountContext()
-        const { disconnect } = useDisconnect()
-        const { connectModalTeleportTarget:target } = useAppContext();        
+        const { disconnect, connectors } = useDisconnect()
+        const { connectModalTeleportTarget:target } = useAppContext();    
+        const disconnectAll = ()=>{
+            connectors.value.map((connector)=> disconnect({ connector }));
+        }    
         const onAuthCancel = () => {
             props.onClosed()
-            disconnect()
+            disconnectAll()
         }
 
         const onConnectCancel = () => {
             props.onClosed() 
-            if (isConnecting.value) disconnect()
+            if (isConnecting.value) disconnectAll()
         }
 
         return ()=>{

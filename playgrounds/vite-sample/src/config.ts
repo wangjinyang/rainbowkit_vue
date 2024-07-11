@@ -207,7 +207,7 @@ export function createRainbowKitConfig(app: App) : App{
                 },
             ],
             auth: {
-                allowAuthenticate: false,
+                allowAuthenticate: true,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,
