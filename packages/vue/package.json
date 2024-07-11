@@ -27,7 +27,7 @@
   },
   "peerDependencies": {
     "@tanstack/vue-query": ">=5.0.0",
-    "@wagmi/vue": ">=0.0.25",
+    "@wagmi/vue": ">=0.0.26",
     "typescript": ">=5.0.4",
     "viem": "2.x",
     "vue": ">=3"
@@ -61,7 +61,7 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "@wagmi/vue": "^0.0.25",
+    "@wagmi/vue": "^0.0.26",
     "autoprefixer": "^10.4.19",
     "buffer": "^6.0.3",
     "npm-run-all2": "^6.1.1",
@@ -69,11 +69,11 @@
     "prettier": "^3.0.3",
     "resolve-tspaths": "^0.8.19",
     "typescript": "~5.3.0",
-    "viem": "^2.10.9",
-    "vite": "^5.1.5",
+    "viem": "^2.17.3",
+    "vite": "^5.3.3",
     "vite-svg-loader": "^5.1.0",
-    "vue": "^3.4.27",
-    "vue-tsc": "^1.8.27"
+    "vue": "^3.4.31",
+    "vue-tsc": "^2.0.26"
   },
   "overrides": {
     "ws": "8.17.1"

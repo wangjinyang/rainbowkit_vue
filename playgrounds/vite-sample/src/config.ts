@@ -18,6 +18,8 @@ import {
     imTokenWallet,
     injectedWallet,
     kresusWallet,
+    kaikasWallet,
+    krakenWallet,
     ledgerWallet,
     metaMaskWallet,
     mewWallet,
@@ -54,6 +56,7 @@ import {
     RainbowKitChain,
     coinbaseWallet,
     arbitrum,
+    compassWallet,
     //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
@@ -128,12 +131,12 @@ export function createRainbowKitConfig(app: App) : App{
             initialChainId: mainnet.id,
             chains: [
                 mainnet,
-                //arbitrum,
-                //zkSync,
-                //scroll,
-                //polygonZkEvm,
-                //immutableZkEvm,
-                //avalanche
+                arbitrum,
+                zkSync,
+                scroll,
+                polygonZkEvm,
+                immutableZkEvm,
+                avalanche
             ],
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
@@ -161,6 +164,7 @@ export function createRainbowKitConfig(app: App) : App{
                         braveWallet,
                         clvWallet,
                         coin98Wallet,
+                        compassWallet,
                         coreWallet,
                         dawnWallet,
                         desigWallet,
@@ -170,6 +174,8 @@ export function createRainbowKitConfig(app: App) : App{
                         frontierWallet,
                         imTokenWallet,
                         injectedWallet,
+                        kaikasWallet,
+                        krakenWallet,
                         kresusWallet,
                         ledgerWallet,
                         metaMaskWallet,
@@ -218,6 +224,7 @@ export function createRainbowKitConfig(app: App) : App{
                     },
                 });
             },
+            
             disclaimer: ({ text: DisclaimerText, link: DisclaimerLink })=>{
                 return () => h(DisclaimerText, ()=>[
                     'By connecting, you agree to this demo\'s ',

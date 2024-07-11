@@ -22,11 +22,11 @@
     }
   },
   "peerDependencies": {
-    "use-rainbowkit-vue": ">=0.2.3",
     "typescript": ">=5.0.4",
+    "use-rainbowkit-vue": ">=0.4.1",
+    "viem": ">=2.13.7",
     "vue": ">=3",
-    "vue-auth3": ">=1.0.10",
-    "viem": ">=2.13.7"
+    "vue-auth3": ">=1.0.10"
   },
   "peerDependenciesMeta": {
     "typescript": {
@@ -34,18 +34,18 @@
     }
   },
   "dependencies": {
-    "vue": ">=3"
+    "vue": "^3.4.31"
   },
   "devDependencies": {
-    "use-rainbowkit-vue": "workspace:*",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.0.5",
     "resolve-tspaths": "^0.8.19",
-    "typescript": "^5.2.2",
-    "viem": "^2.13.7",
-    "vite": "^5.2.0",
+    "typescript": "^5.5.3",
+    "use-rainbowkit-vue": "workspace:*",
+    "viem": "^2.17.3",
+    "vite": "^5.3.3",
     "vue-auth3": "^1.0.10",
-    "vue-router": "^4.3.2",
-    "vue-tsc": "^2.0.6"
+    "vue-router": "^4.4.0",
+    "vue-tsc": "^2.0.26"
   },
   "overrides": {
     "i18next": "^23.2.3"

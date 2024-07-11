@@ -382,6 +382,22 @@
         }
       }
     },
+    "compass": {
+      "extension": {
+        "step1": {
+          "description": "Cüzdanınıza daha hızlı erişim için Compass Wallet'ı görev çubuğunuza sabitlemenizi öneririz.",
+          "title": "Compass Wallet uzantısını yükleyin"
+        },
+        "step2": {
+          "description": "Cüzdanınızı güvenli bir yöntemle yedeklemeye emin olun. Gizli ifadenizi asla kimseyle paylaşmayın.",
+          "title": "Cüzdan Oluştur veya Cüzdanı İçe Aktar"
+        },
+        "step3": {
+          "description": "Cüzdanınızı kurduktan sonra, aşağıya tıklayın ve tarayıcıyı yenileyin ve eklentiyi yükleyin.",
+          "title": "Tarayıcınızı yenileyin"
+        }
+      }
+    },
     "core": {
       "qr_code": {
         "step1": {
@@ -471,6 +487,52 @@
         "step3": {
           "title": "Sağ üst köşede Tarayıcı Simgesine dokunun",
           "description": "Yeni Bağlantı'yı seçin, ardından QR kodunu tarayın ve bağlantıyı onaylamak için istemi onaylayın."
+        }
+      }
+    },
+    "kaikas": {
+      "extension": {
+        "step1": {
+          "description": "Cüzdanınıza daha hızlı erişim için Kaikas'ı görev çubuğunuza sabitlemeyi öneririz.",
+          "title": "Kaikas uzantısını yükleyin"
+        },
+        "step2": {
+          "description": "Cüzdanınızı güvenli bir yöntemle yedeklemeye emin olun. Gizli ifadenizi asla kimseyle paylaşmayın.",
+          "title": "Cüzdan Oluştur veya Cüzdanı İçe Aktar"
+        },
+        "step3": {
+          "description": "Cüzdanınızı kurduktan sonra, aşağıya tıklayın ve tarayıcıyı yenileyin ve eklentiyi yükleyin.",
+          "title": "Tarayıcınızı yenileyin"
+        }
+      },
+      "qr_code": {
+        "step1": {
+          "title": "Kaikas uygulamasını açın",
+          "description": "Cüzdanınıza daha hızlı erişim için Kaikas uygulamasını ana ekranınıza koyun."
+        },
+        "step2": {
+          "title": "Cüzdan Oluştur veya Cüzdanı İçe Aktar",
+          "description": "Yeni bir cüzdan oluşturun veya mevcut birini içe aktarın."
+        },
+        "step3": {
+          "title": "Sağ üst köşede Tarayıcı Simgesine dokunun",
+          "description": "Yeni Bağlantı'yı seçin, ardından QR kodunu tarayın ve bağlantıyı onaylamak için istemi onaylayın."
+        }
+      }
+    },
+    "kraken": {
+      "qr_code": {
+        "step1": {
+          "title": "Kraken Wallet uygulamasını açın",
+          "description": "Cüzdanınıza daha hızlı erişim için Kraken Wallet'ı ana ekranınıza koymanızı öneririz."
+        },
+        "step2": {
+          "title": "Cüzdan Oluştur veya Cüzdanı İçe Aktar",
+          "description": "Yeni bir cüzdan oluşturun veya mevcut birini içe aktarın."
+        },
+        "step3": {
+          "title": "QR simgesine dokunun ve tarayın",
+          "description": "Ana ekranınızdaki QR simgesine dokunun, kodu tarayın ve bağlanmayı onaylamak için istemi kabul edin."
         }
       }
     },

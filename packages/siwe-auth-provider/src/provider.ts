@@ -1,8 +1,8 @@
 import { CreateSiweMessageReturnType, type SiweMessage, createSiweMessage, generateSiweNonce, parseSiweMessage } from "viem/siwe";
 import { AuthenticationAdapter } from "use-rainbowkit-vue";
-import { useAuth, Options, createAuth } from "vue-auth3";
+import { useAuth, Options, createAuth, Auth } from "vue-auth3";
 import { Address } from "viem";
-import { App } from "vue";
+import { App, Plugin } from "vue";
 import driverHttpFetch from 'vue-auth3/dist/drivers/http/fetch';
 import driverHttpAuthBasic from "vue-auth3/dist/drivers/auth/basic";
 
@@ -16,6 +16,11 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             statement,
             uri,
             version,
+            requestId,
+            resources,
+            notBefore,
+            issuedAt,
+            expirationTime,
             ...authOptions
         } = options;
 

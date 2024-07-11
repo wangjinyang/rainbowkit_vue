@@ -382,6 +382,22 @@
         }
       }
     },
+    "compass": {
+      "extension": {
+        "step1": {
+          "description": "Recomendamos anclar la Billetera Compass a tu barra de tareas para un acceso más rápido a tu billetera.",
+          "title": "Instala la extensión de la Billetera Compass"
+        },
+        "step2": {
+          "description": "Asegúrese de respaldar su billetera utilizando un método seguro. Nunca comparta su frase secreta con nadie.",
+          "title": "Crear o Importar una Billetera"
+        },
+        "step3": {
+          "description": "Una vez que configures tu billetera, haz clic a continuación para refrescar el navegador y cargar la extensión.",
+          "title": "Refrescar tu navegador"
+        }
+      }
+    },
     "core": {
       "qr_code": {
         "step1": {
@@ -471,6 +487,52 @@
         "step3": {
           "title": "Toca el Icono del Escáner en la esquina superior derecha",
           "description": "Elija Nueva Conexión, luego escanee el código QR y confirme el aviso para conectar."
+        }
+      }
+    },
+    "kaikas": {
+      "extension": {
+        "step1": {
+          "description": "Recomendamos anclar Kaikas a su barra de tareas para un acceso más rápido a su billetera.",
+          "title": "Instale la extensión Kaikas"
+        },
+        "step2": {
+          "description": "Asegúrese de respaldar su billetera utilizando un método seguro. Nunca comparta su frase secreta con nadie.",
+          "title": "Crear o Importar una Billetera"
+        },
+        "step3": {
+          "description": "Una vez que configures tu billetera, haz clic a continuación para refrescar el navegador y cargar la extensión.",
+          "title": "Refrescar tu navegador"
+        }
+      },
+      "qr_code": {
+        "step1": {
+          "title": "Abra la aplicación Kaikas",
+          "description": "Ponga la aplicación Kaikas en su pantalla de inicio para un acceso más rápido a su billetera."
+        },
+        "step2": {
+          "title": "Crear o Importar una Billetera",
+          "description": "Crea una nueva billetera o importa una existente."
+        },
+        "step3": {
+          "title": "Toca el Icono del Escáner en la esquina superior derecha",
+          "description": "Elija Nueva Conexión, luego escanee el código QR y confirme el aviso para conectar."
+        }
+      }
+    },
+    "kraken": {
+      "qr_code": {
+        "step1": {
+          "title": "Abre la aplicación Kraken Wallet",
+          "description": "Agrega la Billetera Kraken a tu pantalla de inicio para un acceso más rápido a tu billetera."
+        },
+        "step2": {
+          "title": "Crear o Importar una Billetera",
+          "description": "Crea una nueva billetera o importa una existente."
+        },
+        "step3": {
+          "title": "Toque el icono de QR y escanee",
+          "description": "Toca el icono QR en tu pantalla de inicio, escanea el código y confirma el prompt para conectar."
         }
       }
     },
