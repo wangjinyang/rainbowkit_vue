@@ -382,6 +382,22 @@
         }
       }
     },
+    "compass": {
+      "extension": {
+        "step1": {
+          "description": "Nous vous recommandons d'épingler Compass Wallet à votre barre des tâches pour un accès plus rapide à votre portefeuille.",
+          "title": "Installez l'extension Compass Wallet"
+        },
+        "step2": {
+          "description": "Assurez-vous de sauvegarder votre portefeuille en utilisant une méthode sécurisée. Ne partagez jamais votre phrase secrète avec quiconque.",
+          "title": "Créer ou Importer un Portefeuille"
+        },
+        "step3": {
+          "description": "Une fois que vous avez configuré votre portefeuille, cliquez ci-dessous pour actualiser le navigateur et charger l'extension.",
+          "title": "Rafraîchissez votre navigateur"
+        }
+      }
+    },
     "core": {
       "qr_code": {
         "step1": {
@@ -471,6 +487,52 @@
         "step3": {
           "title": "Appuyez sur l'icône du scanner dans le coin supérieur droit",
           "description": "Choisissez Nouvelle Connexion, puis scannez le code QR et confirmez l'invite pour vous connecter."
+        }
+      }
+    },
+    "kaikas": {
+      "extension": {
+        "step1": {
+          "description": "Nous recommandons d'épingler Kaikas à votre barre des tâches pour un accès plus rapide à votre portefeuille.",
+          "title": "Installez l'extension Kaikas"
+        },
+        "step2": {
+          "description": "Assurez-vous de sauvegarder votre portefeuille en utilisant une méthode sécurisée. Ne partagez jamais votre phrase secrète avec quiconque.",
+          "title": "Créer ou Importer un Portefeuille"
+        },
+        "step3": {
+          "description": "Une fois que vous avez configuré votre portefeuille, cliquez ci-dessous pour actualiser le navigateur et charger l'extension.",
+          "title": "Rafraîchissez votre navigateur"
+        }
+      },
+      "qr_code": {
+        "step1": {
+          "title": "Ouvrez l'application Kaikas",
+          "description": "Placez l'application Kaikas sur votre écran d'accueil pour un accès plus rapide à votre portefeuille."
+        },
+        "step2": {
+          "title": "Créer ou Importer un Portefeuille",
+          "description": "Créez un nouveau portefeuille ou importez-en un existant."
+        },
+        "step3": {
+          "title": "Appuyez sur l'icône du scanner dans le coin supérieur droit",
+          "description": "Choisissez Nouvelle Connexion, puis scannez le code QR et confirmez l'invite pour vous connecter."
+        }
+      }
+    },
+    "kraken": {
+      "qr_code": {
+        "step1": {
+          "title": "Ouvrez l'application Kraken Wallet",
+          "description": "Ajoutez Kraken Wallet à votre écran d'accueil pour un accès plus rapide à votre portefeuille."
+        },
+        "step2": {
+          "title": "Créer ou Importer un Portefeuille",
+          "description": "Créez un nouveau portefeuille ou importez-en un existant."
+        },
+        "step3": {
+          "title": "Touchez l'icône QR et scannez",
+          "description": "Touchez l'icône QR sur votre écran d'accueil, scannez le code et confirmez l'invite pour vous connecter."
         }
       }
     },

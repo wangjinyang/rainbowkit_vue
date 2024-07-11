@@ -18,6 +18,8 @@ import {
     imTokenWallet,
     injectedWallet,
     kresusWallet,
+    kaikasWallet,
+    krakenWallet,
     ledgerWallet,
     metaMaskWallet,
     mewWallet,
@@ -54,6 +56,7 @@ import {
     RainbowKitChain,
     coinbaseWallet,
     arbitrum,
+    compassWallet,
     //createRainbowKitDefaultLocaleAdapter
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
@@ -152,7 +155,6 @@ export function createRainbowKitConfig(app: App) : App{
                 {
                     groupName: "Others",
                     wallets: [
-                        metaMaskWallet,
                         argentWallet,
                         bifrostWallet,
                         binanceWallet,
@@ -162,6 +164,7 @@ export function createRainbowKitConfig(app: App) : App{
                         braveWallet,
                         clvWallet,
                         coin98Wallet,
+                        compassWallet,
                         coreWallet,
                         dawnWallet,
                         desigWallet,
@@ -171,6 +174,8 @@ export function createRainbowKitConfig(app: App) : App{
                         frontierWallet,
                         imTokenWallet,
                         injectedWallet,
+                        kaikasWallet,
+                        krakenWallet,
                         kresusWallet,
                         ledgerWallet,
                         metaMaskWallet,
@@ -199,7 +204,7 @@ export function createRainbowKitConfig(app: App) : App{
                         zealWallet,
                         zerionWallet,
                     ]
-                }
+                },
             ],
             auth: {
                 allowAuthenticate: false,
@@ -219,6 +224,7 @@ export function createRainbowKitConfig(app: App) : App{
                     },
                 });
             },
+            
             disclaimer: ({ text: DisclaimerText, link: DisclaimerLink })=>{
                 return () => h(DisclaimerText, ()=>[
                     'By connecting, you agree to this demo\'s ',
@@ -233,11 +239,11 @@ export function createRainbowKitConfig(app: App) : App{
             chainModalTeleportTarget: '#rainbowkit-modal',
             accountModalTeleportTarget: "#rainbowkit-modal",
             currencyAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',           
-            connectModalIntro: (/*{ compactModalEnabled, getWallet }*/)=>{
+            /*connectModalIntro: (/*{ compactModalEnabled, getWallet })=>{
                 return ()=>{
                     return h('div','You can start your journey here by using web3 wallet.');
                 }
-            },
+            },*/
         };
     }
 

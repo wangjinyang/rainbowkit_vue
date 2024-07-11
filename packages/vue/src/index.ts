@@ -53,7 +53,8 @@ export type {
     ModalContext,
     ModalSize,
     AppInfoContext,
-    RainbowKitChains
+    RainbowKitChains,
+    CreateConnectorFn,
 } from "./types"
 
 ///themes
@@ -76,7 +77,6 @@ export {
     useClearRecentTransactions,
     useRainbowKitAccountContext,
     useRainbowKitChainContext,
-    useReady
 } from "./composables"
 
 ///components
@@ -104,6 +104,7 @@ export {
   clvWallet,
   coin98Wallet,
   coinbaseWallet,
+  compassWallet,
   coreWallet,
   dawnWallet,
   desigWallet,
@@ -113,6 +114,8 @@ export {
   frontierWallet,
   imTokenWallet,
   injectedWallet,
+  kaikasWallet,
+  krakenWallet,
   kresusWallet,
   ledgerWallet,
   metaMaskWallet,
@@ -141,6 +144,21 @@ export {
   zealWallet,
   zerionWallet,
 } from "./wallets";
+
+///utils
+export { 
+    hasInjectedProvider, 
+    getInjectedConnector,
+    getWalletConnectConnector,
+    isAndroid, 
+    isIOS, 
+    isMobile, 
+    isSafari, 
+    isWindows, 
+    isArc, 
+    isMacOS, 
+    isLinux 
+} from "./utils";
 
 export { http } from "@wagmi/vue";
 export * from "@wagmi/vue/chains";

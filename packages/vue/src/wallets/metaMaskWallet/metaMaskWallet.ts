@@ -39,7 +39,7 @@ function _configureCreateMetamaskConnector(
           url: window.location.href,
         },
         logging: {
-          developerMode: true,
+          developerMode: false,
         },
         checkInstallationImmediately: true,
         modals: {
@@ -68,7 +68,6 @@ function _configureCreateMetamaskConnector(
 
       const getDisplayUri = async (provider: any) => {
         if (displayUri.value) {
-          console.log("Metamask link from get display uri method:", displayUri.value);
           return displayUri.value;
         }
 
@@ -78,10 +77,10 @@ function _configureCreateMetamaskConnector(
           };
           provider.once('display_uri', (uri:string) => {
             provider.on('display_uri', onDisplayUri);
-            /*provider.once('disconnect', () => {
-              //provider.removeListener('display_uri', onDisplayUri);
-              //displayUri.value = undefined;
-            });*/
+            provider.once('disconnect', () => {
+              provider.removeListener('display_uri', onDisplayUri);
+              displayUri.value = undefined;
+            });
 
             resolve(uri as string);
           });

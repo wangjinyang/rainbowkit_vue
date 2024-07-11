@@ -6,7 +6,7 @@ export const injectedWallet = (): Wallet => {
   return {
     id: 'injected',
     name: 'Browser Wallet',
-    iconUrl: async () => (await import('./injectedWallet.svg')).default,
+    iconUrl: (import.meta.glob<{ default: string }>('./injectedWallet.svg',{ query: '?url',eager: true }))['./injectedWallet.svg'].default,
     iconBackground: '#fff',
     createConnector: getInjectedConnector({})
   }
