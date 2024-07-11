@@ -1,5 +1,11 @@
 # use-rainbowkit-vue
 
+## 0.4.2
+
+### Patch Changes
+
+- 5a0d8da: 1. Add compass wallet 2. Add kraken wallet 3. Add kaikas wallet 4. Upgrade wagmi vue version 5. Upgrade use-rainbowkit-vue version for locale and siwe plugins. 6. Remove metamask debug messages. 7. Export create wallet utility methods
+
 ## 0.4.1
 
 ### Patch Changes
