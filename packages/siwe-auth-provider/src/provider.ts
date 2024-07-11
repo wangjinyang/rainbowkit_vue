@@ -2,13 +2,14 @@ import { CreateSiweMessageReturnType, type SiweMessage, createSiweMessage, gener
 import { AuthenticationAdapter } from "use-rainbowkit-vue";
 import { useAuth, Options, createAuth, Auth } from "vue-auth3";
 import { Address } from "viem";
-import { App, Plugin } from "vue";
-import driverHttpFetch from 'vue-auth3/dist/drivers/http/fetch';
+import { App } from "vue";
+import driverHttpAxios from 'vue-auth3/dist/drivers/http/axios';
 import driverHttpAuthBasic from "vue-auth3/dist/drivers/auth/basic";
 
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
 
-    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'>>;
+    type GetCsrfToken = () => Promise<string>;
+    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { getCsrfToken?: GetCsrfToken }>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
         const {
             scheme,
@@ -21,17 +22,19 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             notBefore,
             issuedAt,
             expirationTime,
+            getCsrfToken,
             ...authOptions
         } = options;
 
         const defaultAuthOptions: Options = {
             drivers: {
-                http: driverHttpFetch,
+                http: driverHttpAxios,
                 auth: driverHttpAuthBasic
             },
         };
         const mergeAuthOptions = { ...defaultAuthOptions, ...authOptions };
-        app.use(createAuth(mergeAuthOptions));
+        const auth = createAuth(mergeAuthOptions);
+        app.use(auth);
 
         return {
             createMessage: ({ address, chainId, nonce }) => {
@@ -48,17 +51,17 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             },
             getMessageBody: ({ message }) => message,
             getNonce: async () => {
-                const auth = useAuth();
-                const nonce = auth.currentToken;
-                if (!nonce) throw new Error();
+                let nonce = "";
+                if(getCsrfToken){
+                    nonce = await getCsrfToken();
+                    auth.token("X-CSRF-Token",nonce,false);
+                }
                 return nonce;
             },
             signOut: async () => {
-                const auth = useAuth();
                 await auth.logout({ redirect: 'follow' });
             },
             async verify({ message, signature }) {
-                const auth = useAuth();
                 const response = await auth.login({
                     redirect: 'follow',
                     method: "POST",
