@@ -82,8 +82,8 @@ export const RainbowKitProvider = defineComponent({
         configureRainbowKitChainContext();
         configureTransactionStore();
 
-        const { status } = useAuthenticationConfigContext();
-        if(status) status.value = props.authenticationStatus;
+        const { status, allowAuthenticate } = useAuthenticationConfigContext();
+        if(status) status.value = allowAuthenticate.value ? props.authenticationStatus : undefined;
     
         const {
             connectModalOpen,

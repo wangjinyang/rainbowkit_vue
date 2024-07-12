@@ -7,7 +7,8 @@ export function createAuthenticationConfigContext(
     const { auth } = option
     const context = ref<AuthenticationConfig>({
       adapter: (auth?.allowAuthenticate ?? false) ? auth?.authenticateAdapter ?? undefined : undefined,
-      status: (auth?.allowAuthenticate ?? false) && auth?.authenticateAdapter !== undefined ? 'unauthenticated' : undefined
+      status: (auth?.allowAuthenticate ?? false) && auth?.authenticateAdapter !== undefined ? 'unauthenticated' : undefined,
+      allowAuthenticate: auth?.allowAuthenticate ?? false
     })
     return context;
 }

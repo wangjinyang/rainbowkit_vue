@@ -2,8 +2,9 @@ import { useAppContext, useEnsMetadata,useRainbowKitAccountContext } from "@/com
 import { Dialog } from "@/components/Common/Dialog";
 import { ProfileDetail } from "@/components/AccountModal/ProfileDetail";
 import { Address, GetEnsAvatarReturnType, GetEnsNameReturnType } from "@/types";
-import { defineComponent, h, SlotsType } from "vue";
-import { useDisconnect } from "@wagmi/vue";
+import { defineComponent, h, ref, SlotsType } from "vue";
+import { useConfig, useConnections, useDisconnect } from "@wagmi/vue";
+import { getConnections } from "@wagmi/vue/actions";
 
 export const createAccontModalProps = {
     open: {
@@ -32,10 +33,12 @@ export const AccountModal = defineComponent({
         const titleId = 'rk_account_modal_title'
         const { address } = useRainbowKitAccountContext();
         const { name, avatar } = useEnsMetadata();
-        const { disconnect,connectors  } = useDisconnect();
+        const { disconnect  } = useDisconnect();
         const { accountModalTeleportTarget:target } = useAppContext();
+        const config = useConfig();
         const disconnectAll = ()=>{
-            connectors.value.map((connector)=> disconnect({ connector }));
+            const connections = getConnections(config);
+            connections.map((connection)=> disconnect({ connector: connection.connector }))
         }
 
         return ()=>{

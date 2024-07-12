@@ -13,5 +13,6 @@ export interface AuthenticationAdapter<Message> {
 }
 export interface AuthenticationConfig<Message = any> {
   adapter?: AuthenticationAdapter<Message>
-  status?: AuthenticationStatus
+  status?: AuthenticationStatus,
+  allowAuthenticate: boolean,
 }

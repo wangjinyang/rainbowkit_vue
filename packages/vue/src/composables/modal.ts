@@ -115,18 +115,16 @@ export function configureModalContext() {
     });
   },{ flush: 'pre', immediate: true });
 
-  watch(()=>isConnected.value,(connected)=>{
-    if(connected){
+  useAccountEffect({
+    onConnect(){
       closeAllModal.value(status?.value === 'unauthenticated');
-    }
-
-    if(!connected){
+    },
+    onDisconnect(){
       closeAllModal.value(false)
       connectorUID.value = undefined
       adapter?.value?.signOut()
     }
-
-  },{ flush: 'pre', immediate: true })
+  })
 }
 
 export function createModalSizeContext(option: RainbowKitPluginOptions): Context<ModalSize> {
