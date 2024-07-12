@@ -1,15 +1,12 @@
 import { CreateSiweMessageReturnType, type SiweMessage, createSiweMessage, generateSiweNonce, parseSiweMessage } from "viem/siwe";
 import { AuthenticationAdapter } from "use-rainbowkit-vue";
-import { useAuth, Options, createAuth, Auth } from "vue-auth3";
+import { Options, createAuth } from "vue-auth3";
 import { Address } from "viem";
 import { App } from "vue";
 import driverHttpAxios from 'vue-auth3/dist/drivers/http/axios';
-import driverHttpAuthBasic from "vue-auth3/dist/drivers/auth/basic";
 
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
-
-    type GetCsrfToken = () => Promise<string>;
-    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { getCsrfToken?: GetCsrfToken }>;
+    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'>>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
         const {
             scheme,
@@ -22,15 +19,23 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             notBefore,
             issuedAt,
             expirationTime,
-            getCsrfToken,
             ...authOptions
         } = options;
 
         const defaultAuthOptions: Options = {
             drivers: {
                 http: driverHttpAxios,
-                auth: driverHttpAuthBasic
+                auth: ({
+                    request(_,options,token){
+                        options.headers['x-csrf-token'] = token;
+                        return options;
+                    },
+                    response(_,{ headers }){
+                        return headers['x-csrf-token'];
+                    }
+                })
             },
+            stores: [ 'storage' ]
         };
         const mergeAuthOptions = { ...defaultAuthOptions, ...authOptions };
         const auth = createAuth(mergeAuthOptions);
@@ -51,26 +56,34 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             },
             getMessageBody: ({ message }) => message,
             getNonce: async () => {
-                let nonce = "";
-                if(getCsrfToken){
-                    nonce = await getCsrfToken();
-                    auth.token("X-CSRF-Token",nonce,false);
-                }
+                let url = "http://localhost:3001/get-crsf-token";
+                var result = await auth.http({
+                    url,
+                    method: 'get',
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Methods': '*',
+                        'Access-Control-Allow-Headers': '*',
+                        'Access-Control-Allow-Credentials': 'true',
+                    },
+                });
+                const nonce = result.data["token"];
+                auth.token(null,nonce,false);
                 return nonce;
             },
             signOut: async () => {
-                await auth.logout({ redirect: 'follow' });
+                await auth.logout();
             },
             async verify({ message, signature }) {
+                const parsedMessage = parseSiweMessage(message);
                 const response = await auth.login({
-                    redirect: 'follow',
-                    method: "POST",
                     data: {
-                        message: JSON.stringify(parseSiweMessage(message)),
-                        signature
+                        message:parsedMessage,
+                        signature,
                     },
                 });
-                return response.status > 200;
+                return response.status >= 200 && response.status <= 299;
             },
         };
     }

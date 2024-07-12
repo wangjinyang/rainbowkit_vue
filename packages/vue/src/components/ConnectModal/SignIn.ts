@@ -33,7 +33,7 @@ export const SignIn = defineComponent({
         }
     }>,
     setup(props, { slots }) {
-        const { adapter } = useAuthenticationConfigContext()
+        const { adapter,status } = useAuthenticationConfigContext()
         const { address: addressRef, chain: chainRef } = useRainbowKitAccountContext()
         const { signMessageAsync } = useSignMessage()
         const { t } = useLocale()
@@ -80,7 +80,11 @@ export const SignIn = defineComponent({
                     throw new Error()
                 }
 
-                props.onClosedModal()
+                if(status){
+                    status.value = 'authenticated';
+                    props.onClosedModal();
+                }
+
             } catch (error) {
                 console.error(error);
                 signInRefs.value = {

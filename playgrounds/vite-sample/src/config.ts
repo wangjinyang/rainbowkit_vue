@@ -107,9 +107,22 @@ export function createRainbowKitConfig(app: App) : App{
             messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
             i18n: newI18n
         });
-        
+
         const authAdapter = createAuthAdapter(app,{
-            getCsrfToken: async() =>{ return "LklGqKMJ436TzgbBPbE2Y6g0UJChEJlg4kVLzk6YwPjKS1MGTPQ2xwqEUDllixMy";}
+            rolesKey: "roles",
+            initSync: true,
+            loginData: {
+                url: "http://localhost:3001/auth/login",
+                keyUser: "data",
+                responseType: "json",
+                remember: true,
+                staySignedIn: true,
+            },
+            logoutData: {
+                url: "http://localhost:3001/auth/logout"
+            },
+            stores: [ 'storage', 'cookie' ]
+            
         });
 
         //If want to change locale and don't want to use vue-i18n, use default locale adapter

@@ -73,7 +73,10 @@ export const ConnectModal = defineComponent({
         }
 
         return ()=>{
-            if(connectionStatus.value === 'disconnected' || connectionStatus.value === 'loading' || connectionStatus.value === 'connecting'){
+            if(connectionStatus.value === 'loading' || connectionStatus.value === 'connecting'){
+                return h('div',()=>{});
+            }
+            if(connectionStatus.value === 'disconnected'){
                 return h(Dialog,{
                     onClosed: onConnectCancel,
                     open: props.open,
