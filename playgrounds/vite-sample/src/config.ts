@@ -66,7 +66,7 @@ import { createI18n } from 'vue-i18n';
 //import { Chain } from 'viem';
 
 const storage = {
-    set(key: string, value: any, expires: any, auth: any) {
+    set(key: string, value: any, expires: any, _: any) {
         const $ = JSON.stringify(value)
         if (expires) {
             sessionStorage.setItem(key, $)
@@ -128,16 +128,23 @@ export function createRainbowKitConfig(app: App) : App{
 
         const authAdapter = createAuthAdapter(app,{
             initSync: true,
+            getCrsfTokenData:{
+                url: "http://server.localhost.tld:3001/auth/get-token",
+                responseType: "json",
+            },
             loginData: {
                 url: "http://server.localhost.tld:3001/auth/login",
-                keyUser: "data",
+                keyUser: "user",
                 responseType: "json",
-                remember: true,
+                cacheUser: true,
+                fetchUser: true,
+                staySignedIn: true,
             },
             logoutData: {
                 url: "http://server.localhost.tld:3001/auth/logout"
             },
             fetchData: {
+                url: "http://server.localhost.tld:3001/auth/fetch-user",
                 enabled: true,
                 enabledInBackground: true,
                 cache: true,

@@ -85,11 +85,6 @@ export const RainbowKitProvider = defineComponent({
         const { authenticationStatus } = toRefs(props);
         const { status, allowAuthenticate } = useAuthenticationConfigContext();
 
-        watch(authenticationStatus,([currentStatus,_])=>{
-            if(!status) return;
-            status.value = allowAuthenticate.value ? currentStatus as AuthenticationStatus : undefined;
-        }, { immediate: true });
-  
         const {
             connectModalOpen,
             accountModalOpen,
@@ -99,6 +94,17 @@ export const RainbowKitProvider = defineComponent({
             closeChainModal
         } = useModalContext();
 
+        watch(authenticationStatus,(currentStatus,_)=>{
+            if(!status) return;
+            
+            status.value = allowAuthenticate.value ? currentStatus as AuthenticationStatus : undefined;
+            if(!connectModalOpen.value 
+                && status.value === 'unauthenticated'){
+                connectModalOpen.value = true;
+            }
+
+        }, { immediate: true });
+  
         const { css, mode } = useThemeContext();
         const { adapter } = useLocale();
         const applicationKey = computed(() => {

@@ -110,6 +110,7 @@ export const SignIn = defineComponent({
                 signInRefs.value.status = 'verifying'
                 await verify(message, signature)
             } catch (ex) {
+                console.error(ex);
                 signInRefs.value = {
                     errorMessage: t('sign_in.signature.oops_error'),
                     status: 'idle'

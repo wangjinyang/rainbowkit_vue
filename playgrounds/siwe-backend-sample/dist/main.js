@@ -16,48 +16,101 @@ const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const express_session_1 = __importDefault(require("express-session"));
+const crypto_1 = require("crypto");
+const ethers_1 = require("ethers");
 const csrf_csrf_1 = require("csrf-csrf");
 const app = (0, express_1.default)();
 const CSRF_SECRET = "rainbowkit_siwe_csrf_secret"; /// not ideal for production.
 const COOKIES_SECRET = "rainbowkit_siwe_cookie_secret"; /// not ideal for production
+const SESSION_SECRET_KEY = "rainbowkit_session_user_secret"; /// not ideal for production
+const SESSION_NAME = "rainbowkit-session-user";
 const CSRF_COOKIE_NAME = "X-CSRF-TOKEN";
-const { generateToken, // Use this in your routes to provide a CSRF hash + token cookie and token.
-doubleCsrfProtection, // This is the default CSRF protection middleware.
+const port = 3001;
+const host = 'server.localhost.tld';
+const nonces = {};
+const { generateToken,
+//doubleCsrfProtection, 
  } = (0, csrf_csrf_1.doubleCsrf)({
     getSecret: () => CSRF_SECRET,
-    //cookieName: CSRF_COOKIE_NAME,
-    cookieOptions: { sameSite: false, secure: false } /// not ideal for production
+    cookieName: CSRF_COOKIE_NAME,
+    cookieOptions: { sameSite: 'none', secure: false } /// not ideal for production
 });
+app.use((0, cookie_parser_1.default)(COOKIES_SECRET));
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:3001',
+    origin: 'http://client.localhost:5173',
     credentials: true,
     exposedHeaders: ["set-cookie"],
 }));
-app.use((0, cookie_parser_1.default)(COOKIES_SECRET));
-app.use(doubleCsrfProtection);
+app.use((0, express_session_1.default)({
+    name: SESSION_NAME,
+    secret: SESSION_SECRET_KEY, // Use a strong secret key for signing the session ID cookie
+    resave: false, // Avoid resaving session if not modified
+    saveUninitialized: true, // Save uninitialized sessions
+    cookie: { secure: false, sameSite: 'none' } // Set secure: true if using HTTPS
+}));
+//app.use(doubleCsrfProtection);
 app.use(express_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
-app.get("/get-crsf-token", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("Calling get csrf token");
+app.get("/auth/get-token", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    ///this generate csrf protection 
+    ///generateToken(req,res); 
+    ///this generate random get-nonce 
+    const nonce = (0, crypto_1.randomBytes)(16).toString('hex');
     return res.json({
-        token: generateToken(req, res)
+        token: nonce
     });
 }));
+app.get("/auth/fetch-user", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //const address = req.body["address"];
+    //const user = nonces[address];
+    return res.send(200).json(req.session.user);
+}));
+app.post("/auth/login", (req, res) => {
+    const { address: signer, nonce, chainId, domain, uri, version } = req.body["message"];
+    const signature = req.body["signature"];
+    console.log("Request body [Message]:", req.body["message"]);
+    console.log("Request body [Signature]:", req.body["signature"]);
+    const expected = `
+      domain: client.localhost:5173
+      address: ${signer}
+      statement: Sign in with Ethereum to the app.
+      uri: 'http://client.localhost:5173'
+      version: 1
+      chainId: 1
+      nonce: ${nonce}
+      issuedAt: ${new Date().toISOString()}
+      scheme: http
+    `;
+    const verifiedAddress = ethers_1.ethers.verifyMessage(expected, signature);
+    if (verifiedAddress.toLowerCase() !== signer.toLowerCase()) {
+        return res.status(401).send({ error: 'Invalid signature' });
+    }
+    nonce[signer] = { nonce, address: signer, chainId, domain, uri, version };
+    req.session.user = { nonce, address: signer, chainId, domain, uri, version };
+    req.session.save();
+    return res.status(200);
+});
+app.post("/auth/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Failed to destroy session:', err);
+            res.status(500).json({ error: 'Failed to destroy session' });
+        }
+        else {
+            res.clearCookie(SESSION_NAME); // Clear the session cookie
+            res.json({ message: 'Session destroyed successfully' });
+        }
+    });
+    return res.status(200).send({ result: "logout successfully" });
+});
 app.use((req, res) => {
     console.log("Unhandled request:", req.method, req.url);
     res.status(404).send('Not Found');
 });
-///Already csrf protected. 
-app.post("/auth/login", (req, res) => {
-    console.log("Request body:", JSON.parse(req.body));
-    return res.status(200).send({ result: "login successfully" });
-});
-app.post("/auth/logout", (_, res) => {
-    return res.status(200).send({ result: "logout successfully" });
-});
 const start = () => {
     try {
-        app.listen(3001, () => console.log("Server started on port 3001"));
+        app.listen(port, host, () => console.log(`Server running at http://${host}:${port}/`));
     }
     catch (error) {
         console.error(error);

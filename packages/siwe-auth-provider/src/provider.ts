@@ -4,9 +4,10 @@ import { HttpDriver, Options, createAuth } from "vue-auth3";
 import { Address } from "viem";
 import { App } from "vue";
 import driverHttpAxios from 'vue-auth3/dist/drivers/http/axios';
-
-///removing vue-auth and write my own using axios 
+////Get token => no need to save token as cookie already returns, 
 type GetCrsfTokenData = Partial<Parameters<HttpDriver["request"]>[0]>;
+
+
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
     type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { getCrsfTokenData?: GetCrsfTokenData }>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
@@ -25,6 +26,7 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
         } = options;
 
         const defaultAuthOptions: Options = {
+            initSync: true, /// sync the storage and fetch user information 
             drivers: {
                 http: driverHttpAxios,
                 auth: ({
@@ -32,8 +34,9 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                         options.headers['x-csrf-token'] = token;
                         return options;
                     },
-                    response(_,{ headers }){
-                        return headers['x-csrf-token'];
+                    response(_,{ headers,data }){
+                        ///This would set token as default token when http response ended
+                        return data['token'];
                     }
                 })
             }
@@ -63,7 +66,7 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                     ...mergeAuthOptions.getCrsfTokenData
                 });
                 const nonce = result.data["token"];
-                auth.token(null,nonce,false);
+                //auth.token(null,nonce,false);
                 return nonce;
             },
             signOut: async () => {
