@@ -11,7 +11,7 @@ import { ConnectModal } from "@/components/ConnectModal/ConnectModal";
 import { Container } from "@/components/Common/Container";
 import { SignInRefType, Address, Chain, GetEnsAvatarReturnType, GetEnsNameReturnType, DisconnectMutate, AuthenticationStatus } from "@/types";
 import { MobileWalletSteps, MobileWalletSummary, RainbowKitChain, WalletConnector, WalletStep, WalletSummary } from "@/types";
-import { computed, DefineComponent, defineComponent, h, PropType, SlotsType } from "vue";
+import { computed, DefineComponent, defineComponent, h, PropType, SlotsType, toRefs, watch } from "vue";
 import { useAuthenticationConfigContext } from "@/composables";
 
 export const RainbowKitProvider = defineComponent({
@@ -82,9 +82,14 @@ export const RainbowKitProvider = defineComponent({
         configureRainbowKitChainContext();
         configureTransactionStore();
 
+        const { authenticationStatus } = toRefs(props);
         const { status, allowAuthenticate } = useAuthenticationConfigContext();
-        if(status) status.value = allowAuthenticate.value ? props.authenticationStatus : undefined;
-    
+
+        watch(authenticationStatus,([currentStatus,_])=>{
+            if(!status) return;
+            status.value = allowAuthenticate.value ? currentStatus as AuthenticationStatus : undefined;
+        }, { immediate: true });
+  
         const {
             connectModalOpen,
             accountModalOpen,

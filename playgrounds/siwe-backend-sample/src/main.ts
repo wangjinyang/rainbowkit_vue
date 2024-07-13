@@ -8,6 +8,8 @@ const app = express();
 const CSRF_SECRET = "rainbowkit_siwe_csrf_secret"; /// not ideal for production.
 const COOKIES_SECRET = "rainbowkit_siwe_cookie_secret"; /// not ideal for production
 const CSRF_COOKIE_NAME = "X-CSRF-TOKEN";
+const port = 3001;
+const host = 'server.localhost.tld';
 
 const {
     generateToken, // Use this in your routes to provide a CSRF hash + token cookie and token.
@@ -15,15 +17,15 @@ const {
   } = doubleCsrf({
     getSecret:()=> CSRF_SECRET,
     cookieName: CSRF_COOKIE_NAME,
-    cookieOptions: { sameSite: 'none', secure: true } /// not ideal for production
+    cookieOptions: { domain: "localhost", sameSite: 'none', secure: false, maxAge: 24 * 60 * 60 * 1000 } /// not ideal for production
 });
 
+app.use(cookieParser(COOKIES_SECRET))
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'http://client.localhost:5173',
   credentials: true,
   exposedHeaders: ["set-cookie"],
 }))
-app.use(cookieParser(COOKIES_SECRET))
 //app.use(doubleCsrfProtection);
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: false}));
@@ -51,7 +53,7 @@ app.use((req, res) => {
 
 const start = () => {
     try {
-      app.listen(3001, () => console.log("Server started on port 3001"));
+      app.listen(port,host, () => console.log(`Server running at http://${host}:${port}/`));
     } catch (error) {
       console.error(error);
       process.exit(1);

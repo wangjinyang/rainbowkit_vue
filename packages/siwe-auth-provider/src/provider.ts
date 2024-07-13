@@ -1,12 +1,14 @@
 import { CreateSiweMessageReturnType, type SiweMessage, createSiweMessage, generateSiweNonce, parseSiweMessage } from "viem/siwe";
 import { AuthenticationAdapter } from "use-rainbowkit-vue";
-import { Options, createAuth } from "vue-auth3";
+import { HttpDriver, Options, createAuth } from "vue-auth3";
 import { Address } from "viem";
 import { App } from "vue";
 import driverHttpAxios from 'vue-auth3/dist/drivers/http/axios';
 
+///removing vue-auth and write my own using axios 
+type GetCrsfTokenData = Partial<Parameters<HttpDriver["request"]>[0]>;
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
-    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'>>;
+    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { getCrsfTokenData?: GetCrsfTokenData }>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
         const {
             scheme,
@@ -34,8 +36,7 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                         return headers['x-csrf-token'];
                     }
                 })
-            },
-            stores: [ 'storage' ]
+            }
         };
         const mergeAuthOptions = { ...defaultAuthOptions, ...authOptions };
         const auth = createAuth(mergeAuthOptions);
@@ -49,24 +50,17 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                     statement: statement ?? 'Sign in with Ethereum to the app.',
                     uri: uri ?? window.location.origin,
                     nonce: nonce === '' || nonce === undefined || nonce === null ? generateSiweNonce() : nonce,
-                    version: '1',
+                    version: version ?? '1',
                     address: address as Address,
                     chainId
                 })
             },
             getMessageBody: ({ message }) => message,
             getNonce: async () => {
-                let url = "http://localhost:3001/get-crsf-token";
+                const url = "/get-crsf-token";
                 var result = await auth.http({
-                    url,
-                    method: 'get',
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Methods': '*',
-                        'Access-Control-Allow-Headers': '*',
-                        'Access-Control-Allow-Credentials': 'true',
-                    },
+                    url: mergeAuthOptions.getCrsfTokenData?.url ?? url,
+                    ...mergeAuthOptions.getCrsfTokenData
                 });
                 const nonce = result.data["token"];
                 auth.token(null,nonce,false);

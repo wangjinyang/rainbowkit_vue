@@ -61,11 +61,29 @@ import {
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
-
 import { App, h } from 'vue';
 import { createI18n } from 'vue-i18n';
 //import { Chain } from 'viem';
 
+const storage = {
+    set(key: string, value: any, expires: any, auth: any) {
+        const $ = JSON.stringify(value)
+        if (expires) {
+            sessionStorage.setItem(key, $)
+            return
+        }
+        localStorage.setItem(key, $)
+    },
+    get<T>(key: string):T{
+        const $ = sessionStorage.getItem(key) || localStorage.getItem(key)
+        if ($ === null) return null as T
+        return JSON.parse($) as T
+    },
+    remove(key: string) {
+        localStorage.removeItem(key)
+        sessionStorage.removeItem(key)
+    },
+};
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
@@ -109,20 +127,25 @@ export function createRainbowKitConfig(app: App) : App{
         });
 
         const authAdapter = createAuthAdapter(app,{
-            rolesKey: "roles",
             initSync: true,
             loginData: {
-                url: "http://localhost:3001/auth/login",
+                url: "http://server.localhost.tld:3001/auth/login",
                 keyUser: "data",
                 responseType: "json",
                 remember: true,
-                staySignedIn: true,
             },
             logoutData: {
-                url: "http://localhost:3001/auth/logout"
+                url: "http://server.localhost.tld:3001/auth/logout"
             },
-            stores: [ 'storage', 'cookie' ]
-            
+            fetchData: {
+                enabled: true,
+                enabledInBackground: true,
+                cache: true,
+            },
+            stores: [
+                storage,
+                'storage'
+            ],
         });
 
         //If want to change locale and don't want to use vue-i18n, use default locale adapter
@@ -154,7 +177,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
-            ssr: true,
+            ssr: false,
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
             wallets: [
@@ -224,7 +247,7 @@ export function createRainbowKitConfig(app: App) : App{
                 },
             ],
             auth: {
-                allowAuthenticate: false,
+                allowAuthenticate: true,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,
