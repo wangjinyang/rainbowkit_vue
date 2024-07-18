@@ -30,7 +30,7 @@ export function configureModalSizeContext() {
 
 export function configureModalContext() {
   const { chainId, connectionStatus, connectorUID, isConnected } = useRainbowKitAccountContext()
-  const { status ,adapter } = useAuthenticationConfigContext()
+  const { status ,adapter, allowAuthenticate } = useAuthenticationConfigContext()
   const { accountModalOpen, chainModalOpen, connectModalOpen, closeAllModal } = useModalContext()
   const { chains } = useConfig()
   const modal = reactive(useModalContext());
@@ -122,7 +122,9 @@ export function configureModalContext() {
     onDisconnect(){
       closeAllModal.value(false)
       connectorUID.value = undefined
-      adapter?.value?.signOut()
+      if(status){
+        status.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+      }
     }
   })
 }

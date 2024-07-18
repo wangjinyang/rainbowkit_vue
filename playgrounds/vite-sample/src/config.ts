@@ -65,7 +65,7 @@ import { App, h } from 'vue';
 import { createI18n } from 'vue-i18n';
 //import { Chain } from 'viem';
 
-const storage = {
+/*const storage = {
     set(key: string, value: any, expires: any, _: any) {
         const $ = JSON.stringify(value)
         if (expires) {
@@ -83,7 +83,7 @@ const storage = {
         localStorage.removeItem(key)
         sessionStorage.removeItem(key)
     },
-};
+};*/
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
@@ -127,32 +127,18 @@ export function createRainbowKitConfig(app: App) : App{
         });
 
         const authAdapter = createAuthAdapter(app,{
-            initSync: true,
-            getCrsfTokenData:{
-                url: "http://server.localhost.tld:3001/auth/get-token",
-                responseType: "json",
+            nonceData:{
+                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/get-nonce"
             },
             loginData: {
-                url: "http://server.localhost.tld:3001/auth/login",
-                keyUser: "user",
-                responseType: "json",
-                cacheUser: true,
-                fetchUser: true,
-                staySignedIn: true,
+                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/login"
             },
             logoutData: {
-                url: "http://server.localhost.tld:3001/auth/logout"
+                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/logout"
             },
             fetchData: {
-                url: "http://server.localhost.tld:3001/auth/fetch-user",
-                enabled: true,
-                enabledInBackground: true,
-                cache: true,
-            },
-            stores: [
-                storage,
-                'storage'
-            ],
+                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/fetch-user"
+            }
         });
 
         //If want to change locale and don't want to use vue-i18n, use default locale adapter

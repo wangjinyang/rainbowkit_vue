@@ -96,13 +96,7 @@ export const RainbowKitProvider = defineComponent({
 
         watch(authenticationStatus,(currentStatus,_)=>{
             if(!status) return;
-            
             status.value = allowAuthenticate.value ? currentStatus as AuthenticationStatus : undefined;
-            if(!connectModalOpen.value 
-                && status.value === 'unauthenticated'){
-                connectModalOpen.value = true;
-            }
-
         }, { immediate: true });
   
         const { css, mode } = useThemeContext();
@@ -111,12 +105,7 @@ export const RainbowKitProvider = defineComponent({
             return `rainbowkit_locale_${adapter.value.currentLocale}_${mode.value}`;
         });
 
-        ///preload 
-        //useRainbowKitAccountContext();
-        //const ready = useReady();
-
         return ()=>{
-            //if(!ready.value) return undefined;
             return h(Container,{ key: applicationKey.value },()=>[
                 h(StyleComponent,{ themeId: "data-rk-vue" }, ()=> css.value),
                 h(ConnectModal,{ 

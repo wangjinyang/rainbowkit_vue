@@ -4,12 +4,11 @@ import { HttpDriver, Options, createAuth } from "vue-auth3";
 import { Address } from "viem";
 import { App } from "vue";
 import driverHttpAxios from 'vue-auth3/dist/drivers/http/axios';
-////Get token => no need to save token as cookie already returns, 
-type GetCrsfTokenData = Partial<Parameters<HttpDriver["request"]>[0]>;
+import axios from "axios";
 
-
+type GetNonceData = Partial<Parameters<HttpDriver["request"]>[0]> & { nonceKey?: string }; 
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
-    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { getCrsfTokenData?: GetCrsfTokenData }>;
+    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { nonceData?: GetNonceData }>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
         const {
             scheme,
@@ -25,8 +24,53 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             ...authOptions
         } = options;
 
-        const defaultAuthOptions: Options = {
-            initSync: true, /// sync the storage and fetch user information 
+        axios.defaults.withCredentials = true;
+        const defaultAuthOptions: Options & { nonceData?: GetNonceData } = {
+            initSync: true,
+            nonceData:{
+                responseType: "json",
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true",
+                    ...authOptions.nonceData?.headers     
+                },
+                nonceKey: 'nonce'
+            },
+            loginData: {
+                responseType: "json",
+                cacheUser: true,
+                fetchUser: true,
+                staySignedIn: true,
+                keyUser: 'nonce',
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true",
+                    ...authOptions.loginData?.headers 
+                },
+            },
+            logoutData: {
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true",
+                    ...authOptions.logoutData?.headers 
+
+                },
+            },
+            fetchData: {
+                enabled: true,
+                cache: true,
+                waitRefresh: true,
+                enabledInBackground: false,
+                keyUser: "user",
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true"
+                },
+            },
+            stores: [
+                'storage',
+                'cookie'
+            ],
             drivers: {
                 http: driverHttpAxios,
                 auth: ({
@@ -34,9 +78,8 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                         options.headers['x-csrf-token'] = token;
                         return options;
                     },
-                    response(_,{ headers,data }){
-                        ///This would set token as default token when http response ended
-                        return data['token'];
+                    response(_,{ data }){
+                        return data[authOptions.loginData?.keyUser?? authOptions.userKey ?? "nonce"];
                     }
                 })
             }
@@ -60,13 +103,11 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             },
             getMessageBody: ({ message }) => message,
             getNonce: async () => {
-                const url = "/get-crsf-token";
-                var result = await auth.http({
-                    url: mergeAuthOptions.getCrsfTokenData?.url ?? url,
-                    ...mergeAuthOptions.getCrsfTokenData
+                const result = await auth.http({
+                    url: mergeAuthOptions.nonceData?.url ?? "/get-nonce",
+                    ...mergeAuthOptions.nonceData
                 });
-                const nonce = result.data["token"];
-                //auth.token(null,nonce,false);
+                const nonce = result.data[mergeAuthOptions.nonceData?.nonceKey ?? "nonce"];
                 return nonce;
             },
             signOut: async () => {

@@ -94,7 +94,6 @@ app.post("/auth/login", (req, res) => {
 app.post("/auth/logout", (req, res) => {
     req.session.destroy((err) => {
         if (err) {
-            console.error('Failed to destroy session:', err);
             res.status(500).json({ error: 'Failed to destroy session' });
         }
         else {

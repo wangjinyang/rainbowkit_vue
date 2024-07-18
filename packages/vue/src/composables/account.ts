@@ -18,9 +18,11 @@ export function useRainbowKitAccountContext(){
   })
 
   watchAccount(useConfig(),{
-    onChange(__, _) {
+    onChange(currentAcc, previousAcc) {
       ///if account changes , log the user out 
       if(authenticationStatus?.value !== 'authenticated') return;
+      if(currentAcc.address === previousAcc.address) return;
+      if(currentAcc.address === undefined) return;
       connectorUID.value = undefined;
       adapter?.value?.signOut();
     },
