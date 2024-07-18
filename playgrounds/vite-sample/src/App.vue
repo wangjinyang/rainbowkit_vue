@@ -3,6 +3,7 @@ import { useAuth } from 'vue-auth3';
 import Content from './components/Content.vue';
 import { AuthenticationStatus, RainbowKitProvider } from "use-rainbowkit-vue";
 import { ref } from 'vue';
+
 const auth = useAuth();
 const status = ref<AuthenticationStatus>('loading');
 auth.load().then(()=>{
