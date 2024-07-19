@@ -225,6 +225,9 @@ export function useRainbowKitPlugin() {
   }
 
   function install(app: App, option: RainbowKitPluginOptions) {
+    ///force into ssr first : Current logout having issue for non-ssr 
+    ///TODO: Would check into this logout issues
+    option.ssr = true;
     const newOptions = mergeDeep(getDefaultPluginOptions(option.chains),option) as RainbowKitPluginOptions;
     configureDirective(app);
     configurePluginOptions(app, newOptions);

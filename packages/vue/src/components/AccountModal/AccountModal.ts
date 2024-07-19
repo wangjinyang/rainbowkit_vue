@@ -3,7 +3,7 @@ import { Dialog } from "@/components/Common/Dialog";
 import { ProfileDetail } from "@/components/AccountModal/ProfileDetail";
 import { Address, GetEnsAvatarReturnType, GetEnsNameReturnType } from "@/types";
 import { defineComponent, h, onScopeDispose, ref, SlotsType } from "vue";
-import { useConfig, useConnections, useDisconnect } from "@wagmi/vue";
+import { useConfig, useConnections, useConnectors, useDisconnect } from "@wagmi/vue";
 import { getConnections, GetConnectionsReturnType, watchConnections } from "@wagmi/vue/actions";
 
 export const createAccontModalProps = {
@@ -38,20 +38,21 @@ export const AccountModal = defineComponent({
         const config = useConfig();
         const connections = ref<GetConnectionsReturnType>(getConnections(config));
         const unwatch = watchConnections(config,{
-            onChange(currentConnections,previousConnections){
+            onChange(currentConnections,_){
                 connections.value = currentConnections;
             }
-        });
+        })
         onScopeDispose(()=> {
             unwatch();
         })
+
         const disconnectAll = ()=>{
             connections.value?.map((connection)=> {
                 if(typeof connection.connector.disconnect === 'function'){
                     return disconnect({
                         connector: connection.connector,
                     },{
-                        onError(error, variables, context) {
+                        onError(error, _, __) {
                             console.error(error);
                         },
                     }); 

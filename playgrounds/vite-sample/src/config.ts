@@ -154,7 +154,6 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
-            ssr: true,
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
             wallets: [
@@ -224,7 +223,7 @@ export function createRainbowKitConfig(app: App) : App{
                 },
             ],
             auth: {
-                allowAuthenticate: true,
+                allowAuthenticate: false,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,
