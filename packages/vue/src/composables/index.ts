@@ -12,8 +12,6 @@ export * from "./image";
 export * from "./locale";
 export * from "./modal";
 export * from "./mode";
-//export * from "./plugin";
 export * from "./theme";
 export * from "./transaction";
 export * from "./window";
-export * from "./ready";
