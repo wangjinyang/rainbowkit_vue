@@ -99,6 +99,7 @@ export function getDefaultPluginOptions(chains: Chains):
     connectModalTeleportTarget: 'body', 
     chainModalTeleportTarget: 'body', 
     accountModalTeleportTarget: 'body', 
+    ssr: true,
     storage: createStorage({ storage: localStorage, key: 'rk-vue' }),
     theme: defaultTheme,
     learnMoreUrl: defaultLearnMoreUrl,

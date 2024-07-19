@@ -4,8 +4,8 @@ import { ConnectOption } from "@/components/ConnectModal/ConnectOption";
 import { SignIn } from "@/components/ConnectModal/SignIn";
 import { MobileWalletSteps, MobileWalletSummary, WalletConnector, WalletStep, WalletSummary, SignInRefType, Address, Chain } from "@/types"
 import { useConfig, useConnect, useDisconnect } from '@wagmi/vue'
-import { Component, defineComponent, h, PropType, SlotsType } from "vue"
-import { getConnections } from '@wagmi/vue/actions';
+import { Component, defineComponent, h, onScopeDispose, PropType, ref, SlotsType } from "vue"
+import { getConnections, GetConnectionsReturnType, watchConnections } from '@wagmi/vue/actions';
 
 export const ConnectModal = defineComponent({
     props: {
@@ -61,9 +61,27 @@ export const ConnectModal = defineComponent({
         const { disconnect } = useDisconnect()
         const { connectModalTeleportTarget:target } = useAppContext();    
         const config = useConfig();
+        const connections = ref<GetConnectionsReturnType>(getConnections(config));
+        const unwatch = watchConnections(config,{
+            onChange(currentConnections,prev){
+                connections.value = currentConnections;
+            }
+        });
+        onScopeDispose(()=> {
+            unwatch();
+        })
         const disconnectAll = ()=>{
-            const connections = getConnections(config);
-            connections.map((connection)=> disconnect({ connector: connection.connector }))
+            connections.value?.map((connection)=> {
+                if(typeof connection.connector.disconnect === 'function'){
+                    return disconnect({
+                        connector: connection.connector,
+                    },{
+                        onError(error, variables, context) {
+                            console.error(error);
+                        },
+                    }); 
+                }
+            });
         }
         const onAuthCancel = () => {
             props.onClosed()
@@ -76,7 +94,7 @@ export const ConnectModal = defineComponent({
         }
 
         return ()=>{
-            if(connectionStatus.value === 'loading' || connectionStatus.value === 'connecting'){
+            if(connectionStatus.value === 'loading' || connectionStatus.value === 'connecting' || connectionStatus.value === 'connected'){
                 return h('div',()=>{});
             }
             if(connectionStatus.value === 'disconnected'){

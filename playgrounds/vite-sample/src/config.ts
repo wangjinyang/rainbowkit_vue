@@ -107,7 +107,7 @@ export function createRainbowKitConfig(app: App) : App{
 
         ///Using ngrok for https 
         const authAdapter = createAuthAdapter(app,{
-            baseURL: "https://c1f7-121-122-108-197.ngrok-free.app",
+            baseURL: "https://ade5-2001-d08-d9-ca7f-7de8-f114-47fb-8bf.ngrok-free.app",
             nonceData:{
                 url: "/auth/get-nonce"
             },
@@ -154,7 +154,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
-            ssr: false,
+            ssr: true,
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
             wallets: [

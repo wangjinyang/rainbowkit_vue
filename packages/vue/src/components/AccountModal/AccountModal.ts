@@ -2,9 +2,9 @@ import { useAppContext, useEnsMetadata,useRainbowKitAccountContext } from "@/com
 import { Dialog } from "@/components/Common/Dialog";
 import { ProfileDetail } from "@/components/AccountModal/ProfileDetail";
 import { Address, GetEnsAvatarReturnType, GetEnsNameReturnType } from "@/types";
-import { defineComponent, h, ref, SlotsType } from "vue";
+import { defineComponent, h, onScopeDispose, ref, SlotsType } from "vue";
 import { useConfig, useConnections, useDisconnect } from "@wagmi/vue";
-import { getConnections } from "@wagmi/vue/actions";
+import { getConnections, GetConnectionsReturnType, watchConnections } from "@wagmi/vue/actions";
 
 export const createAccontModalProps = {
     open: {
@@ -36,9 +36,27 @@ export const AccountModal = defineComponent({
         const { disconnect  } = useDisconnect();
         const { accountModalTeleportTarget:target } = useAppContext();
         const config = useConfig();
+        const connections = ref<GetConnectionsReturnType>(getConnections(config));
+        const unwatch = watchConnections(config,{
+            onChange(currentConnections,previousConnections){
+                connections.value = currentConnections;
+            }
+        });
+        onScopeDispose(()=> {
+            unwatch();
+        })
         const disconnectAll = ()=>{
-            const connections = getConnections(config);
-            connections.map((connection)=> disconnect({ connector: connection.connector }))
+            connections.value?.map((connection)=> {
+                if(typeof connection.connector.disconnect === 'function'){
+                    return disconnect({
+                        connector: connection.connector,
+                    },{
+                        onError(error, variables, context) {
+                            console.error(error);
+                        },
+                    }); 
+                }
+            });
         }
 
         return ()=>{

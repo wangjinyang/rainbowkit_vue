@@ -117,7 +117,7 @@ export function configureModalContext() {
 
   useAccountEffect({
     onConnect(){
-      closeAllModal.value(status?.value === 'unauthenticated');
+      closeAllModal.value(connectionStatus?.value === 'unauthenticated');
     },
     onDisconnect(){
       closeAllModal.value(false)      
