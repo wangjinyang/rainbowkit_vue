@@ -1,32 +1,64 @@
 import { useConnectionStatus } from "@/composables/connection";
 import { useAuthenticationConfigContext } from "@/composables/authentication";
-import { useAccount } from '@wagmi/vue'
+import { useAccount, useAccountEffect, useConfig } from '@wagmi/vue'
 import { ref, watch } from 'vue'
+import { watchAccount } from "@wagmi/vue/actions";
 
 export function useRainbowKitAccountContext(){  
   const { connector, isConnected, isConnecting, chainId, isDisconnected, isReconnecting, chain, address, addresses,status } = useAccount();
-  const { status: authenticationStatus, adapter } = useAuthenticationConfigContext();
+  const { status: authenticationStatus, adapter,allowAuthenticate } = useAuthenticationConfigContext();
   const connectorUID = ref<string>()
   const connectionStatus = useConnectionStatus();
-  
-  watch(
-    [ ()=> connector.value?.id, ()=> connector.value?.emitter, ()=>authenticationStatus?.value, ()=> connectorUID.value ],
-    async ([newConnectoruID, newEmitter, newStatus, newConnectorUID]) => {
-      if(!newEmitter) return;
 
-      if (typeof newEmitter.on === 'function' && newStatus === 'authenticated') {
-        connectorUID.value = newConnectoruID;
-        if(newConnectoruID !== newConnectorUID){
-          connectorUID.value = undefined
-          await adapter?.value?.signOut();
+  useAccountEffect({
+    onDisconnect(){
+      if(!connectorUID.value) return;
+      connectorUID.value = undefined;
+      if(authenticationStatus?.value === 'authenticated'){
+        adapter?.value?.signOut();
+      }
+      if(authenticationStatus){
+        authenticationStatus.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+      }
+    }
+  })
+
+  watchAccount(useConfig(),{
+    onChange(currentAcc, previousAcc) {
+      ///if account changes , log the user out 
+      if(authenticationStatus?.value !== 'authenticated') return;
+      if(currentAcc.address === previousAcc.address) return;
+      if(currentAcc.address === undefined) return;
+      
+      connectorUID.value = undefined;
+      if(authenticationStatus?.value === 'authenticated'){
+        adapter?.value?.signOut();
+      }
+      if(authenticationStatus){
+        authenticationStatus.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+      }
+    },
+  })
+  
+  watch(()=>authenticationStatus?.value, (currentAuthStatus,_) => {
+      if(!connector.value?.emitter) return;
+      if (typeof connector.value?.emitter.on === 'function' && currentAuthStatus === 'authenticated') {
+        if(!connectorUID.value){
+          ///Set current connector uid when status is authenticated 
+          connectorUID.value = connector.value.id;
+          return;
         }
-        
-        newEmitter.on('change', async (data) => {
-          if (data.accounts) {
-            connectorUID.value = undefined
-            await adapter?.value?.signOut()
+
+        // If the current connector is not equal to previous connector then logout
+        if(connectorUID.value != connector.value.id){  
+          connectorUID.value = undefined;
+          if(authenticationStatus?.value === 'authenticated'){
+            adapter?.value?.signOut();
           }
-        })
+          if(authenticationStatus){
+            authenticationStatus.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+          }
+        }
       }
     }
   );

@@ -33,7 +33,7 @@ export const SignIn = defineComponent({
         }
     }>,
     setup(props, { slots }) {
-        const { adapter } = useAuthenticationConfigContext()
+        const { adapter,status } = useAuthenticationConfigContext()
         const { address: addressRef, chain: chainRef } = useRainbowKitAccountContext()
         const { signMessageAsync } = useSignMessage()
         const { t } = useLocale()
@@ -56,6 +56,7 @@ export const SignIn = defineComponent({
                 const signature = await signMessageAsync({
                     message: adapter?.value?.getMessageBody({ message })
                 })
+
                 return signature
             } catch (error) {
                 if (error instanceof UserRejectedRequestError) {
@@ -79,7 +80,11 @@ export const SignIn = defineComponent({
                     throw new Error()
                 }
 
-                props.onClosedModal()
+                if(status){
+                    status.value = 'authenticated';
+                    props.onClosedModal();
+                }
+
             } catch (error) {
                 signInRefs.value = {
                     nonce: signInRefs.value.nonce,
@@ -91,7 +96,7 @@ export const SignIn = defineComponent({
         const signIn = async () => {
             try {
                 const chainId = chainRef.value?.id
-                const nonce = signInRefs.value.nonce
+                const nonce = signInRefs.value.nonce;
                 const address = addressRef.value
 
                 if (!address || !chainId || !nonce) return
@@ -99,6 +104,7 @@ export const SignIn = defineComponent({
                 signInRefs.value.status = 'signing'
                 const message = adapter?.value?.createMessage({ address, chainId, nonce })
                 const signature = await signMessage(message)
+                if(!signature) return;
 
                 signInRefs.value.status = 'verifying'
                 await verify(message, signature)
@@ -109,10 +115,11 @@ export const SignIn = defineComponent({
                 }
             }
         }
-        onMounted(() => {
-            ///load after component mounted: action button would show preparing status
-            getNonce()
-        })
+
+        onMounted(async ()=>{
+            await getNonce();
+        });
+        
         return () => {
             if (slots.default) {
                 return slots.default({ 
@@ -203,9 +210,9 @@ export const SignIn = defineComponent({
                     },()=> [
                         h(ActionButton, {
                             disabled: !signInRefs.value.nonce || signInRefs.value.status === 'verifying' || signInRefs.value.status === 'signing',
-                            label: !signInRefs.value.nonce ? t('sign_in.message.preparing') :
+                            label: !signInRefs.value.nonce ? t('sign_in.message.preparing'): 
                                 signInRefs.value.status === 'signing' ? t('sign_in.signature.waiting') :
-                                    signInRefs.value.status === 'verifying' ? t('sign_in.signature.verifying') : t('sign_in.message.send'),
+                                signInRefs.value.status === 'verifying' ? t('sign_in.signature.verifying') : t('sign_in.message.send'),
                             size: isMobile ? 'large' : 'medium',
                             onAction: async () => await signIn()
                         }),

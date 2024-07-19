@@ -3,8 +3,9 @@ import { Dialog } from "@/components/Common/Dialog";
 import { ConnectOption } from "@/components/ConnectModal/ConnectOption";
 import { SignIn } from "@/components/ConnectModal/SignIn";
 import { MobileWalletSteps, MobileWalletSummary, WalletConnector, WalletStep, WalletSummary, SignInRefType, Address, Chain } from "@/types"
-import { useConnect, useDisconnect } from '@wagmi/vue'
+import { useConfig, useConnect, useDisconnect } from '@wagmi/vue'
 import { Component, defineComponent, h, PropType, SlotsType } from "vue"
+import { getConnections } from '@wagmi/vue/actions';
 
 export const ConnectModal = defineComponent({
     props: {
@@ -58,19 +59,27 @@ export const ConnectModal = defineComponent({
         const titleId = 'rk_connect_title'
         const { connectionStatus,isConnecting } = useRainbowKitAccountContext()
         const { disconnect } = useDisconnect()
-        const { connectModalTeleportTarget:target } = useAppContext();        
+        const { connectModalTeleportTarget:target } = useAppContext();    
+        const config = useConfig();
+        const disconnectAll = ()=>{
+            const connections = getConnections(config);
+            connections.map((connection)=> disconnect({ connector: connection.connector }))
+        }
         const onAuthCancel = () => {
             props.onClosed()
-            disconnect()
+            disconnectAll()
         }
 
         const onConnectCancel = () => {
             props.onClosed() 
-            if (isConnecting.value) disconnect()
+            if (isConnecting.value) disconnectAll()
         }
 
         return ()=>{
-            if(connectionStatus.value === 'disconnected' || connectionStatus.value === 'loading' || connectionStatus.value === 'connecting'){
+            if(connectionStatus.value === 'loading' || connectionStatus.value === 'connecting'){
+                return h('div',()=>{});
+            }
+            if(connectionStatus.value === 'disconnected'){
                 return h(Dialog,{
                     onClosed: onConnectCancel,
                     open: props.open,

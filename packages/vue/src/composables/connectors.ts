@@ -15,11 +15,11 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
   const currentChainId = useChainId();
  
   const computeChainId = async (connector: Connector)=>{
-    if(initialChainId?.value) return initialChainId.value;
     if(ignoreChainModalOnConnect?.value){
       const isCurrentChainSupported = rainbowKitChains?.value?.some(({ id }) => id === currentChainId.value);
       if(isCurrentChainSupported) return currentChainId.value;
     }
+    if(initialChainId?.value) return initialChainId.value;
     const walletChainId = await connector.getChainId();
     if(rainbowKitChains?.value == undefined) return mainnet.id;
     const newRainbowKitChains  = rainbowKitChains.value;

@@ -1,14 +1,14 @@
 import { CreateSiweMessageReturnType, type SiweMessage, createSiweMessage, generateSiweNonce, parseSiweMessage } from "viem/siwe";
 import { AuthenticationAdapter } from "use-rainbowkit-vue";
-import { useAuth, Options, createAuth, Auth } from "vue-auth3";
+import { HttpDriver, Options, createAuth } from "vue-auth3";
 import { Address } from "viem";
-import { App, Plugin } from "vue";
-import driverHttpFetch from 'vue-auth3/dist/drivers/http/fetch';
-import driverHttpAuthBasic from "vue-auth3/dist/drivers/auth/basic";
+import { App } from "vue";
+import driverHttpAxios from 'vue-auth3/dist/drivers/http/axios';
+import axios from "axios";
 
+type GetNonceData = Partial<Parameters<HttpDriver["request"]>[0]> & { nonceKey?: string }; 
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
-
-    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'>>;
+    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { nonceData?: GetNonceData, baseURL?: string }>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
         const {
             scheme,
@@ -24,14 +24,70 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
             ...authOptions
         } = options;
 
-        const defaultAuthOptions: Options = {
-            drivers: {
-                http: driverHttpFetch,
-                auth: driverHttpAuthBasic
+        axios.defaults.withCredentials = true;
+        axios.defaults.baseURL = authOptions.baseURL;
+        const defaultAuthOptions: Options & { nonceData?: GetNonceData, baseURL?: string } = {
+            initSync: true,
+            nonceData:{
+                responseType: "json",
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true",
+                    ...authOptions.nonceData?.headers     
+                },
+                nonceKey: 'nonce'
             },
+            loginData: {
+                responseType: "json",
+                cacheUser: true,
+                fetchUser: true,
+                staySignedIn: true,
+                keyUser: 'nonce',
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true",
+                    ...authOptions.loginData?.headers 
+                },
+            },
+            logoutData: {
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true",
+                    ...authOptions.logoutData?.headers 
+
+                },
+            },
+            fetchData: {
+                enabled: true,
+                cache: true,
+                waitRefresh: true,
+                enabledInBackground: false,
+                keyUser: "user",
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                    "Access-Control-Allow-Credentials": "true"
+                },
+            },
+            stores: [
+                'storage',
+                'cookie'
+            ],
+            drivers: {
+                http: driverHttpAxios,
+                auth: ({
+                    request(_,options,token){
+                        options.headers['x-csrf-token'] = token;
+                        return options;
+                    },
+                    response(_,{ data }){
+                        return data[authOptions.loginData?.keyUser?? authOptions.userKey ?? "nonce"];
+                    }
+                })
+            }
         };
         const mergeAuthOptions = { ...defaultAuthOptions, ...authOptions };
-        app.use(createAuth(mergeAuthOptions));
+        const auth = createAuth(mergeAuthOptions);
+        app.use(auth);
 
         return {
             createMessage: ({ address, chainId, nonce }) => {
@@ -41,33 +97,32 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
                     statement: statement ?? 'Sign in with Ethereum to the app.',
                     uri: uri ?? window.location.origin,
                     nonce: nonce === '' || nonce === undefined || nonce === null ? generateSiweNonce() : nonce,
-                    version: '1',
+                    version: version ?? '1',
                     address: address as Address,
                     chainId
                 })
             },
             getMessageBody: ({ message }) => message,
             getNonce: async () => {
-                const auth = useAuth();
-                const nonce = auth.currentToken;
-                if (!nonce) throw new Error();
+                const result = await auth.http({
+                    url: mergeAuthOptions.nonceData?.url ?? "/get-nonce",
+                    ...mergeAuthOptions.nonceData
+                });
+                const nonce = result.data[mergeAuthOptions.nonceData?.nonceKey ?? "nonce"];
                 return nonce;
             },
             signOut: async () => {
-                const auth = useAuth();
-                await auth.logout({ redirect: 'follow' });
+                await auth.logout();
             },
             async verify({ message, signature }) {
-                const auth = useAuth();
+                const parsedMessage = parseSiweMessage(message);
                 const response = await auth.login({
-                    redirect: 'follow',
-                    method: "POST",
                     data: {
-                        message: JSON.stringify(parseSiweMessage(message)),
-                        signature
+                        message:parsedMessage,
+                        signature,
                     },
                 });
-                return response.status > 200;
+                return response.status >= 200 && response.status <= 299;
             },
         };
     }

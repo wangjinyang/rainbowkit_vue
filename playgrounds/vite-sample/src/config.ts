@@ -61,11 +61,8 @@ import {
 } from 'use-rainbowkit-vue';
 import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-locale-provider';
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
-
 import { App, h } from 'vue';
 import { createI18n } from 'vue-i18n';
-//import { Chain } from 'viem';
-
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
@@ -107,7 +104,26 @@ export function createRainbowKitConfig(app: App) : App{
             messages:{ "en": { "wallet.module": "You can override the existing wording with same key. For example, rainbowkit existing wording" }},
             i18n: newI18n
         });
-        const authAdapter = createAuthAdapter(app);
+
+        ///Using ngrok for https 
+        const authAdapter = createAuthAdapter(app,{
+            baseURL: "https://c1f7-121-122-108-197.ngrok-free.app",
+            nonceData:{
+                url: "/auth/get-nonce"
+            },
+            loginData: {
+                url: "/auth/login"
+            },
+            logoutData: {
+                url: "/auth/logout"
+            },
+            fetchData: {
+                url: "/auth/fetch-user"
+            },
+            refreshToken: {
+                enabled: false,
+            }
+        });
 
         //If want to change locale and don't want to use vue-i18n, use default locale adapter
         /*
@@ -138,6 +154,7 @@ export function createRainbowKitConfig(app: App) : App{
                 immutableZkEvm,
                 avalanche
             ],
+            ssr: false,
             enableChainModalOnConnect: true, // by default is true
             locale: i18nAdapter,
             wallets: [
@@ -207,7 +224,7 @@ export function createRainbowKitConfig(app: App) : App{
                 },
             ],
             auth: {
-                allowAuthenticate: false,
+                allowAuthenticate: true,
                 authenticateAdapter: authAdapter,
             },
             coolMode: true,

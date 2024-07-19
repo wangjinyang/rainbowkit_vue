@@ -9,13 +9,19 @@ import { AccountModal } from "@/components/AccountModal/AccountModal";
 import { ChainModal } from "@/components/ChainModal/ChainModal";
 import { ConnectModal } from "@/components/ConnectModal/ConnectModal";
 import { Container } from "@/components/Common/Container";
-import { SignInRefType, Address, Chain, GetEnsAvatarReturnType, GetEnsNameReturnType, DisconnectMutate } from "@/types";
+import { SignInRefType, Address, Chain, GetEnsAvatarReturnType, GetEnsNameReturnType, DisconnectMutate, AuthenticationStatus } from "@/types";
 import { MobileWalletSteps, MobileWalletSummary, RainbowKitChain, WalletConnector, WalletStep, WalletSummary } from "@/types";
-import { computed, DefineComponent, defineComponent, h, SlotsType } from "vue";
-import { useRainbowKitAccountContext } from "@/composables/account";
-import { useReady } from "@/composables";
+import { computed, DefineComponent, defineComponent, h, PropType, SlotsType, toRefs, watch } from "vue";
+import { useAuthenticationConfigContext } from "@/composables";
 
 export const RainbowKitProvider = defineComponent({
+    props: {
+        authenticationStatus: {
+            type: String as PropType<AuthenticationStatus>,
+            required: true,
+            default: 'unauthenticated'
+        },
+    } as const,
     slots: Object as SlotsType<{
         default: {},
         account: {
@@ -70,11 +76,14 @@ export const RainbowKitProvider = defineComponent({
             chain: Chain | undefined
         },
     }>,
-    setup(_, { slots }) {
+    setup(props, { slots }) {
         configureModalSizeContext();
         configureModalContext();
         configureRainbowKitChainContext();
         configureTransactionStore();
+
+        const { authenticationStatus } = toRefs(props);
+        const { status, allowAuthenticate } = useAuthenticationConfigContext();
 
         const {
             connectModalOpen,
@@ -85,18 +94,18 @@ export const RainbowKitProvider = defineComponent({
             closeChainModal
         } = useModalContext();
 
+        watch(authenticationStatus,(currentStatus,_)=>{
+            if(!status) return;
+            status.value = allowAuthenticate.value ? currentStatus as AuthenticationStatus : undefined;
+        }, { immediate: true });
+  
         const { css, mode } = useThemeContext();
         const { adapter } = useLocale();
         const applicationKey = computed(() => {
             return `rainbowkit_locale_${adapter.value.currentLocale}_${mode.value}`;
         });
 
-        ///preload 
-        //useRainbowKitAccountContext();
-        //const ready = useReady();
-
         return ()=>{
-            //if(!ready.value) return undefined;
             return h(Container,{ key: applicationKey.value },()=>[
                 h(StyleComponent,{ themeId: "data-rk-vue" }, ()=> css.value),
                 h(ConnectModal,{ 

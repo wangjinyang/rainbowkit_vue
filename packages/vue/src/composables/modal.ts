@@ -29,8 +29,8 @@ export function configureModalSizeContext() {
 }
 
 export function configureModalContext() {
-  const { chainId, connectionStatus, connectorUID, isConnected } = useRainbowKitAccountContext()
-  const { status ,adapter } = useAuthenticationConfigContext()
+  const { chainId, connectionStatus } = useRainbowKitAccountContext()
+  const { status } = useAuthenticationConfigContext()
   const { accountModalOpen, chainModalOpen, connectModalOpen, closeAllModal } = useModalContext()
   const { chains } = useConfig()
   const modal = reactive(useModalContext());
@@ -115,18 +115,14 @@ export function configureModalContext() {
     });
   },{ flush: 'pre', immediate: true });
 
-  watch(()=>isConnected.value,(connected)=>{
-    if(connected){
+  useAccountEffect({
+    onConnect(){
       closeAllModal.value(status?.value === 'unauthenticated');
+    },
+    onDisconnect(){
+      closeAllModal.value(false)      
     }
-
-    if(!connected){
-      closeAllModal.value(false)
-      connectorUID.value = undefined
-      adapter?.value?.signOut()
-    }
-
-  },{ flush: 'pre', immediate: true })
+  })
 }
 
 export function createModalSizeContext(option: RainbowKitPluginOptions): Context<ModalSize> {

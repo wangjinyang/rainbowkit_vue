@@ -11,12 +11,14 @@
   "dependencies": {
     "@tanstack/vue-query": "^5.51.1",
     "@wagmi/vue": "^0.0.26",
+    "axios": "^1.7.2",
     "buffer": "^6.0.3",
     "use-rainbowkit-vue": "workspace:*",
     "use-rainbowkit-vue-i18n-locale-provider": "workspace:*",
     "use-rainbowkit-vue-siwe-auth-provider": "workspace:*",
     "viem": "^2.17.3",
     "vue": "^3.4.31",
+    "vue-auth3": "^1.0.10",
     "vue-i18n": "^9.13.1"
   },
   "devDependencies": {

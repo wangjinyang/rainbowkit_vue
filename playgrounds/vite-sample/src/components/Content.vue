@@ -9,13 +9,12 @@ import {
 } from "use-rainbowkit-vue";
 import { useSendTransaction, useSignMessage, useSignTypedData } from "@wagmi/vue";
 import { Address, parseEther } from "viem";
-//import { useI18n } from "vue-i18n";
 
 const { openConnectModal, openAccountModal, openChainModal, connectModalOpen, accountModalOpen, chainModalOpen } = useModalContext();
 const { connectionStatus,address, isConnected, chainId } = useRainbowKitAccountContext();
 const { changeLocale,t } = useLocale();
 const { changeTheme } = useThemeContext();
-//const { t } = useI18n();
+
 const {
     data: transactionData,
     error: transactionError,
