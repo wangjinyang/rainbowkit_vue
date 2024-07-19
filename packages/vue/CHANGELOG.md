@@ -1,5 +1,11 @@
 # use-rainbowkit-vue
 
+## 0.4.3
+
+### Patch Changes
+
+- 8e81e31: 1. Fixed multiple warning when logout. 2. Fixed siwe plugin issues 3. Added 'NonceData' options in siwe plugin 4. Fixed 'switch chain' issues. Before logging in, users can switch between different chains. Once they connect their MetaMask wallet, ensures that the chosen chain is maintained even if initial chain is set or prompts the user to switch to the correct chain if necessary.
+
 ## 0.4.2
 
 ### Patch Changes
