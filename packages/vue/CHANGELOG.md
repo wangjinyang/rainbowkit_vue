@@ -1,5 +1,11 @@
 # use-rainbowkit-vue
 
+## 0.4.4
+
+### Patch Changes
+
+- 5c64a30: Hot fix on auth dialog pop up even allow auth option is disable.
+
 ## 0.4.3
 
 ### Patch Changes
