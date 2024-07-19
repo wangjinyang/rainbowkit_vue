@@ -63,27 +63,6 @@ import { RainbowKitVueI18nLocaleAdapterPlugin } from 'use-rainbowkit-vue-i18n-lo
 import { RainbowKitVueSiweAuthAdapterPlugin } from 'use-rainbowkit-vue-siwe-auth-provider';
 import { App, h } from 'vue';
 import { createI18n } from 'vue-i18n';
-//import { Chain } from 'viem';
-
-/*const storage = {
-    set(key: string, value: any, expires: any, _: any) {
-        const $ = JSON.stringify(value)
-        if (expires) {
-            sessionStorage.setItem(key, $)
-            return
-        }
-        localStorage.setItem(key, $)
-    },
-    get<T>(key: string):T{
-        const $ = sessionStorage.getItem(key) || localStorage.getItem(key)
-        if ($ === null) return null as T
-        return JSON.parse($) as T
-    },
-    remove(key: string) {
-        localStorage.removeItem(key)
-        sessionStorage.removeItem(key)
-    },
-};*/
 
 export function createRainbowKitConfig(app: App) : App{
     const RAINBOW_TERMS = 'https://rainbow.me/terms-of-use';
@@ -127,17 +106,18 @@ export function createRainbowKitConfig(app: App) : App{
         });
 
         const authAdapter = createAuthAdapter(app,{
+            baseURL: "https://1782-121-122-108-197.ngrok-free.app",
             nonceData:{
-                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/get-nonce"
+                url: "/auth/get-nonce"
             },
             loginData: {
-                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/login"
+                url: "/auth/login"
             },
             logoutData: {
-                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/logout"
+                url: "/auth/logout"
             },
             fetchData: {
-                url: "https://dcb2-2001-f40-970-4174-80-2aa0-f58e-3d24.ngrok-free.app/auth/fetch-user"
+                url: "/auth/fetch-user"
             }
         });
 

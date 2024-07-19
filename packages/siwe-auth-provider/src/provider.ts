@@ -8,7 +8,7 @@ import axios from "axios";
 
 type GetNonceData = Partial<Parameters<HttpDriver["request"]>[0]> & { nonceKey?: string }; 
 export const RainbowKitVueSiweAuthAdapterPlugin = () => {
-    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { nonceData?: GetNonceData }>;
+    type AuthAdapterProviderOption = Partial<Options & Omit<SiweMessage, 'chainId' | 'address' | 'nonce'> & { nonceData?: GetNonceData, baseURL?: string }>;
     function create(app: App, options: AuthAdapterProviderOption = {}): AuthenticationAdapter<CreateSiweMessageReturnType> {
         const {
             scheme,
@@ -25,7 +25,8 @@ export const RainbowKitVueSiweAuthAdapterPlugin = () => {
         } = options;
 
         axios.defaults.withCredentials = true;
-        const defaultAuthOptions: Options & { nonceData?: GetNonceData } = {
+        axios.defaults.baseURL = authOptions.baseURL;
+        const defaultAuthOptions: Options & { nonceData?: GetNonceData, baseURL?: string } = {
             initSync: true,
             nonceData:{
                 responseType: "json",
