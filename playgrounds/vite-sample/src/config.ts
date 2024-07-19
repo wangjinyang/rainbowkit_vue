@@ -105,8 +105,9 @@ export function createRainbowKitConfig(app: App) : App{
             i18n: newI18n
         });
 
+        ///Using ngrok for https 
         const authAdapter = createAuthAdapter(app,{
-            baseURL: "https://1782-121-122-108-197.ngrok-free.app",
+            baseURL: "https://c1f7-121-122-108-197.ngrok-free.app",
             nonceData:{
                 url: "/auth/get-nonce"
             },
@@ -118,6 +119,9 @@ export function createRainbowKitConfig(app: App) : App{
             },
             fetchData: {
                 url: "/auth/fetch-user"
+            },
+            refreshToken: {
+                enabled: false,
             }
         });
 

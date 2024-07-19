@@ -54,7 +54,7 @@ app.get("/auth/fetch-user", async (req,res)=>{
       uri: user.uri, 
       version: user.version
     }  
-  }: null);
+  }: { user: undefined });
 })
 app.post("/auth/login", async (req,res) =>{
     

@@ -6,14 +6,20 @@ import { watchAccount } from "@wagmi/vue/actions";
 
 export function useRainbowKitAccountContext(){  
   const { connector, isConnected, isConnecting, chainId, isDisconnected, isReconnecting, chain, address, addresses,status } = useAccount();
-  const { status: authenticationStatus, adapter } = useAuthenticationConfigContext();
+  const { status: authenticationStatus, adapter,allowAuthenticate } = useAuthenticationConfigContext();
   const connectorUID = ref<string>()
   const connectionStatus = useConnectionStatus();
 
   useAccountEffect({
     onDisconnect(){
+      if(!connectorUID.value) return;
       connectorUID.value = undefined;
-      adapter?.value?.signOut();
+      if(authenticationStatus?.value === 'authenticated'){
+        adapter?.value?.signOut();
+      }
+      if(authenticationStatus){
+        authenticationStatus.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+      }
     }
   })
 
@@ -23,8 +29,14 @@ export function useRainbowKitAccountContext(){
       if(authenticationStatus?.value !== 'authenticated') return;
       if(currentAcc.address === previousAcc.address) return;
       if(currentAcc.address === undefined) return;
+      
       connectorUID.value = undefined;
-      adapter?.value?.signOut();
+      if(authenticationStatus?.value === 'authenticated'){
+        adapter?.value?.signOut();
+      }
+      if(authenticationStatus){
+        authenticationStatus.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+      }
     },
   })
   
@@ -36,10 +48,16 @@ export function useRainbowKitAccountContext(){
           connectorUID.value = connector.value.id;
           return;
         }
+
         // If the current connector is not equal to previous connector then logout
         if(connectorUID.value != connector.value.id){  
           connectorUID.value = undefined;
-          adapter?.value?.signOut();
+          if(authenticationStatus?.value === 'authenticated'){
+            adapter?.value?.signOut();
+          }
+          if(authenticationStatus){
+            authenticationStatus.value = allowAuthenticate.value ? 'unauthenticated' : undefined;
+          }
         }
       }
     }

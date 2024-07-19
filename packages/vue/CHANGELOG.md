@@ -4,7 +4,14 @@
 
 ### Patch Changes
 
-- 5a0d8da: 1. Add compass wallet 2. Add kraken wallet 3. Add kaikas wallet 4. Upgrade wagmi vue version 5. Upgrade use-rainbowkit-vue version for locale and siwe plugins. 6. Remove metamask debug messages. 7. Export create wallet utility methods
+- 5a0d8da:
+  1. Add compass wallet
+  2. Add kraken wallet
+  3. Add kaikas wallet
+  4. Upgrade wagmi vue version
+  5. Upgrade use-rainbowkit-vue version for locale and siwe plugins.
+  6. Remove metamask debug messages.
+  7. Export create wallet utility methods
 
 ## 0.4.1
 
@@ -16,7 +23,12 @@
 
 ### Minor Changes
 
-- 14943c8: 1. Fixed 'current chain id' bugs. Happened when current chain id get from wagmi does not supported in the chain list that configured by user when not connected. If not supported, by default would switch to initial chain id and then the first chain from the chain list if initial chain not configured. 2. Added binance wallet 3. Fixed 'ChainDoesNotSupportContract' error. 4. Revert to Ethereum balance if currency address have error or not found in current chain. 5. Fixed authentication pop up even authentication enabled is false.
+- 14943c8:
+  1. Fixed 'current chain id' bugs. Happened when current chain id get from wagmi does not supported in the chain list that configured by user when not connected. If not supported, by default would switch to initial chain id and then the first chain from the chain list if initial chain not configured.
+  2. Added binance wallet
+  3. Fixed 'ChainDoesNotSupportContract' error.
+  4. Revert to Ethereum balance if currency address have error or not found in current chain.
+  5. Fixed authentication pop up even authentication enabled is false.
 
 ## 0.3.0
 
@@ -32,20 +44,6 @@
 
 ### Minor Changes
 
-- Upgrade wagmi vue, fixed chain issue and option issue.
-
-## 0.2.0
-
-### Minor Changes
-
-- Upgrade wagmi vue, readme, chain issues and target issues
-
-## 0.2.0
-
-### Minor Changes
-
-- Update readme, wagmi vue, chain issues and target option issues
-
 ## 0.2.0
 
 ### Minor Changes
@@ -57,9 +55,3 @@
 ### Minor Changes
 
 - e12506f: Fixed auth issue and set messages to optional
-
-## 0.1.0
-
-### Minor Changes
-
-- 4f072fc: Fixed auth issues and make 'messages' optional
