@@ -23,41 +23,6 @@ export function configureTransactionStore() {
   const chainId = useChainId();
   const store = createTransactionStore({provider: provider.value});
     
-  ///Remove when go live , just an example to test the UI
-  /*watch(()=> address.value, (newAddress)=>{
-    if(!newAddress) return;
-    
-    store?.addTransaction(newAddress,chainId.value,{
-      hash: "0x5d15649e25d8f3e2c0374946078539d200710afc977cdfc6a977bd23f20fa8e8",
-      description: "Transfer token #20 to others",
-      confirmations: 20
-    });
-
-    store?.addTransaction(newAddress,chainId.value,{
-      hash: "0x5d15649e25d8f3e2c0374946078539d200710afc977cdfc6a977bd23f20fa8e5",
-      description: "Transfer token #20 to others",
-      confirmations: 21
-    });
-
-    store?.addTransaction(newAddress,chainId.value,{
-      hash: "0x5d15649e25d8f3e2c0374946078539d200710afc977cdfc6a977bd23f20fa8e4",
-      description: "Transfer token #20 to others",
-      confirmations: 22
-    });
-
-    store?.addTransaction(newAddress,chainId.value,{
-      hash: "0x5d15649e25d8f3e2c0374946078539d200710afc977cdfc6a977bd23f20fa8e3",
-      description: "Transfer token #20 to others",
-      confirmations: 23
-    });
-
-    store?.addTransaction(newAddress,chainId.value,{
-      hash: "0x5d15649e25d8f3e2c0374946078539d200710afc977cdfc6a977bd23f20fa8e8",
-      description: "Transfer token #20 to others",
-      confirmations: 25
-    });
-  });*/
-
   watch(()=>provider.value,(newProvider)=>{
     if(!newProvider) return;
     store?.createNewPublicClientProvider(newProvider);
