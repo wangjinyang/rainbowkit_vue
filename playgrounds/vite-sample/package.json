@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.51.1",
-    "@wagmi/vue": "^0.0.26",
+    "@wagmi/vue": "^0.0.33",
     "axios": "^1.7.2",
     "buffer": "^6.0.3",
     "use-rainbowkit-vue": "workspace:*",

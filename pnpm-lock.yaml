@@ -151,8 +151,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       '@wagmi/vue':
-        specifier: ^0.0.30
-        version: 0.0.30(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))
+        specifier: ^0.0.33
+        version: 0.0.33(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.39)
@@ -1184,18 +1184,18 @@ packages:
   '@vue/tsconfig@0.5.1':
     resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
 
-  '@wagmi/connectors@5.0.26':
-    resolution: {integrity: sha512-aGc3oDQPQwVqJr7S/7IU7rF0bA61OYXGPLzj30Y3MSmmEWXtAEgKpqkhIwiEdYQAMnlR3ukbqROq8qmUm/iYQg==}
+  '@wagmi/connectors@5.1.1':
+    resolution: {integrity: sha512-jD+s3gMYhjsmFu9zROHCz4GoPHCMgNObnW5hCZGlWm8mx26zTE/eIe2fjg53n5LWI7nmMVJxuRAMP3m7oOC5Hw==}
     peerDependencies:
-      '@wagmi/core': 2.12.2
+      '@wagmi/core': 2.13.1
       typescript: '>=5.0.4'
       viem: 2.x
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@wagmi/core@2.12.2':
-    resolution: {integrity: sha512-V/KmuTOBHVdg5NG5EIzLyWuXJ3f8a8YwpXM7ywjuEnGkljxh+WROKKd+I/Qc5RHK59nEhFOYWQKXuyz1szmO9A==}
+  '@wagmi/core@2.13.1':
+    resolution: {integrity: sha512-6ZdgI6dYfpa+IZPU0DZ3XQEQVzs003tKCERzSUNkxmt5cwSMg0XB1kvF5vU9MuPP96K6IcGkqSwAtgCmM5uy2w==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
       typescript: '>=5.0.4'
@@ -1206,8 +1206,8 @@ packages:
       typescript:
         optional: true
 
-  '@wagmi/vue@0.0.30':
-    resolution: {integrity: sha512-cB2kimEGk2M2hhcc9FD8VB/4iCeacAqbsT4v4QnxX9q8efkKBA0lPUB/6smkPO2vqR1uEhg8NskG+KAwv8X4Nw==}
+  '@wagmi/vue@0.0.33':
+    resolution: {integrity: sha512-N2mCT+4BVn/TKzLexJcdKeA0tBgb8ENkUvb59AmbZvozyin+jvZjzeO2jBEc5sSVOoAeOVveNx+zvby/eCIR3Q==}
     peerDependencies:
       '@tanstack/vue-query': '>=5.0.0'
       nuxt: '>=3.0.0'
@@ -4487,13 +4487,13 @@ snapshots:
 
   '@vue/tsconfig@0.5.1': {}
 
-  '@wagmi/connectors@5.0.26(@wagmi/core@2.12.2(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
+  '@wagmi/connectors@5.1.1(@wagmi/core@2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
     dependencies:
       '@coinbase/wallet-sdk': 4.0.4
       '@metamask/sdk': 0.26.5(bufferutil@4.0.8)(rollup@4.18.1)(utf-8-validate@5.0.10)
       '@safe-global/safe-apps-provider': 0.18.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@safe-global/safe-apps-sdk': 9.1.0(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
-      '@wagmi/core': 2.12.2(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
+      '@wagmi/core': 2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
       '@walletconnect/ethereum-provider': 2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@walletconnect/modal': 2.6.2
       cbw-sdk: '@coinbase/wallet-sdk@3.9.3'
@@ -4526,7 +4526,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/core@2.12.2(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
+  '@wagmi/core@2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
     dependencies:
       eventemitter3: 5.0.1
       mipd: 0.0.7(typescript@5.3.3)
@@ -4540,11 +4540,11 @@ snapshots:
       - immer
       - react
 
-  '@wagmi/vue@0.0.30(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))':
+  '@wagmi/vue@0.0.33(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))':
     dependencies:
       '@tanstack/vue-query': 5.51.1(vue@3.4.31(typescript@5.3.3))
-      '@wagmi/connectors': 5.0.26(@wagmi/core@2.12.2(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
-      '@wagmi/core': 2.12.2(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
+      '@wagmi/connectors': 5.1.1(@wagmi/core@2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
+      '@wagmi/core': 2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
       viem: 2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
       vue: 3.4.31(typescript@5.3.3)
     optionalDependencies:
