@@ -1,5 +1,11 @@
 # use-rainbowkit-vue
 
+## 0.4.5
+
+### Patch Changes
+
+- 932e547: Upgrade wagmi vue version and remove force ssr to true.
+
 ## 0.4.4
 
 ### Patch Changes
