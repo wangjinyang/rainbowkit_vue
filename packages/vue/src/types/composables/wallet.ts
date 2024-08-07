@@ -1,8 +1,27 @@
 
-import type { ConnectMutateAsync } from '@wagmi/vue/query';
-import { Connector,  CreateConnectorFn, Config } from '@wagmi/vue';
+import type { ConnectMutateAsync, connectMutationOptions } from '@wagmi/vue/query';
+import { Connector,  CreateConnectorFn, Config, useConfig, useConnect } from '@wagmi/vue';
 import { type WalletConnectParameters } from '@wagmi/vue/connectors';
 import { type EIP1193Provider } from 'viem';
+import { RainbowKitChain } from './chain';
+
+export type WalletConnectUriListener = (uri: string) => void;
+export interface ConnectParameters {
+  config: ReturnType<typeof useConfig>;
+  walletConnectWallet: WalletInstance;
+  currentChainId?: number;
+  initialChainId?: number;
+  ignoreChainModalOnConnect: boolean;
+  chains: RainbowKitChain[];
+  connectAsync:
+    | ReturnType<typeof connectMutationOptions>['mutationFn']
+    | ReturnType<typeof useConnect>['connectAsync'];
+}
+
+export interface CreateWalletConnectModalConnectorParameters {
+  config: ReturnType<typeof useConfig>;
+  createConnector: CreateConnectorFn;
+}
 
 export const latestWalletStorageKey = "rk-latest-id";
 export const recentWalletStorageKey = "rk-recent";

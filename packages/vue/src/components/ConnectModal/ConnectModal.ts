@@ -3,10 +3,12 @@ import { Dialog } from "@/components/Common/Dialog";
 import { ConnectOption } from "@/components/ConnectModal/ConnectOption";
 import { SignIn } from "@/components/ConnectModal/SignIn";
 import { MobileWalletSteps, MobileWalletSummary, WalletConnector, WalletStep, WalletSummary, SignInRefType, Address, Chain } from "@/types"
-import { useConfig, useConnect, useConnectors, useDisconnect } from '@wagmi/vue'
+import { useConfig, useDisconnect } from '@wagmi/vue'
 import { Component, defineComponent, h, onScopeDispose, PropType, ref, SlotsType } from "vue"
 import { getConnections, GetConnectionsReturnType, watchConnections } from '@wagmi/vue/actions';
 
+
+///TODO : allow user to open wallet modal, even though he or she connected.  
 export const ConnectModal = defineComponent({
     props: {
         open: {
