@@ -21,7 +21,10 @@ import {
   type WalletListItem,
   type WalletMetaDataParameters,
   latestWalletStorageKey,
-  recentWalletStorageKey,  
+  recentWalletStorageKey,
+  GetWalletsFromConnectorsParameters,
+  GetWalletConnectWalletParameters,
+  WagmiConnectorInstance,  
 } from "@/types/index";
 import { coinbaseWallet } from "@/wallets/coinbaseWallet/coinbaseWallet";
 import { ledgerWallet } from "@/wallets/ledgerWallet/ledgerWallet";
@@ -77,6 +80,32 @@ const generateWalletMetadata = (
 }
 
 ///public
+export function getWalletsFromConnectors({
+  connectors,
+}: GetWalletsFromConnectorsParameters): WalletInstance[] {
+  return connectors.map((connector) => {
+    const walletInstance = connector as WagmiConnectorInstance;
+    return {
+      connectorId: walletInstance.id,
+      ...walletInstance,
+      ...(walletInstance.details || {}),
+    } as WalletInstance;
+  });
+}
+
+export function getWalletConnectWallet({
+  walletId,
+  wallets,
+}: GetWalletConnectWalletParameters) {
+  return (
+    wallets.find(({ id, connectorId }) =>
+      walletId
+        ? walletId?.toLowerCase() === id?.toLowerCase()
+        : connectorId?.toLowerCase() === 'walletConnect'.toLowerCase(),
+    )
+  );
+}
+
 export const computeWalletConnectMetadata = ({
   appName,
   appDescription,

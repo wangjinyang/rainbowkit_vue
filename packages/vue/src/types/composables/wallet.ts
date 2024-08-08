@@ -5,6 +5,14 @@ import { type WalletConnectParameters } from '@wagmi/vue/connectors';
 import { type EIP1193Provider } from 'viem';
 import { RainbowKitChain } from './chain';
 
+export interface GetWalletsFromConnectorsParameters {
+  connectors: ReturnType<typeof useConnect>['connectors'];
+}
+
+export interface GetWalletConnectWalletParameters {
+  walletId?: string;
+  wallets: WalletInstance[];
+}
 export type WalletConnectUriListener = (uri: string) => void;
 export interface ConnectParameters {
   config: ReturnType<typeof useConfig>;
@@ -101,15 +109,14 @@ export type RainbowKitDetails = Omit<Wallet, 'createConnector' | 'hidden'> & {
   groupName: string
   isWalletConnectModalConnector?: boolean
   isRainbowKitConnector: boolean
-  walletConnectModalConnector?: Connector
-  showQrModal?: true
+  createWalletConnectModalConnector?: CreateConnectorFn
 }
 export type WalletDetailsParams = { details: RainbowKitDetails }
 export type CreateConnector = (walletDetails: { details: RainbowKitDetails }) => CreateConnectorFn
 export type WagmiConnectorInstance = Connector & {
   details?: RainbowKitDetails
 }
-export type WalletInstance = Connector & RainbowKitDetails
+export type WalletInstance = Connector & RainbowKitDetails & { connectorId: string };
 export type WalletConnectorsParam = {
   projectId: string
   appName: string
@@ -137,8 +144,7 @@ export type InjectedProviderRequest = {
 
 export interface WalletConnector extends WalletInstance {
   ready?: boolean;
-  connect: () => ReturnType<ConnectMutateAsync<Config, unknown>>;
-  showWalletConnectModal?: () => void;
+  connectWallet: () => Promise<void>;
   recent: boolean;
   mobileDownloadUrl?: string;
   extensionDownloadUrl?: string;
@@ -162,7 +168,7 @@ export interface CreateWalletConnectConnectorParams {
 export interface GetOrCreateWalletConnectInstanceParams {
   projectId: string
   walletConnectParameters?: RainbowKitWalletConnectParameters
-  showQrModal?: RainbowKitDetails['showQrModal']
+  showQrModal?: boolean
 }
 
 export interface ConnectorsWithWalletsParams {

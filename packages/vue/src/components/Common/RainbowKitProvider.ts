@@ -13,6 +13,7 @@ import { SignInRefType, Address, Chain, GetEnsAvatarReturnType, GetEnsNameReturn
 import { MobileWalletSteps, MobileWalletSummary, RainbowKitChain, WalletConnector, WalletStep, WalletSummary } from "@/types";
 import { computed, DefineComponent, defineComponent, h, PropType, SlotsType, toRefs, watch } from "vue";
 import { useAuthenticationConfigContext } from "@/composables";
+import { configureWalletConnectStoreContext } from "@/composables/wallet.connect";
 
 export const RainbowKitProvider = defineComponent({
     props: {
@@ -81,6 +82,7 @@ export const RainbowKitProvider = defineComponent({
         configureModalContext();
         configureRainbowKitChainContext();
         configureTransactionStore();
+        configureWalletConnectStoreContext();
 
         const { authenticationStatus } = toRefs(props);
         const { status, allowAuthenticate } = useAuthenticationConfigContext();
