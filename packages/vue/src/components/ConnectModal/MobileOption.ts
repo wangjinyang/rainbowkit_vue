@@ -8,9 +8,7 @@ import { CloseButton } from "@/components/Buttons/CloseButton";
 import { MobileWalletConnect } from "@/components/ConnectModal/MobileWalletConnect";
 import { MobileWalletGet } from "@/components/ConnectModal/MobileWalletGet";
 import { createDisclaimerComponent, MobileWalletSteps, WalletConnector, type MobileWalletSummary, type MobileWalletSummaryReturnType } from '@/types'
-import { computed, ref, defineComponent, h, PropType, SlotsType, DefineComponent, Component } from 'vue'
-import { DisclaimerLink } from '../Common/DisclaimerLink';
-import { DisclaimerText } from '../Common/DisclaimerText';
+import { computed, ref, defineComponent, h, PropType, SlotsType, Component } from 'vue'
 
 export const createMobileOptionProps = {
     onClosed:{
@@ -35,7 +33,7 @@ export const MobileOption = defineComponent({
         const titleId = 'rk_connect_title'
         const { disclaimer: DisclaimerFn, learnMoreUrl } = useAppContext()
         const Disclaimer = DisclaimerFn?.value !== undefined ? createDisclaimerComponent(DisclaimerFn.value) : undefined;
-
+      
         const { t } = useLocale()
     
         const step = ref<MobileWalletSteps>(MobileWalletSteps.Connect)

@@ -1,14 +1,11 @@
-import { useAppContext, useRainbowKitAccountContext } from '@/composables'
+import { useAppContext, useDisconnectAll, useRainbowKitAccountContext } from '@/composables'
 import { Dialog } from "@/components/Common/Dialog";
 import { ConnectOption } from "@/components/ConnectModal/ConnectOption";
 import { SignIn } from "@/components/ConnectModal/SignIn";
 import { MobileWalletSteps, MobileWalletSummary, WalletConnector, WalletStep, WalletSummary, SignInRefType, Address, Chain } from "@/types"
-import { useConfig, useDisconnect } from '@wagmi/vue'
-import { Component, defineComponent, h, onScopeDispose, PropType, ref, SlotsType } from "vue"
-import { getConnections, GetConnectionsReturnType, watchConnections } from '@wagmi/vue/actions';
+import { Component, defineComponent, h, PropType, SlotsType } from "vue"
+import { useWalletConnectStoreContext } from '@/composables/wallet.connect';
 
-
-///TODO : allow user to open wallet modal, even though he or she connected.  
 export const ConnectModal = defineComponent({
     props: {
         open: {
@@ -60,31 +57,10 @@ export const ConnectModal = defineComponent({
     setup(props, { slots }) {
         const titleId = 'rk_connect_title'
         const { connectionStatus,isConnecting } = useRainbowKitAccountContext()
-        const { disconnect } = useDisconnect()
+        const { disconnectAll } = useDisconnectAll()
         const { connectModalTeleportTarget:target } = useAppContext();    
-        const config = useConfig();
-        const connections = ref<GetConnectionsReturnType>(getConnections(config));
-        const unwatch = watchConnections(config,{
-            onChange(currentConnections,_){
-                connections.value = currentConnections;
-            }
-        });
-        onScopeDispose(()=> {
-            unwatch();
-        })
-        const disconnectAll = ()=>{
-            connections.value?.map((connection)=> {
-                if(typeof connection.connector.disconnect === 'function'){
-                    return disconnect({
-                        connector: connection.connector,
-                    },{
-                        onError(error, variables, context) {
-                            console.error(error);
-                        },
-                    }); 
-                }
-            });
-        }
+        const store = useWalletConnectStoreContext();
+        
         const onAuthCancel = () => {
             props.onClosed()
             disconnectAll()
@@ -92,6 +68,7 @@ export const ConnectModal = defineComponent({
 
         const onConnectCancel = () => {
             props.onClosed() 
+            store.resetWalletConnectUri();
             if (isConnecting.value) disconnectAll()
         }
 

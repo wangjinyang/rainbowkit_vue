@@ -1,27 +1,28 @@
-import { addRecentWalletId, isEIP6963Connector, isRainbowKitConnector, isRecentWallet, getRainbowKitConnectorWithWalletConnect, getRecentWalletIds, getConnectorsWithRecentWallets, getDeskstopDownloadUrl, getExtensionDownloadUrl, getMobileDownloadUrl, computeChainId, getWalletsFromConnectors } from '@/utils'
+import { addRecentWalletId, isEIP6963Connector, isRainbowKitConnector, isRecentWallet, getRecentWalletIds, getConnectorsWithRecentWallets, getDeskstopDownloadUrl, getExtensionDownloadUrl, getMobileDownloadUrl, computeChainId, getWalletsFromConnectors, getWalletConnectConnector } from '@/utils'
 import { useRainbowKitChainContext } from '@/composables/chain'
-import { type WagmiConnectorInstance, type WalletInstance, type WalletConnector, mainnet } from '@/types'
-import { useConnect, Connector, useChainId, useConfig } from '@wagmi/vue'
+import { type WalletInstance, type WalletConnector } from '@/types'
+import { useConnect, Connector, useChainId, useConfig, useDisconnect } from '@wagmi/vue'
 import { computed, ComputedRef } from 'vue'
 import {
   METAMASK_WALLET_ID,
   MetaMaskConnector,
 } from '@/wallets/metaMaskWallet/metaMaskWallet';
-import { useWalletConnectStoreContext } from './wallet.connect'
+import { useWalletConnectRequestUri, useWalletConnectStoreContext } from './wallet.connect'
 
 export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : ComputedRef<Array<WalletConnector>> {
   const MAX_RECENT_WALLETS = 3
   const config = useConfig();
-  const { initialChainId, enableChainModalOnConnect: ignoreChainModalOnConnect } = useRainbowKitChainContext()
+  const { initialChainId, enableChainModalOnConnect: ignoreChainModalOnConnect, rainbowKitChains: chains } = useRainbowKitChainContext()
   const { connectAsync, connectors: defaultUntypedConnector } = useConnect()
+  const { disconnectAsync  }  = useDisconnect();
   const currentChainId = useChainId();
-  const { setCurrentWalletId, currentWalletConnectURI } = useWalletConnectStoreContext();
+  const store = useWalletConnectStoreContext();
 
   ///functions 
   function pollForWalletConnectUri(uriConverter: (uri: string) => string,): Promise<string>{
     return new Promise((resolve) => {
       const intervalId = setInterval(() => {
-        const walletConnectUri = currentWalletConnectURI;
+        const walletConnectUri = store.currentWalletConnectURI;
         if (walletConnectUri) {
           clearInterval(intervalId);
           resolve(
@@ -39,6 +40,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
 
   ///Async function
   async function connectWallet(connector: Connector){
+    await disconnectAsync({ connector });
     const walletChainId = await connector.getChainId();
     const chainId = computeChainId({
       initialChainId: initialChainId?.value,
@@ -52,8 +54,9 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
     }
   }
 
-  async function waitUntilConnected(id: string): Promise<void>{
-    setCurrentWalletId(id);
+  async function waitUntilConnected(connector: WalletInstance): Promise<void>{
+    const { id  } = connector;  
+    store.setCurrentWalletId(id);    
     return new Promise((resolve) => {
       const intervalId = setInterval(() => {
         const isConnected = config.state.status === 'connected';
@@ -80,7 +83,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
       return (connector as unknown as MetaMaskConnector).getDisplayUri(provider);
     }
 
-    if(currentWalletConnectURI) return uriConverter(currentWalletConnectURI);
+    if(store.currentWalletConnectURI) return uriConverter(store.currentWalletConnectURI);
     return pollForWalletConnectUri(uriConverter);
   }
   
@@ -106,7 +109,6 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
       .filter(Boolean)
       .slice(0, MAX_RECENT_WALLETS)
     const combinedConnectorsWithRecentWallets = getConnectorsWithRecentWallets({ wallets, recentWallets })
-
 
     for (const wallet of combinedConnectorsWithRecentWallets) {
 
@@ -137,7 +139,7 @@ export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : Compu
         ready: wallet.installed ?? true,
         recent,
         connectWallet: isWalletConnectConnector
-        ? ()=>waitUntilConnected(wallet.id)
+        ? ()=>waitUntilConnected(wallet)
         : ()=>connectWallet(wallet),
         desktopDownloadUrl: getDeskstopDownloadUrl(wallet),
         extensionDownloadUrl: getExtensionDownloadUrl(wallet),

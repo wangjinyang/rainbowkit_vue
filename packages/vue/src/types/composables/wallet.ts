@@ -107,7 +107,6 @@ export type RainbowKitDetails = Omit<Wallet, 'createConnector' | 'hidden'> & {
   index: number
   groupIndex: number
   groupName: string
-  isWalletConnectModalConnector?: boolean
   isRainbowKitConnector: boolean
   createWalletConnectModalConnector?: CreateConnectorFn
 }
@@ -156,12 +155,14 @@ export interface WalletConnector extends WalletInstance {
 
 export interface GetWalletConnectConnectorParams {
   projectId: string
+  showQrModal?: boolean
   walletConnectParameters?: RainbowKitWalletConnectParameters
 }
 
 export interface CreateWalletConnectConnectorParams {
   projectId: string
   walletDetails: WalletDetailsParams
+  showQrModal?: boolean
   walletConnectParameters?: RainbowKitWalletConnectParameters
 }
 

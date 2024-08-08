@@ -5,6 +5,7 @@ import { MobileStatus } from "@/components/ConnectModal/MobileStatus";
 import { MobileOption } from "@/components/ConnectModal/MobileOption";
 import { DesktopOptions } from "@/components/ConnectModal/DesktopOption";
 import { Component, defineComponent, h, PropType, SlotsType } from "vue";
+import { useWalletConnectRequestUri } from "@/composables/wallet.connect";
 
 export const ConnectOption = defineComponent({
     props: {
@@ -42,6 +43,9 @@ export const ConnectOption = defineComponent({
     }>,
     setup(props, { slots }) {
         const { connector }  = useWalletButtonContext();
+
+        ///prefetch wallet connect URI 
+        useWalletConnectRequestUri();
         //const connector = computed(()=> button.value);
         return ()=>{
             if(isMobile && !!connector.value){

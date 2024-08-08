@@ -8,7 +8,6 @@ import {
   ModalSizeContextKey,
 } from '@/types'
 import { useRainbowKitAccountContext } from "@/composables/account";
-import { useAuthenticationConfigContext} from "@/composables/authentication";
 import { useWalletButtonContext } from "@/composables/button";
 import { useWindow} from "@/composables/window";
 import { largeScreenMinWidth } from '@/css'
@@ -30,7 +29,7 @@ export function configureModalSizeContext() {
 
 export function configureModalContext() {
   const { chainId, connectionStatus } = useRainbowKitAccountContext()
-  const { status } = useAuthenticationConfigContext()
+  //const { status } = useAuthenticationConfigContext()
   const { accountModalOpen, chainModalOpen, connectModalOpen, closeAllModal } = useModalContext()
   const { chains } = useConfig()
   const modal = reactive(useModalContext());

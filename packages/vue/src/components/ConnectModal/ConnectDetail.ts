@@ -8,6 +8,7 @@ import { Text } from "@/components/Common/Text";
 import { SpinnerIcon } from "@/components/Icons/SpinnerIcon";
 import { ActionButton } from "@/components/Buttons/ActionButton";
 import { computed, defineComponent, ExtractPropTypes, h, PropType } from "vue";
+import { useWalletConnectModal } from "@/composables/wallet.connect";
 
 export const createConnectDetailProps = {
     changeWalletStep: {
@@ -47,19 +48,22 @@ export const ConnectDetail = defineComponent({
     setup(props) {
         const logoSize: ContainerProps<'div'>['height'] = '44';
         const { t } = useLocale()
+        const { openWalletConnectModal } = useWalletConnectModal();
         const windownSize = useWindow()
 
         const smallWindow = computed(() => windownSize.value !== undefined && windownSize.value?.width < 768)
         const isDesktopDeepLinkAvailable = computed(() => !!props.wallet?.getDesktopUri)
+        const isWalletConnectWallet = computed(()=>props.wallet?.id === 'walletConnect');
         const hasExtension = computed(() => !!props.wallet?.extensionDownloadUrl)
         const hasQrCodeAndExtension = computed(() => props.wallet?.downloadUrls?.qrCode !== undefined && hasExtension.value)
         const hasQrCodeAndDesktop = computed(() => props.wallet?.downloadUrls?.qrCode !== undefined && !!props.wallet.desktopDownloadUrl)
         const hasQrCode = computed(() => props.wallet?.qrCode !== undefined && props.qrCodeUri !== undefined)
+
         const secondaryAction = computed<ConnectDetailSecondaryAction | undefined>(() => {
-            if (props.wallet?.showWalletConnectModal) {
+            if (isWalletConnectWallet) {
               const onClick = () => {
                 props.onClosed()
-                props.wallet?.showWalletConnectModal?.()
+                openWalletConnectModal();
               }
               const description = !props.compactModeEnabled
                 ? t('connect.walletconnect.description.full')

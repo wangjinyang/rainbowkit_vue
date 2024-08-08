@@ -18,15 +18,18 @@ export class WalletConnectStore {
     private connector: Connector|undefined;
     private refetchAttempts = 0;
 
-    private async _connectAsync({
-        initialChainId,
-        currentChainId,
-        chains,
-        ignoreChainModalOnConnect,
-        connectAsync,
-        walletConnectWallet,
-    }:ConnectParameters):Promise<void>{
+    private async _connectAsync(parameter:ConnectParameters):Promise<void>{
+        const {
+            initialChainId,
+            currentChainId,
+            chains,
+            ignoreChainModalOnConnect,
+            connectAsync,
+            walletConnectWallet,
+            config
+        } = parameter;
         const provider = await this.connector?.getProvider();
+        const walletChainId = await this.connector?.getChainId();
 
         ///@ts-expect-error
         provider?.once('display_uri',(newURI:string)=>{
@@ -35,7 +38,6 @@ export class WalletConnectStore {
             this.notifyWalletConnectUriListeners(newURI);
         });
 
-        const walletChainId = await this.connector?.getChainId();
         const chainId = computeChainId({ 
             initialChainId, 
             currentChainId,  
@@ -43,18 +45,26 @@ export class WalletConnectStore {
             chains, 
             ignoreChainModalOnConnect 
         });
-
-        const result = await connectAsync({
-            chainId,
-            connector: walletConnectWallet
-        });
-
-        if(result){
-            const currentWalletId = this.walletId;
-            if (currentWalletId) addRecentWalletId(currentWalletId);
-            this.walletId = undefined;
-            this.uri = undefined;
-            this.refetchAttempts = 0;
+        try{
+            const result = await connectAsync({
+                chainId,
+                connector: walletConnectWallet
+            });
+            if(result){
+                const currentWalletId = this.walletId;
+                if (currentWalletId) addRecentWalletId(currentWalletId);
+                this.walletId = undefined;
+                this.uri = undefined;
+                this.refetchAttempts = 0;
+            }
+        }catch(error){
+            console.log("Provider result 4:",error);
+            const isConnected = config.state.status === 'connected';
+            if (!isConnected && this.refetchAttempts < WalletConnectStore.MAX_REFETCH_ATTEMPTS) {
+                this.uri = undefined;
+                this.refetchAttempts++;
+                await this._connectAsync(parameter);
+            }
         }
     }
 
@@ -65,16 +75,8 @@ export class WalletConnectStore {
     }
 
     public async requestWalletConnectUri(parameters: ConnectParameters):Promise<void>{
-        try{
-            await this._connectAsync(parameters);
-        }catch{
-            const isConnected = parameters.config.state.status === 'connected';
-            if (!isConnected && this.refetchAttempts < WalletConnectStore.MAX_REFETCH_ATTEMPTS) {
-                this.uri = undefined;
-                this.refetchAttempts++;
-                await this._connectAsync(parameters);
-            }
-        }
+        await this._connectAsync(parameters);
+        console.log("Provider result 4:");
     }
 
     public onWalletConnectUri(listener: WalletConnectUriListener) {
@@ -95,9 +97,7 @@ export class WalletConnectStore {
     }
     
     public resetWalletConnectUri() {
-        this.connector = undefined;
         this.uri = undefined;
-        this.walletId = undefined;
     }
 
     public setCurrentWalletId(id?: string) {
