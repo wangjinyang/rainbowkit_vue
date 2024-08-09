@@ -119,7 +119,8 @@ export const RainbowKitProvider = defineComponent({
                         disclaimer: DefineComponent | undefined; 
                         fragment: WalletSummary; 
                         changeWalletStep: (newWalletStep: WalletStep, isBack: boolean) => void; 
-                        selectWallet: (connector: WalletConnector) => void; qrCodeUri: string | undefined; 
+                        selectWallet: (connector: WalletConnector) => void; 
+                        qrCodeUri: string | undefined; 
                         compactModalEnabled: boolean; 
                         hasQrCode: boolean; 
                         hasExtension: boolean; 

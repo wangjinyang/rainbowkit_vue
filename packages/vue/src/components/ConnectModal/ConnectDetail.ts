@@ -218,7 +218,7 @@ export const ConnectDetail = defineComponent({
 
                     ])),
 
-                    h(Container,{
+                    /*h(Container,{
                         alignItems: 'center',
                         borderRadius: '10',
                         display: 'flex',
@@ -240,8 +240,9 @@ export const ConnectDetail = defineComponent({
                                 type: 'secondary'
                             })
                         ] : [],
-                    ])
+                    ])*/
                 ],
+
 
                 h(Container,{
                     alignItems: 'center',
@@ -253,7 +254,7 @@ export const ConnectDetail = defineComponent({
                     justifyContent: 'space-between',
                     marginTop: '12'
                 },()=>[
-                    ...secondaryAction.value ? [
+                    secondaryAction.value ? [
                         h(Text,{
                             color: 'modalTextSecondary',
                             size: '14',

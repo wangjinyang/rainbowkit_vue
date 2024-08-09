@@ -7,7 +7,7 @@ import {
   METAMASK_WALLET_ID,
   MetaMaskConnector,
 } from '@/wallets/metaMaskWallet/metaMaskWallet';
-import { useWalletConnectRequestUri, useWalletConnectStoreContext } from './wallet.connect'
+import { useWalletConnectStoreContext } from './wallet.connect'
 
 export function useWalletConectors(mergeEIP6963WithRkConnectors = false) : ComputedRef<Array<WalletConnector>> {
   const MAX_RECENT_WALLETS = 3

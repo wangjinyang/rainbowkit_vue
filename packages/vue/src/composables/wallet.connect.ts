@@ -11,11 +11,13 @@ export function configureWalletConnectStoreContext(){
     const { connectors } = useConnect();
 
     const wallets = getWalletsFromConnectors({ connectors });
+    
     const connector = getWalletConnectWallet({
         walletId: 'walletConnect',
         wallets,
       })?.createWalletConnectModalConnector;
     
+      console.log(connector);
     ///preload wallet connect   
     if(connector){
         store.createWalletConnectModalConnector({ createConnector:connector, config });
@@ -34,13 +36,13 @@ export function useWalletConnectStoreContext(){
     return context;
 }
 
-export async function useWalletConnectRequestUri(){
+export function useWalletConnectRequestUri(){
 
     const store = useWalletConnectStoreContext();
     
     const config = useConfig();
     const currentChainId = useChainId();
-    const { connectAsync, connectors } = useConnect();
+    const { connectors, connect } = useConnect();
     const { initialChainId, rainbowKitChains: chains, enableChainModalOnConnect: ignoreChainModalOnConnect } = useRainbowKitChainContext();
 
     const wallets = getWalletsFromConnectors({ connectors });
@@ -48,11 +50,9 @@ export async function useWalletConnectRequestUri(){
 
     if(!connector) return;
     
-    ///try connectasync at here
-    //await connectAsync({ connector  });
-    await store.requestWalletConnectUri({
+    store.requestWalletConnectUri({
         config,
-        connectAsync,
+        connect,
         currentChainId: currentChainId.value,
         chains: chains?.value ?? [],
         walletConnectWallet: connector,

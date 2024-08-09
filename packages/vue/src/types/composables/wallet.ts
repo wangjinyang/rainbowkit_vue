@@ -21,9 +21,9 @@ export interface ConnectParameters {
   initialChainId?: number;
   ignoreChainModalOnConnect: boolean;
   chains: RainbowKitChain[];
-  connectAsync:
-    | ReturnType<typeof connectMutationOptions>['mutationFn']
-    | ReturnType<typeof useConnect>['connectAsync'];
+  connect:
+    //| ReturnType<typeof connectMutationOptions>['mutationFn']
+    | ReturnType<typeof useConnect>['connect'];
 }
 
 export interface CreateWalletConnectModalConnectorParameters {
@@ -169,7 +169,7 @@ export interface CreateWalletConnectConnectorParams {
 export interface GetOrCreateWalletConnectInstanceParams {
   projectId: string
   walletConnectParameters?: RainbowKitWalletConnectParameters
-  showQrModal?: boolean
+  showQrModal?: boolean 
 }
 
 export interface ConnectorsWithWalletsParams {

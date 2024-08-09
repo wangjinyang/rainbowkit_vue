@@ -333,19 +333,18 @@ export const getInjectedConnector = (request: InjectedProviderRequest): CreateCo
   return createInjectedConnector(provider)
 }
 
+const walletConnectInstances = new Map<string, ReturnType<typeof walletConnect>>()
 export const getOrCreateWalletConnectInstance = (
-  params: GetOrCreateWalletConnectInstanceParams
+  {
+    projectId, 
+    walletConnectParameters, 
+    showQrModal= false
+  }: GetOrCreateWalletConnectInstanceParams
 ): ReturnType<typeof walletConnect> => {
-  const walletConnectInstances = new Map<string, ReturnType<typeof walletConnect>>()
-  const { projectId, walletConnectParameters, showQrModal } = params
   let config: WalletConnectParameters = {
     ...(walletConnectParameters ? walletConnectParameters : {}),
     projectId,
-    showQrModal: false // Required. Otherwise WalletConnect modal (Web3Modal) will popup during time of connection for a wallet
-  }
-
-  if (showQrModal) {
-    config = { ...config, showQrModal: true }
+    showQrModal
   }
 
   const serializedConfig = JSON.stringify(config)

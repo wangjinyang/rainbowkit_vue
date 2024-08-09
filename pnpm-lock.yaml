@@ -151,8 +151,8 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       '@wagmi/vue':
-        specifier: ^0.0.33
-        version: 0.0.33(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))
+        specifier: 0.0.37
+        version: 0.0.37(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.39)
@@ -614,8 +614,8 @@ packages:
     resolution: {integrity: sha512-ihb3B0T/wJm1eUuArYP4lCTSEoZsClHhuWyfo/kMX3m/odpqNcPfsz5O2A3NT7dXCAgWPGDQGPqygCpgeniKMw==}
     engines: {node: '>=12.0.0'}
 
-  '@metamask/sdk-communication-layer@0.26.4':
-    resolution: {integrity: sha512-+X4GEc5mV1gWK4moSswVlKsUh+RsA48qPlkxBLTUxQODSnyBe0TRMxE6mH+bSrfponnTzvBkGUXyEjvDwDjDHw==}
+  '@metamask/sdk-communication-layer@0.27.0':
+    resolution: {integrity: sha512-G9LCaQzIqp5WmUmvHN6UUdjWrBh67MbRobmbbs5fcc2+9XFhj3vBgtyleUYjun91jSlPHoZeo+f/Pj4/WoPIJg==}
     peerDependencies:
       cross-fetch: ^4.0.0
       eciesjs: ^0.3.16
@@ -638,8 +638,8 @@ packages:
       react-native:
         optional: true
 
-  '@metamask/sdk@0.26.5':
-    resolution: {integrity: sha512-HS/MPQCCYRS+m3dDdGLcAagwYHiPv9iUshDMBjINUywCtfUN4P2BH8xdvPOgtnzRIuRSMXqMWBbZnTvEvBeQvA==}
+  '@metamask/sdk@0.27.0':
+    resolution: {integrity: sha512-6sMjr/0qR700X1svPGEQ4rBdtccidBLeTC27fYQc7r9ROgSixB1DUUAyu/LoySVqt3Hu/Zm7NnAHXuT228ht7A==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -1184,18 +1184,18 @@ packages:
   '@vue/tsconfig@0.5.1':
     resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
 
-  '@wagmi/connectors@5.1.1':
-    resolution: {integrity: sha512-jD+s3gMYhjsmFu9zROHCz4GoPHCMgNObnW5hCZGlWm8mx26zTE/eIe2fjg53n5LWI7nmMVJxuRAMP3m7oOC5Hw==}
+  '@wagmi/connectors@5.1.5':
+    resolution: {integrity: sha512-z+UAfwfTqVldoNxUFffHPcc/ets3UP1ehXE6b9k9ZDaih8VdZJRGz84qLjx+GVnI/+FrHfFwPPD9C2YYd2azww==}
     peerDependencies:
-      '@wagmi/core': 2.13.1
+      '@wagmi/core': 2.13.4
       typescript: '>=5.0.4'
       viem: 2.x
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  '@wagmi/core@2.13.1':
-    resolution: {integrity: sha512-6ZdgI6dYfpa+IZPU0DZ3XQEQVzs003tKCERzSUNkxmt5cwSMg0XB1kvF5vU9MuPP96K6IcGkqSwAtgCmM5uy2w==}
+  '@wagmi/core@2.13.4':
+    resolution: {integrity: sha512-J6gfxHYr8SCc/BzEa712LnI+qLFs5K2nBLupwQqQl4WiAlCu8SdcpbZokqiwfCMYhIRMj0+YFEP9qe4ypcexmw==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
       typescript: '>=5.0.4'
@@ -1206,8 +1206,8 @@ packages:
       typescript:
         optional: true
 
-  '@wagmi/vue@0.0.33':
-    resolution: {integrity: sha512-N2mCT+4BVn/TKzLexJcdKeA0tBgb8ENkUvb59AmbZvozyin+jvZjzeO2jBEc5sSVOoAeOVveNx+zvby/eCIR3Q==}
+  '@wagmi/vue@0.0.37':
+    resolution: {integrity: sha512-yFxZuZtaPa2mQLdIRngN234jOyoDb2ZaZU9AgNBrNkaLYLUV9MFq+jovjWJ3rnlolsROpGnUqFHFlMitECaeVQ==}
     peerDependencies:
       '@tanstack/vue-query': '>=5.0.0'
       nuxt: '>=3.0.0'
@@ -1220,14 +1220,14 @@ packages:
       typescript:
         optional: true
 
-  '@walletconnect/core@2.13.0':
-    resolution: {integrity: sha512-blDuZxQenjeXcVJvHxPznTNl6c/2DO4VNrFnus+qHmO6OtT5lZRowdMtlCaCNb1q0OxzgrmBDcTOCbFcCpio/g==}
+  '@walletconnect/core@2.14.0':
+    resolution: {integrity: sha512-E/dgBM9q3judXnTfZQ5ILvDpeSdDpabBLsXtYXa3Nyc26cfNplfLJ2nXm9FgtTdhM1nZ7yx4+zDPiXawBRZl2g==}
 
   '@walletconnect/environment@1.0.1':
     resolution: {integrity: sha512-T426LLZtHj8e8rYnKfzsw1aG6+M0BT1ZxayMdv/p8yM0MU+eJDISqNY3/bccxRr4LrF9csq02Rhqt08Ibl0VRg==}
 
-  '@walletconnect/ethereum-provider@2.13.0':
-    resolution: {integrity: sha512-dnpW8mmLpWl1AZUYGYZpaAfGw1HFkL0WSlhk5xekx3IJJKn4pLacX2QeIOo0iNkzNQxZfux1AK4Grl1DvtzZEA==}
+  '@walletconnect/ethereum-provider@2.14.0':
+    resolution: {integrity: sha512-Cc2/DCn85VciA10BrsNWFM//3VC1D8yjwrjfUKjGndLPDz0YIdAxTgYZViIlMjE0lzQC/DMvPYEAnGfW0O1Bwg==}
 
   '@walletconnect/events@1.0.1':
     resolution: {integrity: sha512-NPTqaoi0oPBVNuLv7qPaJazmGHs5JGyO8eEAk5VGKmJzDR7AHzD4k6ilox5kxk1iwiOnFopBOOMLs86Oa76HpQ==}
@@ -1279,20 +1279,20 @@ packages:
   '@walletconnect/safe-json@1.0.2':
     resolution: {integrity: sha512-Ogb7I27kZ3LPC3ibn8ldyUr5544t3/STow9+lzz7Sfo808YD7SBWk7SAsdBFlYgP2zDRy2hS3sKRcuSRM0OTmA==}
 
-  '@walletconnect/sign-client@2.13.0':
-    resolution: {integrity: sha512-En7KSvNUlQFx20IsYGsFgkNJ2lpvDvRsSFOT5PTdGskwCkUfOpB33SQJ6nCrN19gyoKPNvWg80Cy6MJI0TjNYA==}
+  '@walletconnect/sign-client@2.14.0':
+    resolution: {integrity: sha512-UrB3S3eLjPYfBLCN3WJ5u7+WcZ8kFMe/QIDqLf76Jk6TaLwkSUy563LvnSw4KW/kA+/cY1KBSdUDfX1tzYJJXg==}
 
   '@walletconnect/time@1.0.2':
     resolution: {integrity: sha512-uzdd9woDcJ1AaBZRhqy5rNC9laqWGErfc4dxA9a87mPdKOgWMD85mcFo9dIYIts/Jwocfwn07EC6EzclKubk/g==}
 
-  '@walletconnect/types@2.13.0':
-    resolution: {integrity: sha512-MWaVT0FkZwzYbD3tvk8F+2qpPlz1LUSWHuqbINUtMXnSzJtXN49Y99fR7FuBhNFtDalfuWsEK17GrNA+KnAsPQ==}
+  '@walletconnect/types@2.14.0':
+    resolution: {integrity: sha512-vevMi4jZLJ55vLuFOicQFmBBbLyb+S0sZS4IsaBdZkQflfGIq34HkN13c/KPl4Ye0aoR4/cUcUSitmGIzEQM5g==}
 
-  '@walletconnect/universal-provider@2.13.0':
-    resolution: {integrity: sha512-B5QvO8pnk5Bqn4aIt0OukGEQn2Auk9VbHfhQb9cGwgmSCd1GlprX/Qblu4gyT5+TjHMb1Gz5UssUaZWTWbDhBg==}
+  '@walletconnect/universal-provider@2.14.0':
+    resolution: {integrity: sha512-Mr8uoTmD6H0+Hh+3gxBu4l3T2uP/nNPR02sVtwEujNum++F727mMk+ifPRIpkVo21V/bvXFEy8sHTs5hqyq5iA==}
 
-  '@walletconnect/utils@2.13.0':
-    resolution: {integrity: sha512-q1eDCsRHj5iLe7fF8RroGoPZpdo2CYMZzQSrw1iqL+2+GOeqapxxuJ1vaJkmDUkwgklfB22ufqG6KQnz78sD4w==}
+  '@walletconnect/utils@2.14.0':
+    resolution: {integrity: sha512-vRVomYQEtEAyCK2c5bzzEvtgxaGGITF8mWuIL+WYSAMyEJLY97mirP2urDucNwcUczwxUgI+no9RiNFbUHreQQ==}
 
   '@walletconnect/window-getters@1.0.1':
     resolution: {integrity: sha512-vHp+HqzGxORPAN8gY03qnbTMnhqIwjeRJNOMOAzePRg4xVEEE2WvYsI9G2NMjOknA8hnuYbU3/hwLcKbjhc8+Q==}
@@ -3756,7 +3756,7 @@ snapshots:
 
   '@metamask/safe-event-emitter@3.1.1': {}
 
-  '@metamask/sdk-communication-layer@0.26.4(cross-fetch@4.0.0)(eciesjs@0.3.19)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5(bufferutil@4.0.8)(utf-8-validate@5.0.10))':
+  '@metamask/sdk-communication-layer@0.27.0(cross-fetch@4.0.0)(eciesjs@0.3.19)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5(bufferutil@4.0.8)(utf-8-validate@5.0.10))':
     dependencies:
       bufferutil: 4.0.8
       cross-fetch: 4.0.0
@@ -3776,11 +3776,11 @@ snapshots:
       i18next: 23.11.5
       qr-code-styling: 1.6.0-rc.1
 
-  '@metamask/sdk@0.26.5(bufferutil@4.0.8)(rollup@4.18.1)(utf-8-validate@5.0.10)':
+  '@metamask/sdk@0.27.0(bufferutil@4.0.8)(rollup@4.18.1)(utf-8-validate@5.0.10)':
     dependencies:
       '@metamask/onboarding': 1.0.1
       '@metamask/providers': 16.1.0
-      '@metamask/sdk-communication-layer': 0.26.4(cross-fetch@4.0.0)(eciesjs@0.3.19)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      '@metamask/sdk-communication-layer': 0.27.0(cross-fetch@4.0.0)(eciesjs@0.3.19)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5(bufferutil@4.0.8)(utf-8-validate@5.0.10))
       '@metamask/sdk-install-modal-web': 0.26.5(i18next@23.11.5)
       '@types/dom-screen-wake-lock': 1.0.3
       bowser: 2.11.0
@@ -4487,14 +4487,14 @@ snapshots:
 
   '@vue/tsconfig@0.5.1': {}
 
-  '@wagmi/connectors@5.1.1(@wagmi/core@2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
+  '@wagmi/connectors@5.1.5(@wagmi/core@2.13.4(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
     dependencies:
       '@coinbase/wallet-sdk': 4.0.4
-      '@metamask/sdk': 0.26.5(bufferutil@4.0.8)(rollup@4.18.1)(utf-8-validate@5.0.10)
+      '@metamask/sdk': 0.27.0(bufferutil@4.0.8)(rollup@4.18.1)(utf-8-validate@5.0.10)
       '@safe-global/safe-apps-provider': 0.18.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
       '@safe-global/safe-apps-sdk': 9.1.0(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
-      '@wagmi/core': 2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
-      '@walletconnect/ethereum-provider': 2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@wagmi/core': 2.13.4(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
+      '@walletconnect/ethereum-provider': 2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@walletconnect/modal': 2.6.2
       cbw-sdk: '@coinbase/wallet-sdk@3.9.3'
       viem: 2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
@@ -4526,7 +4526,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/core@2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
+  '@wagmi/core@2.13.4(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))':
     dependencies:
       eventemitter3: 5.0.1
       mipd: 0.0.7(typescript@5.3.3)
@@ -4540,11 +4540,11 @@ snapshots:
       - immer
       - react
 
-  '@wagmi/vue@0.0.33(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))':
+  '@wagmi/vue@0.0.37(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))':
     dependencies:
       '@tanstack/vue-query': 5.51.1(vue@3.4.31(typescript@5.3.3))
-      '@wagmi/connectors': 5.1.1(@wagmi/core@2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
-      '@wagmi/core': 2.13.1(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
+      '@wagmi/connectors': 5.1.5(@wagmi/core@2.13.4(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
+      '@wagmi/core': 2.13.4(@tanstack/query-core@5.51.1)(typescript@5.3.3)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))
       viem: 2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10)
       vue: 3.4.31(typescript@5.3.3)
     optionalDependencies:
@@ -4577,7 +4577,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@walletconnect/core@2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@walletconnect/core@2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@walletconnect/heartbeat': 1.2.2
       '@walletconnect/jsonrpc-provider': 1.0.14
@@ -4590,8 +4590,8 @@ snapshots:
       '@walletconnect/relay-auth': 1.0.4
       '@walletconnect/safe-json': 1.0.2
       '@walletconnect/time': 1.0.2
-      '@walletconnect/types': 2.13.0
-      '@walletconnect/utils': 2.13.0
+      '@walletconnect/types': 2.14.0
+      '@walletconnect/utils': 2.14.0
       events: 3.3.0
       isomorphic-unfetch: 3.1.0
       lodash.isequal: 4.5.0
@@ -4619,17 +4619,17 @@ snapshots:
     dependencies:
       tslib: 1.14.1
 
-  '@walletconnect/ethereum-provider@2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@walletconnect/ethereum-provider@2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@walletconnect/jsonrpc-http-connection': 1.0.8
       '@walletconnect/jsonrpc-provider': 1.0.14
       '@walletconnect/jsonrpc-types': 1.0.4
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/modal': 2.6.2
-      '@walletconnect/sign-client': 2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@walletconnect/types': 2.13.0
-      '@walletconnect/universal-provider': 2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@walletconnect/utils': 2.13.0
+      '@walletconnect/sign-client': 2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@walletconnect/types': 2.14.0
+      '@walletconnect/universal-provider': 2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@walletconnect/utils': 2.14.0
       events: 3.3.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -4766,16 +4766,16 @@ snapshots:
     dependencies:
       tslib: 1.14.1
 
-  '@walletconnect/sign-client@2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@walletconnect/sign-client@2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
-      '@walletconnect/core': 2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@walletconnect/core': 2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.2
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/logger': 2.1.2
       '@walletconnect/time': 1.0.2
-      '@walletconnect/types': 2.13.0
-      '@walletconnect/utils': 2.13.0
+      '@walletconnect/types': 2.14.0
+      '@walletconnect/utils': 2.14.0
       events: 3.3.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -4800,7 +4800,7 @@ snapshots:
     dependencies:
       tslib: 1.14.1
 
-  '@walletconnect/types@2.13.0':
+  '@walletconnect/types@2.14.0':
     dependencies:
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.2
@@ -4824,16 +4824,16 @@ snapshots:
       - ioredis
       - uWebSockets.js
 
-  '@walletconnect/universal-provider@2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@walletconnect/universal-provider@2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@walletconnect/jsonrpc-http-connection': 1.0.8
       '@walletconnect/jsonrpc-provider': 1.0.14
       '@walletconnect/jsonrpc-types': 1.0.4
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/logger': 2.1.2
-      '@walletconnect/sign-client': 2.13.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
-      '@walletconnect/types': 2.13.0
-      '@walletconnect/utils': 2.13.0
+      '@walletconnect/sign-client': 2.14.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      '@walletconnect/types': 2.14.0
+      '@walletconnect/utils': 2.14.0
       events: 3.3.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -4854,7 +4854,7 @@ snapshots:
       - uWebSockets.js
       - utf-8-validate
 
-  '@walletconnect/utils@2.13.0':
+  '@walletconnect/utils@2.14.0':
     dependencies:
       '@stablelib/chacha20poly1305': 1.0.1
       '@stablelib/hkdf': 1.0.1
@@ -4864,7 +4864,7 @@ snapshots:
       '@walletconnect/relay-api': 1.0.10
       '@walletconnect/safe-json': 1.0.2
       '@walletconnect/time': 1.0.2
-      '@walletconnect/types': 2.13.0
+      '@walletconnect/types': 2.14.0
       '@walletconnect/window-getters': 1.0.1
       '@walletconnect/window-metadata': 1.0.1
       detect-browser: 5.3.0

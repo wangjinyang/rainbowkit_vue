@@ -429,7 +429,7 @@ export const DesktopOptions = defineComponent({
                                 paddingX: '24',
                                 paddingY: '16'
                             }, ()=>[
-                                h(Container, { paddingY: '4' }, h(Text, {
+                                h(Container, { paddingY: '4' }, ()=>h(Text, {
                                     color: 'modalTextSecondary',
                                     size: '14',
                                     weight: 'medium'

@@ -19,18 +19,19 @@ export class WalletConnectStore {
     private refetchAttempts = 0;
 
     private async _connectAsync(parameter:ConnectParameters):Promise<void>{
+
         const {
             initialChainId,
             currentChainId,
             chains,
             ignoreChainModalOnConnect,
-            connectAsync,
+            connect,
             walletConnectWallet,
             config
         } = parameter;
-        const provider = await this.connector?.getProvider();
-        const walletChainId = await this.connector?.getChainId();
-
+        const provider = await walletConnectWallet?.getProvider();
+        const walletChainId = await walletConnectWallet?.getChainId();
+        
         ///@ts-expect-error
         provider?.once('display_uri',(newURI:string)=>{
             if(!newURI) return;
@@ -45,20 +46,21 @@ export class WalletConnectStore {
             chains, 
             ignoreChainModalOnConnect 
         });
+
         try{
-            const result = await connectAsync({
+           
+            connect({
                 chainId,
                 connector: walletConnectWallet
             });
-            if(result){
-                const currentWalletId = this.walletId;
-                if (currentWalletId) addRecentWalletId(currentWalletId);
-                this.walletId = undefined;
-                this.uri = undefined;
-                this.refetchAttempts = 0;
-            }
+
+            const currentWalletId = this.walletId;
+            if (currentWalletId) addRecentWalletId(currentWalletId);
+            this.walletId = undefined;
+            this.uri = undefined;
+            this.refetchAttempts = 0;      
+
         }catch(error){
-            console.log("Provider result 4:",error);
             const isConnected = config.state.status === 'connected';
             if (!isConnected && this.refetchAttempts < WalletConnectStore.MAX_REFETCH_ATTEMPTS) {
                 this.uri = undefined;
@@ -76,7 +78,6 @@ export class WalletConnectStore {
 
     public async requestWalletConnectUri(parameters: ConnectParameters):Promise<void>{
         await this._connectAsync(parameters);
-        console.log("Provider result 4:");
     }
 
     public onWalletConnectUri(listener: WalletConnectUriListener) {
