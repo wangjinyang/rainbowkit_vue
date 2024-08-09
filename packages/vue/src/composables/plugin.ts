@@ -19,6 +19,7 @@ import {
   ModalSize,
   Chains,
   Transports,
+  WalletConnectStoreContextKey,
 } from '../types';
 import { createRainbowKitChainContext } from "@/composables/chain"
 import { createApplicationInfoContext} from "@/composables/application"
@@ -42,6 +43,7 @@ import { http } from 'viem'
 import { WagmiPlugin, createConfig, createStorage } from '@wagmi/vue'
 import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query'
 import { defineComponent, h, type App } from 'vue'
+import { createWalletConnectStoreContext } from './wallet.connect';
 
 function createDefaultTransport(chains: Chains): Transports {
   const newTransports: Transports = {} as Transports;
@@ -220,7 +222,8 @@ export function useRainbowKitPlugin() {
     app.provide(AvatarComponentContextKey, createAvatarContext(option));
     app.provide(RainbowKitChainContextKey, createRainbowKitChainContext(option));
     app.provide(CoolModeContextKey, createCoolModeContext(option));
-    app.provide(TransactionStoreContextKey, createTransactionStoreContext());
+    app.provide(WalletConnectStoreContextKey,createWalletConnectStoreContext());
+    app.provide(TransactionStoreContextKey,createTransactionStoreContext());
     app.provide(WalletButtonContextKey, createWalletButtonContext());
   }
 

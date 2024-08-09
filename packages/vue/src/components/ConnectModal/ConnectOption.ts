@@ -1,10 +1,13 @@
 import { MobileWalletSteps, MobileWalletSummary, WalletConnector, WalletStep, WalletSummary } from "@/types";
 import { useWalletButtonContext } from '@/composables';
-import { isMobile } from "@/utils";
+import { getWalletConnectWallet, getWalletsFromConnectors, isMobile } from "@/utils";
 import { MobileStatus } from "@/components/ConnectModal/MobileStatus";
 import { MobileOption } from "@/components/ConnectModal/MobileOption";
 import { DesktopOptions } from "@/components/ConnectModal/DesktopOption";
-import { Component, defineComponent, h, PropType, SlotsType } from "vue";
+import { Component, defineComponent, h, onMounted, PropType, SlotsType ,watch } from "vue";
+import { useWalletConnectRequestUri } from "@/composables/wallet.connect";
+import { useConfig, useConnect } from "@wagmi/vue";
+import { walletConnect } from "@wagmi/vue/connectors";
 
 export const ConnectOption = defineComponent({
     props: {
@@ -42,6 +45,11 @@ export const ConnectOption = defineComponent({
     }>,
     setup(props, { slots }) {
         const { connector }  = useWalletButtonContext();
+        onMounted(async ()=>{
+            ///prefetch wallet connect URI 
+            useWalletConnectRequestUri();
+        })
+
         //const connector = computed(()=> button.value);
         return ()=>{
             if(isMobile && !!connector.value){

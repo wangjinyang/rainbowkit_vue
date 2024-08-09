@@ -5,7 +5,8 @@ import { AsyncImage } from "@/components/Common/AsyncImage";
 import { Text } from "@/components/Common/Text";
 import { LoadingSpinnerIcon } from "@/components/Icons/LoadingSpinnerIcon";
 import { setWalletConnectDeepLink } from '@/utils'
-import { ComponentPublicInstance, DeepReadonly, defineComponent, h, onMounted, onUnmounted, PropType, ref, watch, withModifiers } from 'vue'
+import { ComponentPublicInstance, defineComponent, h, onMounted, onUnmounted, PropType, ref, watch, withModifiers } from 'vue'
+import { useWalletConnectModal } from '@/composables/wallet.connect';
 
 export const createMobileWalletButtonProps = {
     wallet: {
@@ -22,8 +23,11 @@ export const MobileWalletButton = defineComponent({
     props: createMobileWalletButtonProps,
     emits: [ 'closed' ],
     setup(props, { emit }) {
-        const enableCoolMode = useCoolModeContext()
 
+        const isWalletConnectWallet =props. wallet.id === 'walletConnect';
+        const { openWalletConnectModal } = useWalletConnectModal();
+
+        const enableCoolMode = useCoolModeContext()
         const imageUrl = ref<string>(props.wallet.iconUrl as string)
         const initialized = ref<boolean>(false)
         const CoolModeContainer = ref<ComponentPublicInstance<typeof Container & { element: HTMLElement }>>()
@@ -48,13 +52,14 @@ export const MobileWalletButton = defineComponent({
                 window.location.href = mobileUri
             }
 
-            if (props.wallet.id !== 'walletConnect') await onMobileUri()
-            if (props.wallet.showWalletConnectModal) {
-                props.wallet.showWalletConnectModal()
-                emit('closed');
-                return
+            if (!isWalletConnectWallet) {
+                onMobileUri()
+                props.wallet.connectWallet()
+                return;
             }
-            await props.wallet.connect()
+
+            emit('closed');
+            openWalletConnectModal();
         }
 
         watch(

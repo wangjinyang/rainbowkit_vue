@@ -21,7 +21,11 @@ import {
   type WalletListItem,
   type WalletMetaDataParameters,
   latestWalletStorageKey,
-  recentWalletStorageKey,  
+  recentWalletStorageKey,
+  GetWalletsFromConnectorsParameters,
+  GetWalletConnectWalletParameters,
+  WagmiConnectorInstance,
+  RainbowKitDetails,  
 } from "@/types/index";
 import { coinbaseWallet } from "@/wallets/coinbaseWallet/coinbaseWallet";
 import { ledgerWallet } from "@/wallets/ledgerWallet/ledgerWallet";
@@ -31,6 +35,13 @@ import { rainbowWallet } from "@/wallets/rainbowWallet/rainbowWallet";
 ///private
 const dedupe = <T>(array: T[]): T[] => {
   return [...new Set(array)]
+}
+
+function omitUndefinedValues<T>(obj: T): T {
+  return Object.fromEntries(
+    //@ts-ignore
+    Object.entries(obj).filter(([_key, value]) => value !== undefined),
+  ) as T;
 }
 
 const safeParseJsonArray = <T>(string: string | null): T[] => {
@@ -45,38 +56,44 @@ const safeParseJsonArray = <T>(string: string | null): T[] => {
 const createWalletConnectConnector = (
   params: CreateWalletConnectConnectorParams
 ): CreateConnectorFn => {
-  const { projectId, walletDetails, walletConnectParameters } = params
+  const { projectId, walletDetails, walletConnectParameters, showQrModal } = params
   return createConnector((config) => ({
     ...getOrCreateWalletConnectInstance({
       projectId,
       walletConnectParameters,
-      showQrModal: walletDetails.details.showQrModal
+      showQrModal
     })(config),
     ...walletDetails
   }))
 }
 
-const generateWalletMetadata = (
-  item: WalletListItem,
-  additionalParams?: Pick<
-    WalletDetailsParams['details'],
-    'isWalletConnectModalConnector' | 'showQrModal'
-  >
-): WalletDetailsParams => {
-  const { createConnector, groupIndex, groupName, hidden, ...metadata } = item
-
-  return {
-    details: {
-      ...metadata,
-      groupIndex,
-      groupName,
-      isRainbowKitConnector: true,
-      ...(additionalParams ? additionalParams : [])
-    }
-  }
+///public
+export function getWalletsFromConnectors({
+  connectors,
+}: GetWalletsFromConnectorsParameters): WalletInstance[] {
+  return connectors.map((connector) => {
+    const walletInstance = connector as WagmiConnectorInstance;
+    return {
+      connectorId: walletInstance.id,
+      ...walletInstance,
+      ...(walletInstance.details || {}),
+    } as WalletInstance;
+  });
 }
 
-///public
+export function getWalletConnectWallet({
+  walletId,
+  wallets,
+}: GetWalletConnectWalletParameters) {
+  return (
+    wallets.find(({ id, connectorId }) =>
+      walletId
+        ? walletId?.toLowerCase() === id?.toLowerCase()
+        : connectorId?.toLowerCase() === 'walletConnect'.toLowerCase(),
+    )
+  );
+}
+
 export const computeWalletConnectMetadata = ({
   appName,
   appDescription,
@@ -148,28 +165,33 @@ export const getConnectors = (items: WalletList, params: WalletConnectorsParam) 
   const walletItems: Array<WalletListItem> = [...visibleWallets, ...hiddenWallets]
 
   for (const item of walletItems) {
-    const { createConnector, hidden, id } = item
+    const { createConnector, hidden, id, groupIndex, groupName, ...walletMetadata } = item
 
     if (typeof hidden === 'function') {
       if (hidden()) continue
     }
 
     const isWalletConnect = id === 'walletConnect'
-    const params: Pick<
-      WalletDetailsParams['details'],
-      'isWalletConnectModalConnector' | 'showQrModal'
-    > = {
-      isWalletConnectModalConnector: true,
-      showQrModal: true
-    }
+    const metadata = omitUndefinedValues({
+      ...walletMetadata,
+      id,
+      groupIndex,
+      groupName,
+      isRainbowKitConnector: true
+    });
 
-    
+    const details: RainbowKitDetails = { ...metadata };
     if (isWalletConnect) {
-      connectors.push(createConnector(generateWalletMetadata(item, params)))
-      continue
+      details.createWalletConnectModalConnector = getWalletConnectConnector({
+        projectId,
+        showQrModal: true,
+        walletConnectParameters: {
+          metadata: walletConnectMetaData,
+          ...walletConnectParameters
+        },
+      })({details: metadata});
     }
-
-    connectors.push(createConnector(generateWalletMetadata(item)))
+    connectors.push(createConnector({ details }))
   }
   return connectors
 }
@@ -311,19 +333,18 @@ export const getInjectedConnector = (request: InjectedProviderRequest): CreateCo
   return createInjectedConnector(provider)
 }
 
+const walletConnectInstances = new Map<string, ReturnType<typeof walletConnect>>()
 export const getOrCreateWalletConnectInstance = (
-  params: GetOrCreateWalletConnectInstanceParams
+  {
+    projectId, 
+    walletConnectParameters, 
+    showQrModal= false
+  }: GetOrCreateWalletConnectInstanceParams
 ): ReturnType<typeof walletConnect> => {
-  const walletConnectInstances = new Map<string, ReturnType<typeof walletConnect>>()
-  const { projectId, walletConnectParameters, showQrModal } = params
   let config: WalletConnectParameters = {
     ...(walletConnectParameters ? walletConnectParameters : {}),
     projectId,
-    showQrModal: false // Required. Otherwise WalletConnect modal (Web3Modal) will popup during time of connection for a wallet
-  }
-
-  if (showQrModal) {
-    config = { ...config, showQrModal: true }
+    showQrModal
   }
 
   const serializedConfig = JSON.stringify(config)
@@ -338,7 +359,7 @@ export const getOrCreateWalletConnectInstance = (
 }
 
 export const getWalletConnectConnector = (params: GetWalletConnectConnectorParams): CreateConnector => {
-  let { projectId, walletConnectParameters } = params
+  let { projectId, walletConnectParameters, showQrModal } = params
   // We use this projectId in place of YOUR_PROJECT_ID for our examples.
   // This allows us our examples and templates to be functional with WalletConnect v2.
   // We warn developers against using this projectId in their dApp in production.
@@ -358,7 +379,8 @@ export const getWalletConnectConnector = (params: GetWalletConnectConnectorParam
     createWalletConnectConnector({
       projectId,
       walletDetails,
-      walletConnectParameters
+      walletConnectParameters,
+      showQrModal
     })
 }
 
@@ -389,14 +411,6 @@ export const isEIP6963Connector = (wallet: WalletInstance) => {
     wallet.uid &&
     wallet.name
   )
-}
-
-export const getRainbowKitConnectorWithWalletConnect = (
-  wallet: WalletInstance,
-  walletConnectModalConnector: WalletInstance
-) => {
-  const shouldUseWalletConnectModal = wallet.id === 'walletConnect' && walletConnectModalConnector
-  return shouldUseWalletConnectModal ? { ...wallet, walletConnectModalConnector } : wallet
 }
 
 export const getConnectorsWithRecentWallets = ({

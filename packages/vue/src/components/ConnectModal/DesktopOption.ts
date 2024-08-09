@@ -19,6 +19,7 @@ import { scrollClassName, touchable, sidebarCompactMode, sidebar } from '@/css'
 import { Component, computed, defineComponent, h, onBeforeMount, PropType, ref, SlotsType, watch } from "vue";
 import { DisclaimerLink } from "../Common/DisclaimerLink";
 import { DisclaimerText } from "../Common/DisclaimerText";
+import { useWalletConnectStoreContext } from "@/composables/wallet.connect";
 
 export const DesktopOptions = defineComponent({
     props: {
@@ -45,10 +46,14 @@ export const DesktopOptions = defineComponent({
         const identifier = 'rk_connect_title'
         const selectedOptionId = ref<string | undefined>()
         const connectionError = ref<boolean>(false)
+        const store = useWalletConnectStoreContext();
        
         const qrCodeUri = ref<string>()
         const supportedI18nGroupNames = ['Recommended', 'Other', 'Popular', 'More', 'Others', 'Installed']
-        
+
+        store.onWalletConnectUri((newURI)=>{
+            qrCodeUri.value = newURI;
+        })();
 
         const { disclaimer: DisclaimerFn, connectModalIntro: ConnectModalIntroComponent } = useAppContext();
         const Disclaimer = DisclaimerFn?.value !== undefined ? createDisclaimerComponent(DisclaimerFn.value) : undefined;
@@ -175,7 +180,7 @@ export const DesktopOptions = defineComponent({
             connectionError.value = false
             if (!wallet.ready) return
             wallet
-                .connect()
+                .connectWallet()
                 .then((_) => {})
                 .catch(() => {
                     connectionError.value = true
@@ -424,7 +429,7 @@ export const DesktopOptions = defineComponent({
                                 paddingX: '24',
                                 paddingY: '16'
                             }, ()=>[
-                                h(Container, { paddingY: '4' }, h(Text, {
+                                h(Container, { paddingY: '4' }, ()=>h(Text, {
                                     color: 'modalTextSecondary',
                                     size: '14',
                                     weight: 'medium'

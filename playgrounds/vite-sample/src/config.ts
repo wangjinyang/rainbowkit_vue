@@ -161,7 +161,7 @@ export function createRainbowKitConfig(app: App) : App{
                 {
                     groupName: "Populars",
                     wallets: [
-                        metaMaskWallet,
+                        //metaMaskWallet,
                         coinbase,
                         smartWalletCoinbase,
                         eoaCoinbase,

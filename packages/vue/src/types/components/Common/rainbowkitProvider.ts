@@ -12,6 +12,7 @@ import type { ResponsiveValue } from '@/css'
 import { ConnectModalIntroComponentSetupFn } from '@/components'
 import { DisclaimerComponentSetupFn } from '@/types/components/Common/disclaimer';
 import { Address } from 'viem';
+import { WalletConnectStore } from '@/utils';
 
 export type WalletButtonContext = {
   connector: WalletConnector | null
@@ -45,6 +46,7 @@ export const AppContextKey: InjectionKey<Context<AppInfoContext>> = Symbol.for('
 export const ShowBalanceContextKey: InjectionKey<Context<ShowBalanceContext>> = Symbol.for('rk-show-balance-context');
 export const ShowRecentTransactionsContextKey: InjectionKey<Context<boolean>> = Symbol.for('rk-show-recent-transaction-context')
 export const TransactionStoreContextKey: InjectionKey<Context<TransactionStoreContext>> = Symbol.for('rk-transaction-store-context');
+export const WalletConnectStoreContextKey: InjectionKey<WalletConnectStore> = Symbol.for('rk-wallet-connect-store-context');
 export const CoolModeContextKey: InjectionKey<Context<boolean>> = Symbol.for('rk-coolmode-context')
 export const RainbowKitChainContextKey: InjectionKey<Context<RainbowKitChainContext>> = Symbol.for('rk-chain-context')
 export const ThemeContextKey: InjectionKey<Context<ThemeOption>> = Symbol.for('rk-theme-context')

@@ -30,6 +30,7 @@ export type RainbowKitPluginConfig = {
   coolMode?: boolean
   initialChainId? : number
   enableChainModalOnConnect?: boolean,
+  alwaysShowConnectModal?: boolean, 
   currencyAddress?: Address,
   showBalance?: ResponsiveValue<boolean>,
   disclaimer?: DisclaimerComponentSetupFn,

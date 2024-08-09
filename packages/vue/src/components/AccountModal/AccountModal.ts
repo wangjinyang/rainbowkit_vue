@@ -1,10 +1,8 @@
-import { useAppContext, useEnsMetadata,useRainbowKitAccountContext } from "@/composables";
+import { useAppContext, useDisconnectAll, useEnsMetadata,useRainbowKitAccountContext } from "@/composables";
 import { Dialog } from "@/components/Common/Dialog";
 import { ProfileDetail } from "@/components/AccountModal/ProfileDetail";
 import { Address, GetEnsAvatarReturnType, GetEnsNameReturnType } from "@/types";
-import { defineComponent, h, onScopeDispose, ref, SlotsType } from "vue";
-import { useConfig, useConnections, useConnectors, useDisconnect } from "@wagmi/vue";
-import { getConnections, GetConnectionsReturnType, watchConnections } from "@wagmi/vue/actions";
+import { defineComponent, h, SlotsType } from "vue";
 
 export const createAccontModalProps = {
     open: {
@@ -33,33 +31,9 @@ export const AccountModal = defineComponent({
         const titleId = 'rk_account_modal_title'
         const { address } = useRainbowKitAccountContext();
         const { name, avatar } = useEnsMetadata();
-        const { disconnect  } = useDisconnect();
+        const { disconnectAll } = useDisconnectAll();
         const { accountModalTeleportTarget:target } = useAppContext();
-        const config = useConfig();
-        const connections = ref<GetConnectionsReturnType>(getConnections(config));
-        const unwatch = watchConnections(config,{
-            onChange(currentConnections,_){
-                connections.value = currentConnections;
-            }
-        })
-        onScopeDispose(()=> {
-            unwatch();
-        })
-
-        const disconnectAll = ()=>{
-            connections.value?.map((connection)=> {
-                if(typeof connection.connector.disconnect === 'function'){
-                    return disconnect({
-                        connector: connection.connector,
-                    },{
-                        onError(error, _, __) {
-                            console.error(error);
-                        },
-                    }); 
-                }
-            });
-        }
-
+        
         return ()=>{
             return h(Dialog,{
                 onClosed: () => emit('closed'),
