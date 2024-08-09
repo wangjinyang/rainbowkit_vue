@@ -1,5 +1,11 @@
 # use-rainbowkit-vue
 
+## 0.4.6
+
+### Patch Changes
+
+- 403996d: Upgrade vue version and added 'prefetch wallet connect'
+
 ## 0.4.5
 
 ### Patch Changes
