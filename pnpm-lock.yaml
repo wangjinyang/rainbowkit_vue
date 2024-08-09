@@ -151,7 +151,7 @@ importers:
         specifier: ^0.5.1
         version: 0.5.1
       '@wagmi/vue':
-        specifier: 0.0.37
+        specifier: ^0.0.37
         version: 0.0.37(@tanstack/query-core@5.51.1)(@tanstack/vue-query@5.51.1(vue@3.4.31(typescript@5.3.3)))(bufferutil@4.0.8)(rollup@4.18.1)(typescript@5.3.3)(utf-8-validate@5.0.10)(viem@2.17.3(bufferutil@4.0.8)(typescript@5.3.3)(utf-8-validate@5.0.10))(vue@3.4.31(typescript@5.3.3))
       autoprefixer:
         specifier: ^10.4.19
